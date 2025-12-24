@@ -106,7 +106,11 @@ EcoveloSDK.setAuthProvider(MyAuthProvider())
 
 ## 🚀 Utilisation
 
-### Lancer le parcours de location
+Le SDK expose **deux modes d'intégration** conformément au DOC01010 :
+- **Activity** : Point d'entrée simple, recommandé
+- **Fragment** : Intégration flexible (BottomSheet, ViewPager, etc.)
+
+### Option 1 : Via Activity
 
 ```kotlin
 // Depuis une Activity
@@ -125,10 +129,31 @@ EcoveloSDK.startRentalFlow(
 )
 ```
 
+### Option 2 : Via Fragment
+
+```kotlin
+// Créer le fragment
+val fragment = EcoveloFragment.newRentalInstance(stationId = "gare-rennes")
+
+// Configurer le callback
+fragment.setResultListener { result ->
+    when (result) {
+        is EcoveloFragment.Result.RentalCompleted -> { /* succès */ }
+        is EcoveloFragment.Result.Cancelled -> { /* annulé */ }
+        is EcoveloFragment.Result.Error -> { /* erreur */ }
+    }
+}
+
+// Afficher
+supportFragmentManager.beginTransaction()
+    .replace(R.id.container, fragment)
+    .commit()
+```
+
 ### Parcours de réservation
 
 ```kotlin
-// Réserver un vélo pour plus tard
+// Via Activity
 EcoveloSDK.startReservationFlow(
     activity = this,
     options = ReservationOptions(
@@ -136,6 +161,12 @@ EcoveloSDK.startReservationFlow(
         departureTime = LocalDateTime.now().plusHours(2),
         onComplete = { result -> /* ... */ }
     )
+)
+
+// Via Fragment
+val fragment = EcoveloFragment.newReservationInstance(
+    stationId = "gare-rennes",
+    departureTime = "2025-12-17T14:00:00"
 )
 ```
 
@@ -199,9 +230,9 @@ Le SDK embarque les plugins Capacitor suivants :
 
 ## 📋 Prérequis
 
-- Android SDK 24+ (Android 7.0)
+- **Android SDK 28+** (Android 9 Pie) - *Exigence Cityway DOC01010*
 - Kotlin 1.9+
-- L'application hôte doit gérer l'authentification mon-compte.bzh
+- L'application hôte doit gérer l'authentification IAM Cityway / mon-compte.bzh
 
 ## ⚠️ Notes importantes
 
@@ -211,11 +242,20 @@ Si votre application utilise déjà Capacitor, il peut y avoir des conflits de v
 
 ### Permissions
 
-Le SDK déclare les permissions suivantes (l'utilisateur sera sollicité si nécessaire) :
-- `INTERNET` - Accès réseau
-- `CAMERA` - Scan QR code, photo profil
-- `ACCESS_FINE_LOCATION` - Carte des stations
-- `ACCESS_COARSE_LOCATION` - Carte des stations
+Le SDK déclare les permissions suivantes :
+
+| Permission | Usage | Demande |
+|------------|-------|---------|
+| `INTERNET` | Accès réseau | Auto |
+| `ACCESS_NETWORK_STATE` | État réseau | Auto |
+| `CAMERA` | Scan QR code | Runtime |
+| `ACCESS_FINE_LOCATION` | Carte GPS | Runtime |
+| `ACCESS_COARSE_LOCATION` | Carte | Runtime |
+| `VIBRATE` | Retour haptique | Auto |
+
+### Dépendances tierces
+
+Voir [docs/INTEGRATION.md](docs/INTEGRATION.md) pour la liste complète des dépendances transitives.
 
 ## 📄 Licence
 

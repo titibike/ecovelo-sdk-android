@@ -9,7 +9,8 @@ android {
 
     defaultConfig {
         applicationId = "bzh.ecovelo.sdk.sample"
-        minSdk = 24
+        // Aligné sur l'exigence Cityway
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"

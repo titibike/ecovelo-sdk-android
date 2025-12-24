@@ -2,13 +2,15 @@
 
 Ce guide est destiné aux intégrateurs (Cityway) pour intégrer le SDK Ecovelo dans leur application Android.
 
+> **Référence**: Ce guide répond aux exigences du document DOC01010 - Spécification App intégration SDK Ecovélo.
+
 ## Prérequis
 
 - Android Studio Arctic Fox ou supérieur
-- Android SDK 24+ (Android 7.0 Nougat)
+- **Android SDK 28+** (Android 9 Pie) - *Exigence Cityway*
 - Kotlin 1.9+
 - Gradle 8.0+
-- Authentification mon-compte.bzh fonctionnelle dans votre app
+- Authentification IAM Cityway fonctionnelle dans votre app
 
 ## Installation
 
@@ -20,9 +22,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // Si publication privée
+        // Repository Ecovelo
         maven {
-            url = uri("https://maven.ecovelo.bzh/releases")
+            url = uri("https://maven.pkg.github.com/titibike/ecovelo-sdk-android")
             credentials {
                 username = providers.gradleProperty("ecoveloMavenUser").orNull
                 password = providers.gradleProperty("ecoveloMavenPassword").orNull
@@ -37,16 +39,47 @@ dependencies {
 }
 ```
 
-### 2. Configuration du Manifest
+### 2. Dépendances tierces du SDK
 
-Le SDK déclare automatiquement ses composants. Vous devez uniquement ajouter les permissions internet si ce n'est pas déjà fait :
+Le SDK inclut les dépendances suivantes (transitives, pas besoin de les ajouter) :
 
-```xml
-<!-- AndroidManifest.xml -->
-<uses-permission android:name="android.permission.INTERNET" />
-```
+| Dépendance | Version | Usage |
+|------------|---------|-------|
+| `androidx.core:core-ktx` | 1.12.0 | Extensions Kotlin Android |
+| `androidx.appcompat:appcompat` | 1.6.1 | Compatibilité |
+| `com.google.android.material:material` | 1.11.0 | Material Design |
+| `com.capacitorjs:core` | 6.0.0 | Runtime Capacitor |
+| `com.capacitorjs:camera` | 6.0.0 | Capture photo |
+| `com.capacitorjs:geolocation` | 6.0.0 | Localisation GPS |
+| `com.capacitorjs:filesystem` | 6.0.0 | Système de fichiers |
+| `com.capacitorjs:barcode-scanner` | 6.0.0 | Scan QR code |
+| `com.capacitorjs:preferences` | 6.0.0 | Stockage local |
+| `com.capacitorjs:haptics` | 6.0.0 | Vibrations |
+| `com.capacitorjs:keyboard` | 6.0.0 | Clavier |
+| `com.capacitorjs:status-bar` | 6.0.0 | Barre de statut |
+| `com.capacitorjs:splash-screen` | 6.0.0 | Splash screen |
+| `com.capacitorjs:push-notifications` | 6.0.0 | Notifications push |
+| `com.capacitorjs:local-notifications` | 6.0.0 | Notifications locales |
+| `org.jetbrains.kotlinx:kotlinx-coroutines-android` | 1.7.3 | Coroutines |
+| `org.jetbrains.kotlinx:kotlinx-serialization-json` | 1.6.2 | Sérialisation JSON |
 
-### 3. Configuration ProGuard
+### 3. Permissions requises
+
+Le SDK déclare les permissions suivantes dans son `AndroidManifest.xml` :
+
+| Permission | Usage | Demande utilisateur |
+|------------|-------|---------------------|
+| `INTERNET` | Accès réseau API | Non (automatique) |
+| `ACCESS_NETWORK_STATE` | État réseau | Non (automatique) |
+| `ACCESS_FINE_LOCATION` | Carte des stations, GPS | **Oui** (runtime) |
+| `ACCESS_COARSE_LOCATION` | Carte des stations | **Oui** (runtime) |
+| `CAMERA` | Scan QR code vélo | **Oui** (runtime) |
+| `VIBRATE` | Retour haptique | Non (automatique) |
+| `POST_NOTIFICATIONS` | Notifications (Android 13+) | **Oui** (runtime) |
+
+> **Note**: Les permissions runtime sont demandées par le SDK au moment où elles sont nécessaires.
+
+### 4. Configuration ProGuard
 
 Si vous utilisez R8/ProGuard, ajoutez ces règles :
 
@@ -71,7 +104,7 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         
-        // Initialiser le SDK
+        // Initialiser le SDK Ecovelo
         EcoveloSDK.init(
             context = this,
             config = EcoveloConfig.Builder()
@@ -84,36 +117,39 @@ class MyApplication : Application() {
 }
 ```
 
-## Authentification
+## Authentification (Token IAM Cityway)
 
 ### Implémenter EcoveloAuthProvider
+
+Le SDK attend un token d'authentification fourni par l'application hôte :
 
 ```kotlin
 import bzh.ecovelo.sdk.auth.EcoveloAuthProvider
 import bzh.ecovelo.sdk.auth.EcoveloUserInfo
 
-class MonCompteBzhAuthProvider(
-    private val sessionManager: MonCompteBzhSessionManager
+class CityWayAuthProvider(
+    private val iamSession: CityWayIAMSession
 ) : EcoveloAuthProvider {
     
     override fun getAccessToken(): String? {
-        return sessionManager.accessToken
+        // Retourner le token IAM Cityway
+        return iamSession.accessToken
     }
     
     override fun getIdToken(): String? {
-        return sessionManager.idToken
+        return iamSession.idToken
     }
     
     override suspend fun refreshToken(): Result<String> {
         return runCatching {
-            sessionManager.refreshTokens()
-            sessionManager.accessToken 
+            iamSession.refreshTokens()
+            iamSession.accessToken 
                 ?: throw IllegalStateException("No token after refresh")
         }
     }
     
     override fun getUserInfo(): EcoveloUserInfo? {
-        val user = sessionManager.currentUser ?: return null
+        val user = iamSession.currentUser ?: return null
         
         return EcoveloUserInfo(
             sub = user.sub,
@@ -125,26 +161,23 @@ class MonCompteBzhAuthProvider(
     }
     
     override fun logout() {
-        sessionManager.logout()
+        iamSession.logout()
     }
     
     override fun isAuthenticated(): Boolean {
-        return sessionManager.isAuthenticated
+        return iamSession.isAuthenticated
     }
 }
+
+// Enregistrer le provider
+EcoveloSDK.setAuthProvider(CityWayAuthProvider(iamSession))
 ```
 
-### Enregistrer le provider
+## Lancement du SDK
 
-```kotlin
-// Dans votre Activity principale ou après le login SSO
-val authProvider = MonCompteBzhAuthProvider(sessionManager)
-EcoveloSDK.setAuthProvider(authProvider)
-```
+Le SDK expose **deux modes d'intégration** : Activity ou Fragment.
 
-## Lancer les parcours
-
-### Parcours de location
+### Option 1 : Via Activity (recommandé)
 
 ```kotlin
 import bzh.ecovelo.sdk.EcoveloSDK
@@ -154,10 +187,9 @@ import bzh.ecovelo.sdk.rental.RentalResult
 class BikeStationActivity : AppCompatActivity() {
     
     private fun startBikeRental() {
-        // Vérifier que l'utilisateur est connecté
+        // Vérifier l'authentification
         if (!EcoveloSDK.isAuthenticated()) {
-            // Rediriger vers le login SSO
-            startSSOLogin()
+            startIAMLogin()
             return
         }
         
@@ -165,9 +197,7 @@ class BikeStationActivity : AppCompatActivity() {
         EcoveloSDK.startRentalFlow(
             activity = this,
             options = RentalOptions(
-                // Optionnel: pré-sélectionner une station
-                stationId = "gare-rennes",
-                // Callback de fin
+                stationId = "gare-rennes", // Optionnel
                 onComplete = { result ->
                     handleRentalResult(result)
                 }
@@ -178,24 +208,23 @@ class BikeStationActivity : AppCompatActivity() {
     private fun handleRentalResult(result: RentalResult) {
         when (result) {
             is RentalResult.Success -> {
-                // Location terminée avec succès
+                // ✅ Location terminée avec succès
                 Log.d("Ecovelo", "Location terminée: ${result.rentalId}")
-                showSuccessMessage("Merci d'avoir utilisé le service !")
+                Log.d("Ecovelo", "Durée: ${result.durationMinutes} min")
             }
             
             is RentalResult.Cancelled -> {
-                // L'utilisateur a annulé
-                Log.d("Ecovelo", "Location annulée par l'utilisateur")
+                // ❌ Annulé par l'utilisateur
+                Log.d("Ecovelo", "Location annulée")
             }
             
             is RentalResult.Error -> {
-                // Une erreur s'est produite
-                Log.e("Ecovelo", "Erreur location: ${result.message}", result.cause)
-                showErrorMessage(result.message)
+                // ⚠️ Erreur
+                Log.e("Ecovelo", "Erreur: ${result.message}")
             }
             
             is RentalResult.InProgress -> {
-                // Une location est en cours (l'utilisateur a quitté sans rendre le vélo)
+                // 🚲 Location en cours (vélo non rendu)
                 Log.d("Ecovelo", "Location en cours: ${result.rentalId}")
             }
         }
@@ -203,182 +232,123 @@ class BikeStationActivity : AppCompatActivity() {
 }
 ```
 
+### Option 2 : Via Fragment
+
+Pour une intégration plus flexible (BottomSheet, ViewPager, etc.) :
+
+```kotlin
+import bzh.ecovelo.sdk.ui.EcoveloFragment
+
+class MainActivity : AppCompatActivity() {
+    
+    private fun showBikeRentalFragment() {
+        // Créer le fragment
+        val fragment = EcoveloFragment.newRentalInstance(
+            stationId = "gare-rennes" // Optionnel
+        )
+        
+        // Configurer le callback de résultat
+        fragment.setResultListener { result ->
+            when (result) {
+                is EcoveloFragment.Result.RentalCompleted -> {
+                    Log.d("Ecovelo", "Terminé: ${result.rentalId}")
+                    closeFragment()
+                }
+                is EcoveloFragment.Result.Cancelled -> {
+                    closeFragment()
+                }
+                is EcoveloFragment.Result.Error -> {
+                    showError(result.message)
+                }
+                is EcoveloFragment.Result.AuthRequired -> {
+                    startIAMLogin()
+                }
+                else -> {}
+            }
+        }
+        
+        // Afficher le fragment
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment, "ecovelo")
+            .addToBackStack(null)
+            .commit()
+    }
+    
+    private fun closeFragment() {
+        supportFragmentManager.popBackStack()
+    }
+}
+```
+
 ### Parcours de réservation
 
 ```kotlin
-import bzh.ecovelo.sdk.reservation.ReservationOptions
-import bzh.ecovelo.sdk.reservation.ReservationResult
-import java.time.LocalDateTime
+// Via Activity
+EcoveloSDK.startReservationFlow(
+    activity = this,
+    options = ReservationOptions(
+        departureStationId = "gare-rennes",
+        departureTime = LocalDateTime.now().plusHours(2),
+        onComplete = { result -> /* ... */ }
+    )
+)
 
-class TripPlannerActivity : AppCompatActivity() {
-    
-    private fun reserveBike() {
-        EcoveloSDK.startReservationFlow(
-            activity = this,
-            options = ReservationOptions(
-                // Station de départ (optionnel)
-                departureStationId = "gare-rennes",
-                // Heure de départ souhaitée
-                departureTime = LocalDateTime.now().plusHours(2),
-                // Durée estimée (optionnel)
-                estimatedDurationMinutes = 30,
-                // Station d'arrivée (optionnel, pour réservation avec trajet)
-                arrivalStationId = "gare-cesson-sevigne",
-                // Callback
-                onComplete = { result ->
-                    handleReservationResult(result)
-                }
-            )
-        )
-    }
-    
-    private fun handleReservationResult(result: ReservationResult) {
-        when (result) {
-            is ReservationResult.Success -> {
-                showConfirmation(
-                    "Réservation confirmée",
-                    "Vélo réservé à ${result.stationName} " +
-                    "pour ${result.departureTime.format(timeFormatter)}"
-                )
-            }
-            
-            is ReservationResult.Cancelled -> {
-                // L'utilisateur a annulé
-            }
-            
-            is ReservationResult.Error -> {
-                showError(result.message)
-            }
-        }
-    }
-}
+// Via Fragment
+val fragment = EcoveloFragment.newReservationInstance(
+    stationId = "gare-rennes",
+    departureTime = "2025-12-17T14:00:00"
+)
 ```
 
-### Consulter les réservations en cours
+## Callbacks globaux
 
 ```kotlin
-// Obtenir les réservations de l'utilisateur
-val reservations = EcoveloSDK.getActiveReservations()
-
-reservations.forEach { reservation ->
-    Log.d("Ecovelo", """
-        Réservation: ${reservation.id}
-        Station: ${reservation.stationName}
-        Heure: ${reservation.departureTime}
-        Statut: ${reservation.status}
-    """.trimIndent())
-}
-
-// Annuler une réservation
-EcoveloSDK.cancelReservation(reservationId) { result ->
-    when (result) {
-        is CancelResult.Success -> showMessage("Réservation annulée")
-        is CancelResult.Error -> showError(result.message)
-    }
-}
-```
-
-## Gestion des événements
-
-### Callbacks globaux
-
-```kotlin
-// Configuration des callbacks globaux
 EcoveloSDK.setCallbacks(
     EcoveloCallbacks(
-        // Appelé quand une location commence
+        // Location démarrée
         onRentalStarted = { rentalId ->
             analytics.trackEvent("rental_started", rentalId)
         },
         
-        // Appelé quand une location se termine
-        onRentalEnded = { rentalId, duration ->
+        // Location terminée
+        onRentalEnded = { rentalId, durationMinutes ->
             analytics.trackEvent("rental_ended", mapOf(
                 "rental_id" to rentalId,
-                "duration_minutes" to duration
+                "duration" to durationMinutes
             ))
         },
         
-        // Appelé en cas d'erreur
+        // Réservation créée
+        onReservationCreated = { reservationId ->
+            analytics.trackEvent("reservation_created", reservationId)
+        },
+        
+        // Erreur
         onError = { error ->
             crashlytics.recordException(error)
         },
         
-        // Appelé si l'utilisateur doit se reconnecter
+        // Authentification requise (token expiré, etc.)
         onAuthRequired = {
-            startSSOLogin()
+            startIAMLogin()
         },
         
-        // Appelé quand le SDK demande le numéro de téléphone
-        onPhoneRequired = { callback ->
-            // Option 1: Laisser le SDK gérer (défaut)
-            callback.useSDKUI()
+        // Téléphone requis (non fourni par le SSO)
+        onPhoneRequired = { request ->
+            // Option 1: Laisser le SDK gérer
+            request.useSDKUI()
             
             // Option 2: Gérer vous-même
-            // showCustomPhoneDialog { phone -> 
-            //     callback.submitPhone(phone) 
-            // }
+            // showPhoneDialog { phone -> request.submitPhone(phone, true) }
+        },
+        
+        // SDK fermé
+        onClose = {
+            Log.d("Ecovelo", "SDK fermé")
         }
     )
 )
 ```
-
-## Personnalisation
-
-### Thème
-
-```kotlin
-EcoveloConfig.Builder()
-    .setTheme(
-        EcoveloTheme(
-            primaryColor = Color.parseColor("#0055A4"),  // Bleu Bretagne
-            secondaryColor = Color.parseColor("#FFFFFF"),
-            accentColor = Color.parseColor("#E4002B"),
-            // Logo personnalisé (optionnel)
-            logoResId = R.drawable.logo_cityway
-        )
-    )
-    .build()
-```
-
-### Textes
-
-```kotlin
-EcoveloConfig.Builder()
-    .setStrings(
-        EcoveloStrings(
-            rentalTitle = "Location de vélo",
-            reservationTitle = "Réserver un vélo",
-            confirmButton = "Confirmer",
-            cancelButton = "Annuler"
-            // ... autres textes
-        )
-    )
-    .build()
-```
-
-## Debugging
-
-### Logs
-
-```kotlin
-// Activer les logs détaillés en développement
-EcoveloConfig.Builder()
-    .setDebugMode(true)
-    .setLogLevel(EcoveloLogLevel.VERBOSE)
-    .build()
-
-// Les logs apparaîtront avec le tag "EcoveloSDK"
-// adb logcat -s EcoveloSDK
-```
-
-### Inspecteur WebView
-
-En mode debug, vous pouvez inspecter la WebView via Chrome DevTools :
-
-1. Connectez votre appareil en USB
-2. Ouvrez `chrome://inspect` dans Chrome
-3. Trouvez la WebView Ecovelo et cliquez "inspect"
 
 ## Gestion des erreurs
 
@@ -386,32 +356,24 @@ En mode debug, vous pouvez inspecter la WebView via Chrome DevTools :
 
 ```kotlin
 sealed class EcoveloError : Exception() {
-    // Erreurs d'authentification
+    // Authentification
     sealed class Auth : EcoveloError() {
         object NotAuthenticated : Auth()
         object TokenExpired : Auth()
         data class InvalidToken(override val message: String) : Auth()
     }
     
-    // Erreurs réseau
+    // Réseau
     sealed class Network : EcoveloError() {
         object NoConnection : Network()
         data class ServerError(val code: Int) : Network()
-        object Timeout : Network()
     }
     
-    // Erreurs métier
+    // Métier
     sealed class Business : EcoveloError() {
         object NoBikeAvailable : Business()
         object StationFull : Business()
-        object ReservationExpired : Business()
         data class RentalInProgress(val rentalId: String) : Business()
-    }
-    
-    // Erreurs de configuration
-    sealed class Config : EcoveloError() {
-        object NotInitialized : Config()
-        object InvalidConfig : Config()
     }
 }
 ```
@@ -422,23 +384,13 @@ sealed class EcoveloError : Exception() {
 EcoveloSDK.setErrorHandler { error ->
     when (error) {
         is EcoveloError.Auth.TokenExpired -> {
-            // Rafraîchir le token ou rediriger vers le login
             refreshTokenOrLogin()
         }
-        
         is EcoveloError.Network.NoConnection -> {
             showSnackbar("Pas de connexion internet")
         }
-        
-        is EcoveloError.Business.NoBikeAvailable -> {
-            showDialog("Aucun vélo disponible", 
-                "Veuillez réessayer plus tard ou choisir une autre station")
-        }
-        
         else -> {
-            // Erreur générique
             showSnackbar("Une erreur est survenue")
-            Log.e("Ecovelo", "Error", error)
         }
     }
 }
@@ -448,25 +400,14 @@ EcoveloSDK.setErrorHandler { error ->
 
 ### Activity Result
 
-Le SDK utilise Activity Result API. Assurez-vous que votre activité peut recevoir les résultats :
-
 ```kotlin
-class MainActivity : AppCompatActivity() {
-    
-    // Le SDK enregistre automatiquement ses launchers
-    // Pas de code supplémentaire nécessaire si vous utilisez AppCompatActivity
-    
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        // Le SDK intercepte automatiquement ses propres résultats
-    }
-}
+// Le SDK gère automatiquement les résultats via les callbacks
+// Pas de code supplémentaire nécessaire
 ```
 
-### Gestion de la mémoire
+### Libération des ressources
 
 ```kotlin
-// Si vous devez libérer les ressources (rare)
 override fun onDestroy() {
     super.onDestroy()
     // Seulement si vous quittez définitivement l'app
@@ -476,26 +417,42 @@ override fun onDestroy() {
 }
 ```
 
-## Migration depuis une intégration directe
+## Debugging
 
-Si vous migrez depuis une intégration directe de l'app Ionic :
+### Logs
 
 ```kotlin
-// AVANT (intégration directe Capacitor)
-val intent = Intent(this, IonicActivity::class.java)
-intent.putExtra("config", configJson)
-startActivity(intent)
+EcoveloConfig.Builder()
+    .setDebugMode(BuildConfig.DEBUG)
+    .setLogLevel(EcoveloLogLevel.VERBOSE)
+    .build()
 
-// APRÈS (avec le SDK)
-EcoveloSDK.startRentalFlow(
-    activity = this,
-    options = RentalOptions(onComplete = { /* ... */ })
-)
+// Tag: "EcoveloSDK"
+// adb logcat -s EcoveloSDK
 ```
+
+### Inspecteur WebView
+
+En mode debug, inspectez la WebView via Chrome DevTools :
+
+1. Connectez l'appareil en USB
+2. Ouvrez `chrome://inspect` dans Chrome
+3. Cliquez "inspect" sur la WebView Ecovelo
+
+## Checklist d'intégration
+
+- [ ] Dépendance SDK ajoutée
+- [ ] `EcoveloSDK.init()` dans Application
+- [ ] `EcoveloAuthProvider` implémenté avec token IAM
+- [ ] Callbacks configurés
+- [ ] Permissions runtime gérées (si nécessaire)
+- [ ] Test parcours location
+- [ ] Test parcours réservation
+- [ ] Test expiration token
+- [ ] Test mode hors-ligne
 
 ## Support
 
-- **Documentation technique** : https://docs.ecovelo.bzh/sdk-android
+- **Documentation** : https://docs.ecovelo.bzh/sdk-android
 - **Issues** : https://github.com/titibike/ecovelo-sdk-android/issues
 - **Email** : support-sdk@ecovelo.bzh
-

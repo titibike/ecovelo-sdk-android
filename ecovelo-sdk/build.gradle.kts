@@ -10,7 +10,8 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        // Exigence Cityway: Min SDK 28 (Android 9)
+        minSdk = 28
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

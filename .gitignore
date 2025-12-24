@@ -86,3 +86,5 @@ lint/tmp/
 # ecovelo-sdk/src/main/assets/webapp/
 # On garde le placeholder index.html
 
+# Documents utiles a la gestion du projet
+Documents/
