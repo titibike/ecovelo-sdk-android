@@ -1,0 +1,31 @@
+{
+  "$schema": "https://capacitorjs.com/docs/config/schema.json",
+  "appId": "bzh.ecovelo.sdk.breizhgo",
+  "appName": "Breizhgo",
+  "webDir": "src/main/assets/public",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "path": ".",
+    "webContentsDebuggingEnabled": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0,
+      "launchAutoHide": true
+    },
+    "Keyboard": {
+      "resize": "body",
+      "resizeOnFullScreen": true
+    },
+    "StatusBar": {
+      "style": "LIGHT",
+      "backgroundColor": "#0055A4"
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  }
+}
+

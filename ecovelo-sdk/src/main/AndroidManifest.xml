@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Permissions requises par le SDK -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <!-- Permission pour la localisation (optionnel, pour la carte) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application>
+        
+        <!-- Activity principale du SDK (Capacitor BridgeActivity) -->
+        <activity
+            android:name=".ui.EcoveloActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation|uiMode"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.EcoveloSDK"
+            android:windowSoftInputMode="adjustResize" />
+        
+        <!-- Activity pour la saisie du téléphone -->
+        <activity
+            android:name=".ui.phone.PhoneInputActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EcoveloSDK.Dialog"
+            android:windowSoftInputMode="adjustResize" />
+            
+    </application>
+
+</manifest>
+

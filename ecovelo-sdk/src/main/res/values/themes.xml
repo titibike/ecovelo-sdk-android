@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Thème principal du SDK -->
+    <style name="Theme.EcoveloSDK" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/ecovelo_primary</item>
+        <item name="colorPrimaryVariant">@color/ecovelo_primary_variant</item>
+        <item name="colorSecondary">@color/ecovelo_secondary</item>
+        <item name="android:statusBarColor">@color/ecovelo_primary_variant</item>
+    </style>
+
+    <!-- Thème pour les dialogues -->
+    <style name="Theme.EcoveloSDK.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorPrimary">@color/ecovelo_primary</item>
+        <item name="colorSecondary">@color/ecovelo_secondary</item>
+    </style>
+
+</resources>
+

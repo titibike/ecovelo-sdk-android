@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Couleurs Ecovelo par défaut (Bretagne) -->
+    <color name="ecovelo_primary">#0055A4</color>
+    <color name="ecovelo_primary_variant">#003D7A</color>
+    <color name="ecovelo_secondary">#E4002B</color>
+    <color name="ecovelo_background">#FFFFFF</color>
+    <color name="ecovelo_surface">#F5F5F5</color>
+    <color name="ecovelo_on_primary">#FFFFFF</color>
+    <color name="ecovelo_on_secondary">#FFFFFF</color>
+    <color name="ecovelo_on_background">#212121</color>
+    
+    <!-- Couleurs d'état -->
+    <color name="ecovelo_success">#4CAF50</color>
+    <color name="ecovelo_warning">#FF9800</color>
+    <color name="ecovelo_error">#F44336</color>
+</resources>
+
