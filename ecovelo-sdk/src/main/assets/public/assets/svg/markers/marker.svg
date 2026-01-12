@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg
+  width="36"
+  height="44.9804"
+  viewBox="0 0 36 44.9804"
+  fill="none"
+  version="1.1"
+  id="svg1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg"
+>
+<g id="marker" clip-path="url(#clip0_84_93)">
+<path
+      id="Vector"
+      d="M18.002 0C13.032 0 8.53124 2.01913 5.27238 5.28822C2.01554 8.55485 0 13.0689 0 18.0542C0 26.9393 8.26388 36.1331 15.0283 43.6619C16.6077 45.4199 19.3923 45.4199 20.9717 43.6619C27.7386 36.1324 36 26.9368 36 18.0542C36 13.0692 33.9869 8.55497 30.7276 5.28822C27.4683 2.01913 22.9703 0 17.998 0H18.002Z"
+      fill="currentColor"
+    />
+</g>
+<defs>
+<clipPath id="clip0_84_93">
+<rect width="36" height="45" fill="white" />
+</clipPath>
+</defs>
+</svg>

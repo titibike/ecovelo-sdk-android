@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/account/wallet/wallet.page.scss"],
+  "sourcesContent": [".ecl-wallet {\n  $border-radius: 30px;\n  width: 100%;\n  margin: 0 auto 32px auto;\n  height: 60px;\n  display: grid;\n  grid-template-columns: 1fr 65px 1fr;\n  align-items: center;\n\n  &__item {\n    height: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-size: 24px;\n    font-weight: 600;\n\n    &--money {\n      margin-right: -30px;\n      border-radius: $border-radius;\n      color: var(--ion-color-light);\n      background: var(--ion-color-primary);\n      padding-right: 10px;\n    }\n\n    &--icon {\n      height: 100%;\n      width: 65px;\n      z-index: 2;\n      border-radius: 50%;\n      font-size: 44px;\n      background: #f2f2f2;\n    }\n\n    &--time {\n      margin-left: -30px;\n      padding-left: 10px;\n      border-radius: $border-radius;\n      color: var(--ion-color-light);\n      background: var(--ion-color-primary-shade);\n    }\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AAEE,SAAA;AACA,UAAA,EAAA,KAAA,KAAA;AACA,UAAA;AACA,WAAA;AACA,yBAAA,IAAA,KAAA;AACA,eAAA;;AAEA,CAAA;AACE,UAAA;AACA,WAAA;AACA,mBAAA;AACA,eAAA;AACA,aAAA;AACA,eAAA;;AAEA,CAAA;AACE,gBAAA;AACA,iBAlBY;AAmBZ,SAAA,IAAA;AACA,cAAA,IAAA;AACA,iBAAA;;AAGF,CAAA;AACE,UAAA;AACA,SAAA;AACA,WAAA;AACA,iBAAA;AACA,aAAA;AACA,cAAA;;AAGF,CAAA;AACE,eAAA;AACA,gBAAA;AACA,iBApCY;AAqCZ,SAAA,IAAA;AACA,cAAA,IAAA;;",
+  "names": []
+}

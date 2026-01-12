@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/account/invoices/invoices.page.scss"],
+  "sourcesContent": [".metadata-end-wrapper {\n  position: absolute;\n\n  top: 10px;\n  inset-inline-end: 10px;\n\n  font-size: 0.8rem;\n  text-align: right;\n\n  display: flex;\n  flex-direction: column;\n  align-items: right;\n}\n\nion-label strong {\n  display: block;\n\n  max-width: calc(100% - 60px);\n\n  overflow: hidden;\n\n  text-overflow: ellipsis;\n}\n\nion-label ion-note {\n  font-size: 0.9rem;\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,YAAA;AAEA,OAAA;AACA,oBAAA;AAEA,aAAA;AACA,cAAA;AAEA,WAAA;AACA,kBAAA;AACA,eAAA;;AAGF,UAAA;AACE,WAAA;AAEA,aAAA,KAAA,KAAA,EAAA;AAEA,YAAA;AAEA,iBAAA;;AAGF,UAAA;AACE,aAAA;;",
+  "names": []
+}

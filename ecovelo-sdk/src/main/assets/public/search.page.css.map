@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/search/search.page.scss"],
+  "sourcesContent": ["ion-content {\n  --padding-top: calc(max(var(--ion-safe-area-top), 24px) + 76px) !important;\n  --padding-start: 16px;\n  --background: white;\n}\nion-item {\n  --background: white;\n}\n\nion-row {\n  width: 100%;\n  max-width: 1000px;\n}\n\n// Vehicle list styles\nion-list {\n  ion-note {\n    width: 50px;\n  }\n\n  ul {\n    list-style: none;\n    margin: 0;\n    padding: 0;\n\n    li {\n      display: flex;\n      align-items: center;\n      gap: 0.5rem;\n    }\n  }\n\n  .ecl-padding-start {\n    padding-left: 1rem;\n  }\n}\n\nh6 {\n  margin: 0.5rem 0;\n  padding: 0 1rem;\n}\n\n// Loading spinner\nion-spinner {\n  margin-top: 2rem;\n  --color: var(--ion-color-primary);\n}\n"],
+  "mappings": ";AAAA;AACE,iBAAA,KAAA,IAAA,IAAA,oBAAA,EAAA,MAAA,EAAA;AACA,mBAAA;AACA,gBAAA;;AAEF;AACE,gBAAA;;AAGF;AACE,SAAA;AACA,aAAA;;AAKA,SAAA;AACE,SAAA;;AAGF,SAAA;AACE,cAAA;AACA,UAAA;AACA,WAAA;;AAEA,SAAA,GAAA;AACE,WAAA;AACA,eAAA;AACA,OAAA;;AAIJ,SAAA,CAAA;AACE,gBAAA;;AAIJ;AACE,UAAA,OAAA;AACA,WAAA,EAAA;;AAIF;AACE,cAAA;AACA,WAAA,IAAA;;",
+  "names": []
+}

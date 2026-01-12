@@ -115,25 +115,44 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonRental"
+                android:id="@+id/buttonBreizhgo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:enabled="true"
-                android:text="🚲 Ouvrir Ecovelo"
+                android:text="🚲 Ouvrir Breizhgo"
+                android:backgroundTint="#0055A4"
                 app:cornerRadius="8dp"
                 app:icon="@drawable/ic_bike_placeholder"
                 app:iconGravity="start" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonPlaceholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:enabled="true"
+                android:text="🧪 Ouvrir Placeholder (test)"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                app:cornerRadius="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="💡 Fonctionne avec ou sans connexion"
+                android:text="💡 Les deux fonctionnent avec ou sans connexion"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
 
             <!-- Bouton masqué, gardé pour compatibilité -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonRental"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text=""
+                app:cornerRadius="8dp" />
+            
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonReservation"
                 android:layout_width="match_parent"

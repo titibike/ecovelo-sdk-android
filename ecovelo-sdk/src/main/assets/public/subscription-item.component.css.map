@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/account/abonnements/components/subscription-item.component.ts"],
+  "sourcesContent": ["\n      ion-modal {\n        --height: 50%;\n        --border-radius: 16px;\n        --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),\n          0 4px 6px -4px rgb(0 0 0 / 0.1);\n      }\n\n      ion-modal::part(backdrop) {\n        background: rgba(209, 213, 219);\n        opacity: 1;\n      }\n\n      ion-img::part(image) {\n        aspect-ratio: 4/3;\n        width: 100%;\n        object-fit: contain;\n      }\n    "],
+  "mappings": ";AACM;AACE,YAAA;AACA,mBAAA;AACA,gBAAA,EAAA,KAAA,KAAA,KAAA,IAAA,EAAA,EAAA,EAAA,EAAA,IAAA,EAAA,EAAA,IAAA,IAAA,KAAA,IAAA,EAAA,EAAA,EAAA,EAAA;;AAIF,SAAA,OAAA;AACE,cAAA,IAAA,GAAA,EAAA,GAAA,EAAA;AACA,WAAA;;AAGF,OAAA,OAAA;AACE,gBAAA,CAAA,CAAA;AACA,SAAA;AACA,cAAA;;",
+  "names": []
+}

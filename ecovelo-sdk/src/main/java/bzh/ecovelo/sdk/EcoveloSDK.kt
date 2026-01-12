@@ -136,18 +136,32 @@ object EcoveloSDK {
      * 2. Appeler [updateToken] avec le nouveau token
      * 
      * @param activity L'activité depuis laquelle lancer l'app
+     * @param assetsPath Chemin des assets à charger (défaut: "public")
      * @param onResult Callback appelé quand l'utilisateur ferme l'app
      */
     @JvmStatic
-    fun start(activity: Activity, onResult: ((EcoveloResult) -> Unit)? = null) {
+    @JvmOverloads
+    fun start(
+        activity: Activity, 
+        assetsPath: String = ASSETS_PATH_DEFAULT,
+        onResult: ((EcoveloResult) -> Unit)? = null
+    ) {
         ensureInitialized()
         
         // Stocker le callback pour le récupérer au retour
         pendingResultCallback = onResult
         
-        val intent = Intent(activity, EcoveloActivity::class.java)
+        val intent = Intent(activity, EcoveloActivity::class.java).apply {
+            putExtra(EXTRA_ASSETS_PATH, assetsPath)
+        }
         activity.startActivityForResult(intent, REQUEST_CODE_ECOVELO)
     }
+    
+    // Constantes pour les chemins d'assets
+    const val ASSETS_PATH_DEFAULT = "public"
+    const val ASSETS_PATH_PLACEHOLDER = "placeholder"
+    
+    internal const val EXTRA_ASSETS_PATH = "extra_assets_path"
     
     /**
      * Met à jour le token après une connexion SSO.

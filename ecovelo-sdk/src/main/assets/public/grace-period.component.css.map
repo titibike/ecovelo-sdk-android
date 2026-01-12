@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/drawers/grace-period/grace-period.component.scss"],
+  "sourcesContent": ["ion-text p {\n  margin: 16px;\n  line-height: 1.5;\n  font-size: 0.9rem;\n}\n"],
+  "mappings": ";AAAA,SAAA;AACE,UAAA;AACA,eAAA;AACA,aAAA;;",
+  "names": []
+}

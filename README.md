@@ -196,7 +196,8 @@ ecovelo-sdk-android/
 - [Guide d'intégration](docs/INTEGRATION.md)
 - [Authentification SSO](docs/AUTH_SSO.md)
 - [Personnalisation](docs/CUSTOMIZATION.md)
-- [Intégration app Ionic](docs/IONIC_INTEGRATION.md)
+- [**Intégration app Ionic**](docs/IONIC_INTEGRATION.md) ⭐
+- [Prompt pour appli-usager-v3](PROMPT_IONIC_INTEGRATION.md)
 
 ## 🔧 Build & CI
 

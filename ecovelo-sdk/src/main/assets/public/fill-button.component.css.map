@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/fill-button/fill-button.component.scss"],
+  "sourcesContent": [".fill-button {\n  position: relative;\n  overflow: hidden;\n  z-index: 1;\n  color: #fff;\n  --border-style: none;\n  --fill-width: 0%;\n\n  &::before {\n    content: '';\n    position: absolute;\n    background: var(--ion-color-primary-tint);\n    top: 0;\n    left: 0;\n    width: var(--fill-width);\n    height: 100%;\n    z-index: -1;\n    transition: width 0.1s linear;\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,YAAA;AACA,YAAA;AACA,WAAA;AACA,SAAA;AACA,kBAAA;AACA,gBAAA;;AAEA,CARF,WAQE;AACE,WAAA;AACA,YAAA;AACA,cAAA,IAAA;AACA,OAAA;AACA,QAAA;AACA,SAAA,IAAA;AACA,UAAA;AACA,WAAA;AACA,cAAA,MAAA,KAAA;;",
+  "names": []
+}

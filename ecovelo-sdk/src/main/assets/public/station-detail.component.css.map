@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/drawers/station-detail/station-detail.component.scss"],
+  "sourcesContent": ["ion-note {\n  width: 50px;\n}\nion-button::part(native) {\n  padding: 0 15px;\n  width: auto;\n}\n.flex {\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.favorite-button {\n  &::part(native) {\n    padding: 4px 6px;\n  }\n}\n"],
+  "mappings": ";AAAA;AACE,SAAA;;AAEF,UAAA,OAAA;AACE,WAAA,EAAA;AACA,SAAA;;AAEF,CAAA;AACE,WAAA;AACA,eAAA;AACA,OAAA;;AAGA,CAAA,eAAA,OAAA;AACE,WAAA,IAAA;;",
+  "names": []
+}

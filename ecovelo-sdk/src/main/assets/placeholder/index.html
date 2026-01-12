@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Ecovelo SDK - Placeholder</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 400px;
+        }
+        .logo { font-size: 60px; margin-bottom: 20px; }
+        h1 { color: #667eea; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 20px; }
+        .info { background: #f0f0f0; padding: 15px; border-radius: 10px; text-align: left; font-size: 14px; }
+        .info code { background: #e0e0e0; padding: 2px 6px; border-radius: 4px; }
+        .badge { display: inline-block; background: #667eea; color: white; padding: 5px 15px; border-radius: 20px; font-size: 12px; margin-top: 20px; }
+        .btn { display: block; width: 100%; background: #667eea; color: white; padding: 15px; border: none; border-radius: 10px; font-size: 16px; margin-top: 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🧪</div>
+        <h1>SDK Placeholder</h1>
+        <p>Ceci est le placeholder de test du SDK Ecovelo.</p>
+        
+        <div class="info">
+            <p>📦 <strong>Mode :</strong> Test/Développement</p>
+            <p>📁 <strong>Source :</strong> <code>assets/placeholder/</code></p>
+            <p>💡 L'app Breizhgo réelle est dans <code>assets/public/</code></p>
+        </div>
+        
+        <span class="badge">PLACEHOLDER MODE</span>
+        
+        <button class="btn" onclick="closeSDK()">Fermer</button>
+    </div>
+    
+    <script>
+        function closeSDK() {
+            if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.EcoveloNative) {
+                window.Capacitor.Plugins.EcoveloNative.close({ result: 'closed' });
+            } else {
+                alert('Fermeture (bridge non disponible)');
+            }
+        }
+    </script>
+</body>
+</html>

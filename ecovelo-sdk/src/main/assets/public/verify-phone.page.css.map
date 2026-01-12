@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/auth/verify-phone/verify-phone.page.scss"],
+  "sourcesContent": ["a {\n  cursor: pointer;\n  text-decoration: underline;\n\n  &.disabled {\n    opacity: 0.5;\n    cursor: not-allowed;\n    pointer-events: none;\n  }\n}\n"],
+  "mappings": ";AAAA;AACE,UAAA;AACA,mBAAA;;AAEA,CAAA,CAAA;AACE,WAAA;AACA,UAAA;AACA,kBAAA;;",
+  "names": []
+}

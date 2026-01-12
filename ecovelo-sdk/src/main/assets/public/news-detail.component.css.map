@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/modals/news-detail/news-detail.component.scss"],
+  "sourcesContent": ["ion-content {\n  position: absolute;\n  left: 0;\n  top: var(--ion-safe-area-top);\n  ion-button {\n    position: absolute;\n    top: 2%;\n    left: 2%;\n  }\n}\n\nh1 {\n  ::ng-deep p {\n    margin: 0;\n  }\n}\n\n.no-image {\n  margin-top: 50px; // Adjust this value as needed\n}\n"],
+  "mappings": ";AAAA;AACE,YAAA;AACA,QAAA;AACA,OAAA,IAAA;;AACA,YAAA;AACE,YAAA;AACA,OAAA;AACA,QAAA;;AAKF,GAAA,UAAA;AACE,UAAA;;AAIJ,CAAA;AACE,cAAA;;",
+  "names": []
+}

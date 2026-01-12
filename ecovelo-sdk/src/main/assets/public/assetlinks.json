@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ecovelo.preprod",
+      "sha256_cert_fingerprints": [
+        "ED:CB:8D:63:C6:0A:03:5A:0F:AB:BC:92:19:B2:62:05:71:F4:25:A7:40:87:CC:96:2E:D9:8B:B7:01:FF:71:B8"
+      ]
+    }
+  }
+]

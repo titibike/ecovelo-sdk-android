@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg
+  width="36"
+  height="44.9804"
+  viewBox="0 0 36 44.9804"
+  fill="none"
+  version="1.1"
+  id="svg1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg"
+>
+<g id="marker4" clip-path="url(#clip0_84_93)">
+<path
+      id="4"
+      d="M18.7183 28V24.528H9.11426V21.392L18.2143 8.40002H22.6383V21.112H25.1303V24.528H22.6383V28H18.7183ZM13.2863 21.112H18.9703V12.712L13.2863 21.112Z"
+      fill="#231344"
+    />
+</g>
+<defs>
+<clipPath id="clip0_84_93">
+<rect width="36" height="45" fill="white" />
+</clipPath>
+</defs>
+</svg>

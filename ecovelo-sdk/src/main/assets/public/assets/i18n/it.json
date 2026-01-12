@@ -1,0 +1,1156 @@
+{
+  "abo_congrats": {
+    "ready_to_ride": "Ora sei pronto per pedalare con {{program}}!",
+    "title": "In sella!",
+    "waiting_validation": "Il tuo abbonamento è in attesa di convalida. Presto potrai iniziare il tuo primo viaggio con {{program}}!"
+  },
+  "abonnements": {
+    "active_subscription": "Abbonamento attivo",
+    "error": {
+      "loading": "Si è verificato un errore durante il caricamento dei tuoi abbonamenti.",
+      "title": "Errore"
+    },
+    "no_subscription": {
+      "message": "Al momento non hai abbonamenti.",
+      "title": "Nessun abbonamento"
+    },
+    "pending_subscription": "Abbonamento in attesa di convalida",
+    "previous_subscriptions": "Abbonamenti precedenti"
+  },
+  "account": {
+    "deletion": {
+      "confirm": "Elimina",
+      "error": "Si è verificato un errore durante l'eliminazione dell'account",
+      "header": "Elimina il tuo account",
+      "loading": "Eliminazione dell'account in corso...",
+      "message": "Attenzione, il tuo accesso al servizio di noleggio sarà immediatamente sospeso. Il tuo account e i tuoi dati saranno eliminati definitivamente dopo la verifica che non ci siano pagamenti o viaggi in corso."
+    },
+    "menu": {
+      "account_blocked": {
+        "message": "Il tuo account è stato bloccato dal {{date}} alle {{time}}. Non puoi più noleggiare veicoli.",
+        "reason": "Motivo del blocco: {{reason}}",
+        "title": "Account bloccato",
+        "reasons": {
+          "Subscription does not allow renting": "Il tuo abbonamento non ti permette di noleggiare.",
+          "Unpaid invoices": "Hai fatture non pagate",
+          "No valid payment method available": "Nessun metodo di pagamento valido disponibile",
+          "Identity verification incomplete": "Verifica dell'identità incompleta",
+          "KYC documents incomplete": "Verifica dell'identità incompleta",
+          "Unknown account state": "Stato dell'account sconosciuto",
+          "Account not confirmed": "Account non confermato",
+          "Account deleted": "Account eliminato",
+          "Account deletion requested": "Eliminazione dell'account richiesta",
+          "Account blocked": "Account bloccato"
+        },
+        "location_impossible": "Noleggio impossibile"
+      },
+      "account_deletion": {
+        "message": "Il tuo account è in fase di eliminazione. Sarà eliminato definitivamente dopo la verifica che non ci siano pagamenti o viaggi in corso.",
+        "title": "Account in fase di eliminazione"
+      },
+      "footer": {
+        "cookies": "Politica dei cookie",
+        "privacy": "Politica sulla privacy",
+        "report_problem": "Segnala un problema"
+      },
+      "greeting": "Ciao {{name}}!",
+      "invoices": {
+        "last_invoice": "Ultima fattura: {{amount}}€ il {{date}}",
+        "no_invoices": "Nessuna fattura",
+        "title": "Fatture",
+        "unpaid_invoices": "Hai una o più fatture non pagate"
+      },
+      "logout": "Disconnetti",
+      "nfc": {
+        "no_active_card": "Nessuna carta NFC attiva",
+        "title": "Carta NFC"
+      },
+      "no_trip": "Nessun viaggio in corso",
+      "no_upcoming_invoice": "Nessuna fattura imminente",
+      "payment_methods": {
+        "card_expired": "La tua carta è scaduta, aggiornala per continuare a noleggiare.",
+        "card_expiring_soon": "La tua carta scadrà presto, aggiornala per continuare a noleggiare.",
+        "card_info": "{{number}} | Scad: {{expiry}}",
+        "no_payment_method": "Nessun metodo di pagamento",
+        "title": "Metodi di pagamento"
+      },
+      "settings": {
+        "cgu_update": "Abbiamo modificato i nostri Termini di servizio il {{date}}, per continuare a noleggiare, accetta i nostri Termini di servizio.",
+        "description": "Gestione dati, notifiche",
+        "title": "Impostazioni"
+      },
+      "subscriptions": {
+        "loading_error": "Errore di caricamento",
+        "pending_validation": "| In attesa di convalida",
+        "plans": "Piani",
+        "title": "Abbonamenti",
+        "view_plans": "Scegli un piano"
+      },
+      "support": {
+        "access": "Hai una domanda? Accedi all'assistenza",
+        "title": "Assistenza"
+      },
+      "trips": {
+        "active_over_24h": "Viaggio in corso da oltre 24 ore",
+        "active_over_3h": "Viaggio in corso da oltre 3 ore",
+        "no_trip": "Nessun viaggio",
+        "title": "Viaggi"
+      },
+      "unauthenticated": {
+        "login": "Accedi",
+        "signup": "Registrati",
+        "subscriptions": "Piani",
+        "support": "Centro assistenza",
+        "terms": "Termini di servizio",
+        "welcome": "Benvenuto",
+        "welcome_message": "🚴‍♂️ Pronto a pedalare? Unisciti a noi per viaggi semplici e veloci!"
+      },
+      "wallet": {
+        "balance": "saldo: {{amount}}€ | {{minutes}} minuti",
+        "title": "Portafoglio"
+      },
+      "kyc": {
+        "title": "Verifica dell'identità",
+        "description": "Gestisci i tuoi documenti di identità",
+        "status": {
+          "complete": "Documenti approvati",
+          "pending": "Documenti in fase di verifica",
+          "incomplete": "Documenti richiesti",
+          "rejected": "Alcuni documenti sono stati rifiutati"
+        }
+      },
+      "vlld": {
+        "title": "Spazio VLLD",
+        "description": "Accedi allo spazio di noleggio bici a medio e lungo termine"
+      },
+      "sections": {
+        "bike_sharing": "Bike sharing",
+        "long_term": "Lungo termine noleggio",
+        "my_account": "Il mio account"
+      }
+    }
+  },
+  "renting": {
+    "actions": {
+      "start": "Inizia",
+      "pause": "Pausa"
+    },
+    "alerts": {
+      "attention": "Già?",
+      "position_unknown": "Non siamo riusciti a determinare la tua posizione relativa al veicolo, sei abbastanza vicino per iniziare il viaggio?",
+      "vehicle_far": "Il veicolo è a {{distance}}m da te. Sei sicuro di voler iniziare il viaggio ora?",
+      "pause_trip": "Pausa di un minuto",
+      "pause_trip_confirmation": "Vuoi mettere in pausa il tuo viaggio? Non dimenticare che la fatturazione continua durante la pausa"
+    },
+    "loading": {
+      "end_trip": "Fine viaggio in corso...",
+      "end_trip_request": "Richiesta di fine viaggio in corso...",
+      "resume_trip": "Ripresa del viaggio in corso..."
+    },
+    "success": {
+      "end_trip_request": "Richiesta di fine viaggio inviata con successo"
+    }
+  },
+  "auth": {
+    "existing_account": {
+      "forgot_password": "Password dimenticata",
+      "message": "Questo numero di telefono è già associato a un account. Accedi per accedere al tuo spazio.",
+      "signin": "Accedi",
+      "title": "Account esistente"
+    },
+    "signing_in": "Accesso in corso...",
+    "updating_password": "Aggiornamento della password in corso...",
+    "errors": {
+      "program_closed": "È impossibile creare un ciclista in un servizio che è stato chiuso.",
+      "phone_number_already_used": "Un utente esiste già con questo numero di telefono.",
+      "email_already_used": "Un utente esiste già con questo indirizzo email.",
+      "signup_lock_already_exists": "Un tentativo di creazione account è già in corso per questo numero di telefono.",
+      "invalid_email": "Il tuo indirizzo email non è valido.",
+      "invalid_phone_number": "Il tuo numero di telefono non è valido.",
+      "cognito_account_not_found": "Impossibile trovare l'account associato all'utente.",
+      "cognito_email_invalid": "L'email fornita non è valida.",
+      "cognito_name_required": "Il nome dell'utente è richiesto per la creazione dell'account.",
+      "cognito_role_required": "Il ruolo dell'utente è richiesto per la creazione dell'account.",
+      "cognito_phone_number_required": "Il numero di telefono dell'utente è richiesto per la creazione dell'account.",
+      "program_required": "Il programma non è stato fornito per la creazione dell'account.",
+      "user_creation_failed": "L'utente non ha potuto essere creato.",
+      "already_used_phone_number": "Un ciclista esiste già con questo numero di telefono.",
+      "wrong_confirmation_method": "Per confermare il tuo account, accedi all'applicazione.",
+      "phone_number_not_verified": "Conferma il tuo numero di telefono.",
+      "already_confirmed": "Il tuo account è già attivo.",
+      "force_change_password": "La password temporanea deve essere fornita nell'applicazione per sceglierne una nuova.",
+      "invalid_password": "La password fornita non è valida.",
+      "already_activated": "Il tuo account è già attivo."
+    }
+  },
+  "bike-number": {
+    "battery-info": "{{percent}}% di batteria rimanente (circa {{distance}}km)",
+    "bikebell-image": "Campanello della bicicletta",
+    "discover-stations": "Accedi alla mappa delle stazioni >",
+    "enter-number": "Scegli un veicolo",
+    "enter-number-description": "Inserisci il numero del veicolo situato sul telaio o sulla scatola",
+    "location-request-message": "Vorremmo offrirti veicoli vicino alla tua posizione. Per questo, abbiamo bisogno della tua posizione.",
+    "not-available": "Questo veicolo è temporaneamente non disponibile. Scegline un altro.",
+    "not-found": "Veicolo non trovato",
+    "number": "Numero del veicolo",
+    "request-location": "Attiva la posizione",
+    "searching": "Ricerca in corso...",
+    "start-renting": "Inizia"
+  },
+  "cards": {
+    "add_card": "Aggiungi una carta",
+    "default": "Predefinita",
+    "delete": "Elimina",
+    "empty": "Non hai ancora carte registrate",
+    "my_cards": "Le mie carte",
+    "save": "Salva",
+    "set_default": "Imposta come predefinita"
+  },
+  "cgu": {
+    "accept": "Ho letto e accetto le",
+    "accept_button": "Accetta i termini e le condizioni",
+    "accepted": "Termini e condizioni accettati",
+    "accepted_on": "Termini e condizioni accettati il:",
+    "name": "termini e condizioni di accesso e utilizzo",
+    "update_message": "I nostri termini e condizioni si evolvono per integrare nuove funzionalità. Si prega di prendere visione e accettare questi termini e condizioni, pubblicati il"
+  },
+  "cgu_congrats": {
+    "message": "Grazie per aver accettato i nostri termini e condizioni. Ora puoi usufruire pienamente dei nostri servizi!",
+    "success_alt": "Condizioni accettate",
+    "title": "Grazie!",
+    "error": "Si è verificato un errore durante l'accettazione dei termini e condizioni. Per favore, riprova."
+  },
+  "change_password": {
+    "current_password": "Password attuale",
+    "new_password": "Nuova password",
+    "title": "Cambia la mia password",
+    "update_button": "Aggiorna la password"
+  },
+  "confirm_code": {
+    "change_password": "Cambia password",
+    "confirm_password": "Conferma la nuova password",
+    "enter_code": "Inserisci il codice di conferma ricevuto via SMS e crea una nuova password.",
+    "err_CodeMismatchException": "Il codice di conferma non è corretto",
+    "err_different_password": "Le password non corrispondono",
+    "err_missing_code": "Il codice di conferma è obbligatorio",
+    "err_password_length": "La password deve contenere almeno 6 caratteri",
+    "new_password": "Inserisci la nuova password",
+    "success": "Password aggiornata con successo",
+    "title": "Crea una nuova password"
+  },
+  "cookies": {
+    "accept_all_btn": "Accetta tutti",
+    "accept_body": "Cliccando su \"Accetto\", acconsenti alle finalità sopra indicate.",
+    "accept_btn": "Accetto",
+    "alert": {
+      "accept": "Accetta",
+      "close": "Chiudi",
+      "header": "Cookie analitici richiesti",
+      "message": "Per permetterci di raccogliere il tuo feedback, abbiamo bisogno della tua autorizzazione per i cookie analitici."
+    },
+    "analytics_body": "I tuoi dati potrebbero essere utilizzati per migliorare i sistemi e i software esistenti e sviluppare nuovi prodotti.",
+    "analytics_title": "Cookie analitici",
+    "first_body": "Utilizziamo i cookie per offrirti la migliore esperienza sul nostro sito. Puoi gestire le tue preferenze sui cookie.",
+    "modal_title": "Gestisci i miei cookie",
+    "needed_body": "Questi cookie sono necessari per il corretto funzionamento del sito e quindi non possono essere disattivati. Sono generalmente utilizzati per fornirti i contenuti e le funzioni del sito o per eseguire le azioni che avvii (ricordare le tue scelte sui cookie o permetterti di autenticarti sul sito).",
+    "needed_title": "Cookie strettamente necessari"
+  },
+  "country": {
+    "results": "{{displayed}} visualizzati su {{total}}",
+    "search": "Cerca un paese"
+  },
+  "current_trips": {
+    "completed_trips": "Viaggi recenti",
+    "current_trips": "Viaggi in corso",
+    "pitstop": "Sosta rapida",
+    "recommend_bike": "Consiglieresti questo veicolo?",
+    "terminating_message": "Il tuo veicolo è agganciato in sicurezza alla stazione",
+    "pitstop_info_message": "Devi prima riprendere il tuo viaggio prima di poterlo terminare",
+    "renting_info_message": "Informazioni sul tuo viaggio in corso"
+  },
+  "documents": {
+    "back_side": "Lato posteriore",
+    "camera": "Fotocamera",
+    "description": "Fornisci i seguenti documenti per finalizzare il tuo abbonamento:",
+    "front_side": "Lato anteriore",
+    "gallery": "Galleria",
+    "select": "Seleziona",
+    "title": "Documenti giustificativi",
+    "subtitle": "Documenti richiesti",
+    "validate_subscription": "Convalida il mio abbonamento",
+    "validate_kyc": "Convalida i miei documenti",
+    "submit": "Invia i documenti",
+    "generic_description": "Fornisci il fronte e il retro di questo documento",
+    "kyc": {
+      "identity_card": "Carta d'identità",
+      "passport": "Passaporto",
+      "driving_license": "Patente di guida",
+      "selfie": "Foto selfie",
+      "identity_document": "Documento di identità"
+    }
+  },
+  "ending_trips": {
+    "automatic_closure": "Il tuo viaggio si chiude automaticamente quando assicuri il veicolo a una stazione.",
+    "ending_code": "Codice di fine viaggio",
+    "error_message": "In caso di errore, inserisci il codice visualizzato sullo schermo sul retro del tuo veicolo.",
+    "no_code": "Nessun codice?",
+    "photo_message": "Una volta inviata la foto, la durata del tuo viaggio sarà fissata fino a quando il nostro sistema non sarà certo che il veicolo sia stato correttamente restituito. Se riprendi il veicolo o se non è correttamente bloccato alla stazione, il tuo viaggio sarà riaperto.",
+    "photo_only_message": "Per terminare il tuo noleggio, scatta una foto del veicolo parcheggiato nell'area designata.",
+    "scooter_message": "Per terminare il tuo noleggio, scatta una foto del veicolo parcheggiato nell'area designata.",
+    "take_photo": "Scatta una foto del veicolo alla stazione"
+  },
+  "external_auth": {
+    "title": "Autenticazione Esterna",
+    "failed_title": "Autenticazione Fallita",
+    "generic_error": "L'autenticazione esterna è fallita. Accedi di nuovo.",
+    "retry": "Riprova",
+    "sign_in_again": "Accedi di Nuovo",
+    "back_to_map": "Torna alla Mappa",
+    "refresh_session": "Aggiorna Sessione",
+    "session_refreshed": "Sessione aggiornata con successo",
+    "session_refresh_failed": "Impossibile aggiornare la sessione",
+    "retry_failed": "Riprovare fallito",
+    "help_text": "Se il problema persiste, contatta l'assistenza clienti.",
+    "signing_out": "Disconnessione in corso..."
+  },
+  "error": {
+    "generic": "Si è verificato un errore. Se l'errore persiste, contatta il supporto.",
+    "key": {
+      "account_blocked": "Il tuo stato attuale del conto non ti permette di noleggiare un veicolo.",
+      "_comment": "=== CODICI DI RIFIUTO STRIPE ===",
+      "insufficient_funds": "Fondi insufficienti sulla tua carta. Per favore, utilizza un'altra carta.",
+      "lost_card": "Questa carta è stata segnalata come smarrita. Per favore, utilizza un'altra carta.",
+      "stolen_card": "Questa carta è stata segnalata come rubata. Per favore, utilizza un'altra carta.",
+      "pickup_card": "La tua banca richiede il recupero di questa carta. Contatta la tua banca.",
+      "restricted_card": "Questa carta ha restrizioni che impediscono questo pagamento. Contatta la tua banca.",
+      "security_violation": "La tua banca ha rifiutato questo pagamento per motivi di sicurezza.",
+      "service_not_allowed": "Questo tipo di transazione non è consentito su questa carta.",
+      "transaction_not_allowed": "La tua banca ha rifiutato questa transazione. Contatta la tua banca.",
+      "try_again_later": "La tua banca non può elaborare questa transazione ora. Per favore, riprova più tardi.",
+      "withdrawal_count_limit_exceeded": "Hai superato il limite di transazioni per questa carta oggi.",
+      "generic_decline": "La tua banca ha rifiutato questa transazione. Contatta la tua banca per ulteriori informazioni.",
+      "card_declined": "La tua carta è stata rifiutata. Per favore, utilizza un'altra carta.",
+      "expired_card": "La tua carta è scaduta. Per favore, utilizza un'altra carta.",
+      "incorrect_cvc": "Il codice CVC è errato. Per favore, controlla e riprova.",
+      "processing_error": "Errore durante l'elaborazione della carta. Per favore, riprova.",
+      "authentication_required": "È richiesta un'autenticazione aggiuntiva per questa carta.",
+      "client_secret_required": "Il segreto del cliente è necessario per eseguire questa operazione.",
+      "apple_pay_payment_failed": "Il pagamento con Apple Pay è fallito. Riprova.",
+      "google_pay_payment_failed": "Il pagamento con Google Pay è fallito. Riprova.",
+
+      "_comment2": "=== ERRORI COGNITO/AWS ===",
+      "UserNotFoundException": "Questo numero di telefono non sembra essere associato a un account.",
+      "NotAuthorizedException": "Nome utente o password non corretti.",
+      "InvalidPasswordException": "La password fornita non è valida.",
+      "UserNotConfirmedException": "L'utente non è confermato. Per favore, controlla il tuo telefono.",
+      "CodeMismatchException": "Il codice di conferma è errato.",
+      "CodeExpiredException": "Il codice di conferma è scaduto. Per favore, richiedi un nuovo codice.",
+      "LimitExceededException": "Limite di tentativi superato. Per favore, riprova più tardi.",
+      "TooManyRequestsException": "Troppi tentativi di accesso falliti. Per favore, riprova più tardi.",
+      "InvalidParameterException": "Parametro non valido fornito.",
+      "UserLambdaValidationException": "Errore di convalida durante la creazione dell'account.",
+      "InvalidCredentialsException": "Nome utente o password non corretti.",
+      "UsernameExistsException": "Questo nome utente esiste già.",
+      "AliasExistsException": "Questo indirizzo email o numero di telefono è già in uso.",
+
+      "_comment_cognito_keys": "=== CHIAVI DI ERRORE COGNITO (dal parsing dei messaggi) ===",
+      "user_not_found": "Questo numero di telefono non sembra essere associato a un account. Se ti sei registrato con Apple o Google, per favore utilizza quel metodo di accesso.",
+      "not_authorized": "Nome utente o password non corretti.",
+      "user_not_confirmed": "L'utente non è confermato. Per favore, controlla il tuo telefono.",
+      "code_mismatch": "Il codice di conferma è errato.",
+      "code_expired": "Il codice di conferma è scaduto. Per favore, richiedi un nuovo codice.",
+      "limit_exceeded": "Limite di tentativi superato. Per favore, riprova più tardi.",
+      "too_many_requests": "Troppi tentativi di accesso falliti. Per favore, riprova più tardi.",
+
+      "_comment3": "=== ERRORI API BACKEND ===",
+      "program_closed": "È impossibile creare un ciclista in un servizio che è stato chiuso.",
+      "phone_number_already_used": "Un utente esiste già con questo numero di telefono.",
+      "email_already_used": "Un utente esiste già con questo indirizzo email.",
+      "signup_lock_already_exists": "Un tentativo di creazione account è già in corso per questo numero di telefono.",
+      "invalid_email": "Il tuo indirizzo email non è valido.",
+      "invalid_phone_number": "Il tuo numero di telefono non è valido.",
+      "cognito_account_not_found": "Impossibile trovare l'account associato all'utente.",
+      "cognito_email_invalid": "L'email fornita non è valida.",
+      "cognito_name_required": "Il nome dell'utente è richiesto per la creazione dell'account.",
+      "cognito_role_required": "Il ruolo dell'utente è richiesto per la creazione dell'account.",
+      "cognito_phone_number_required": "Il numero di telefono dell'utente è richiesto per la creazione dell'account.",
+      "program_required": "Il programma non è stato fornito per la creazione dell'account.",
+      "user_creation_failed": "L'utente non è stato creato.",
+      "wrong_object_found": "Un utente con questo ID è stato trovato ma non è un ciclista.",
+      "already_used_phone_number": "Un ciclista esiste già con questo numero di telefono.",
+      "wrong_confirmation_method": "Per confermare il tuo account, per favore accedi all'applicazione.",
+      "phone_number_not_verified": "Per favore conferma il tuo numero di telefono.",
+      "already_confirmed": "Il tuo account è già attivo.",
+      "force_change_password": "La password temporanea deve essere fornita nell'applicazione per sceglierne una nuova.",
+      "invalid_password": "La password fornita non è valida.",
+      "already_activated": "Il tuo account è già attivo.",
+      "forbidden_login_google": "Il tuo account è stato creato tramite Google. Per accedere, scegli semplicemente 'Accedi con Google'",
+      "forbidden_login_apple": "Il tuo account è stato creato tramite Apple. Per accedere, scegli semplicemente 'Accedi con Apple'",
+      "blocked_cyclist": "Questo account è stato bloccato per motivi di sicurezza e non può essere eliminato. Per favore contatta il servizio clienti.",
+      "no_registration": "Non sei registrato a questo servizio.",
+      "cyclist_blocked": "Il tuo account è bloccato.",
+      "cyclist_deletion_requested": "Il tuo account è in corso di eliminazione.",
+      "cyclist_deleted": "Il tuo account è stato eliminato.",
+      "cyclist_unconfirmed": "Il tuo account non è stato confermato.",
+      "registration_blocked": "Il tuo account è bloccato per questo servizio.",
+      "registration_deleted": "La tua registrazione in questo servizio è stata eliminata.",
+      "program_blocked": "Il servizio è stato temporaneamente chiuso e nessun noleggio è attualmente possibile.",
+      "program_not_launch": "Il servizio sarà disponibile solo dalla data di lancio.",
+      "program_draft": "Il servizio non è ancora aperto.",
+      "service_closed_hour": "Il servizio non è disponibile per il noleggio in questo momento.",
+      "terms_not_validated": "Non hai accettato i termini e le condizioni d'uso.",
+      "max_renting_count_reached": "Hai raggiunto il numero massimo di noleggi simultanei.",
+      "missing_kyc_document": "Devi fornire un documento aggiuntivo per poter noleggiare.",
+      "not_provided_kyc_document": "Un documento richiesto non è stato fornito.",
+      "rejected_kyc_document": "Un documento richiesto è stato rifiutato.",
+      "unverified_kyc_document": "Un documento richiesto necessita ancora di verifica.",
+      "open_facture": "Non puoi noleggiare mentre hai fatture aperte.",
+      "draft_facture": "Non puoi noleggiare mentre hai fatture in bozza.",
+      "uncollectible_facture": "Non puoi noleggiare mentre hai fatture inesigibili.",
+      "no_active_subscription": "Il tuo abbonamento attuale non è attivo.",
+      "not_validated_abonnement": "Il tuo abbonamento non è stato convalidato.",
+      "no_default_payment": "Non hai una carta di pagamento predefinita.",
+      "no_default_payment_source": "Non hai una carta di pagamento predefinita.",
+      "invalid_default_payment": "Il tuo metodo di pagamento predefinito non sembra più valido.",
+      "invalid_default_payment_source": "Il tuo metodo di pagamento predefinito non sembra più valido.",
+      "not_allowed_vehicule_type": "Non sei autorizzato a noleggiare questo tipo di veicolo con il tuo piano attuale.",
+      "create_deposit_failed": "La creazione del deposito di sicurezza è fallita.",
+      "not_rentable": "Questo veicolo non è disponibile per il noleggio. Per favore, prova con un'altra bicicletta.",
+      "not_synchro": "Questo veicolo non è disponibile perché è fuori sincrono. Per favore, prova con un'altra bicicletta.",
+      "low_battery": "Questo veicolo ha la batteria troppo scarica per essere noleggiato.",
+      "rent_locked_cyclist": "Un tentativo di noleggio è già in corso per il tuo account.",
+      "rent_locked_vehicule": "Un tentativo di noleggio è già in corso per questo veicolo.",
+      "trip_not_renting": "Questa azione non è possibile con lo stato attuale del viaggio.",
+      "tr_wrong_parameters": "Parametri non validi per questa richiesta di fine viaggio.",
+      "trip_duration_too_short": "La durata del viaggio è troppo breve.",
+      "dockless_zone_too_far": "Il tuo veicolo non sembra essere nella zona di riconsegna.",
+      "no_dockless_zone": "Per favore verifica di essere situato in una zona di riconsegna.",
+      "wrong_vehicule_type": "Non puoi riconsegnare questo tipo di veicolo in questa zona.",
+      "wrong_end_code": "Il codice di riconsegna fornito è errato.",
+      "end_code_wrong_program_dock": "Riconsegna vietata su una stazione appartenente a un altro servizio.",
+      "end_code_wrong_program_vehicule": "Riconsegna vietata su una bicicletta appartenente a un altro servizio.",
+      "end_code_vehicule_renting": "Riconsegna vietata su una bicicletta in corso di noleggio.",
+      "resume_forbidden": "Questa azione non è possibile con lo stato attuale del viaggio.",
+      "missing_pending_request": "Il viaggio non ha una richiesta di fine in sospeso.",
+      "trip_not_completed": "Non è possibile raccomandare il veicolo mentre il suo viaggio attuale non è completato.",
+      "trip_too_old": "Il veicolo non può essere raccomandato per questo viaggio perché è troppo vecchio.",
+      "vehicule_already_recommended": "Il veicolo è già stato raccomandato per questo viaggio.",
+      "abonnement_program_closed": "Questo servizio è stato chiuso. Ora è impossibile sottoscrivere un abbonamento.",
+      "already_existing_abonnement": "Hai già un abbonamento attivo.",
+      "archived_forfait": "È impossibile creare un abbonamento da un piano archiviato.",
+      "draft_forfait": "È impossibile creare un abbonamento da un piano in bozza.",
+      "inactive_cyclist": "È richiesto un account attivo per sottoscrivere un abbonamento.",
+      "forfait_default": "È impossibile creare un abbonamento dal piano predefinito.",
+      "unpaid_invoices": "Per favore regolarizza tutte le tue fatture prima di sottoscrivere un nuovo abbonamento.",
+      "forfait_not_live": "È impossibile creare un abbonamento da un piano che non è attivo.",
+      "missing_documents": "Sono richiesti documenti per la creazione dell'abbonamento.",
+      "missing_document": "Manca un documento per la creazione dell'abbonamento.",
+      "failed_validator": "Devi avere un abbonamento CPA per beneficiare di questo piano.",
+      "subscription_requires_action": "È richiesta l'autorizzazione 3D Secure.",
+      "abonnement_creation_locked": "Una creazione di abbonamento è già in corso.",
+      "abonnement_locked_creation": "Una creazione di abbonamento è già in corso.",
+      "membership_deletion_pending": "La tua appartenenza all'organizzazione è in corso di eliminazione.",
+      "no_subscription": "Non hai un abbonamento.",
+      "subscription_not_valid": "Non hai un abbonamento valido.",
+      "no_credit_card": "Non hai una carta valida.",
+      "canceled_abonnement": "Un abbonamento cancellato non può essere modificato.",
+      "validation_error": "Impossibile convalidare un abbonamento che non è in 'attesa di convalida'.",
+      "invalidation_error": "Impossibile invalidare un abbonamento che non è in stato 'attesa di convalida'.",
+      "abonnement_deletion_trips": "Questo abbonamento non può essere cancellato perché ci sono viaggi in corso.",
+      "abonnement_deletion_factures": "Questo abbonamento non può essere cancellato perché le fatture non sono state pagate.",
+      "forbidden_deposit_abonnement": "È impossibile creare un deposito di sicurezza su un abbonamento che non è attivo.",
+      "object_not_found": "Nessun oggetto trovato.",
+      "wrong_argument": "Parametro non valido per questa operazione.",
+      "wrong_arguments": "Parametri non validi per questa operazione.",
+      "wrong_arguement": "Parametro non valido per questa operazione.",
+      "missing_parameter": "Manca un parametro richiesto.",
+      "wrong_parameter": "Il parametro fornito non è valido.",
+      "missing_files": "Deve essere fornito almeno un file.",
+      "invalid_file_type": "Tipo di file non valido.",
+      "invalid_file_url": "L'URL del file non è valido.",
+      "invalid_status": "Stato di verifica non valido.",
+      "document_not_pending": "Il documento non è in attesa di verifica.",
+      "missing_reviewer": "Manca l'identificativo del revisore per la verifica.",
+      "missing_rejection_reason": "Manca il motivo di rifiuto per il documento.",
+      "invalid_parameter": "Il motivo di rifiuto può essere specificato solo quando il documento è rifiutato.",
+      "document_already_exists": "Il documento esiste già per questo ciclista.",
+      "not_implemented": "Questa funzionalità non è ancora disponibile.",
+      "score_lock": "Si è verificato un errore. Per favore, riprova.",
+      "unactive_member": "È impossibile rimuovere un membro che non è attivo.",
+      "deleted_organization": "È impossibile modificare un'organizzazione che è stata eliminata.",
+      "archived_organization": "È impossibile invitare un membro in un'organizzazione che è stata archiviata.",
+      "user_does_not_exist": "Email e nome sono necessari per creare un nuovo utente.",
+      "unactive_supervisor": "È impossibile rimuovere un supervisore che non è attivo.",
+      "invalid_data": "La data di fine appartenenza all'organizzazione deve essere successiva alla data attuale.",
+      "missing_parameters": "Non esiste nessun utente con questa email e non è stato fornito nessun nome per creare questo utente.",
+      "no_number_available": "Non c'è più spazio disponibile per aggiungere una nuova tessera di manutenzione.",
+      "forbidden_pass": "È impossibile associare questa tessera al tuo account perché è già in uso.",
+      "pass_lock_already_exists": "Un tentativo di creazione tessera è già in corso per questo uid.",
+      "pass_maintenance_already_associated": "La tessera di manutenzione è già utilizzata sul numero indicato.",
+      "pass_not_found": "Il pass non è stato trovato.",
+      "code_no_match": "Il codice di conferma è errato.",
+      "forbidden_update": "Questo attributo non può essere modificato.",
+      "closed_program": "È impossibile modificare un programma che è stato chiuso.",
+      "missing_language": "La lingua non può essere configurata perché non è mai stata configurata.",
+      "deleted_registration": "È impossibile modificare la registrazione di un utente a un programma che è stato eliminato.",
+      "unconfirmed_registration": "La registrazione di un utente a un programma non può essere attivata finché l'account non è stato confermato.",
+      "forbidden_deletion": "È impossibile eliminare la registrazione di un ciclista a un programma.",
+      "missing_registration": "L'utente non è registrato in questo programma.",
+      "user_deleted": "È impossibile cambiare lo stato di un utente eliminato.",
+      "missing_value": "Funzione di definizione mancante.",
+      "forbidden_attribute": "Un ciclista non può avere un coordinatore.",
+      "wrong_customer": "Non sei autorizzato ad accedere a questo metodo di pagamento.",
+      "deposit_requires_action": "È richiesta l'autorizzazione 3D Secure.",
+      "amount_below_50_cts": "L'importo totale della fattura non può essere inferiore a 50 centesimi.",
+      "draft_invoice": "È vietato forzare il pagamento di una fattura in bozza.",
+      "forfait_program_closed": "Questo servizio è stato chiuso. Ora è impossibile creare un nuovo piano.",
+      "forfait_default_creation_forbidden": "Il piano predefinito non può essere creato dagli utenti.",
+      "plan_item_not_found": "Il piano tariffario non esiste nel forfait.",
+      "duplicate_plan_item": "Il piano tariffario è stato fornito due volte.",
+      "incomplete_plan_items": "Non tutti i piani tariffari sono stati forniti per riorganizzare il loro ordine.",
+      "default_subscription_exists": "L'abbonamento predefinito esiste già.",
+      "unknown_decline": "La tua carta è stata rifiutata per un motivo sconosciuto. Per favore contatta la tua banca per maggiori informazioni.",
+      "charge_idempotency": "Questo pagamento è già stato effettuato.",
+      "api_connection_error": "Si è verificato un errore di rete. Per favore riprova tra qualche momento.",
+      "invalid_request_error": "I parametri forniti non sono validi.",
+      "stripe_error": "Si è verificato un errore Stripe.",
+      "incomplete_number": "Il numero di carta fornito è incompleto.",
+      "device_not_found": "Nessun endpoint trovato per l'utente con questo token.",
+      "no_push_devices": "L'utente non ha autorizzato nessuno dei suoi dispositivi a ricevere notifiche.",
+      "closed_task": "Un'attività chiusa non può essere modificata.",
+      "closed_incident": "Un incidente chiuso non può essere modificato.",
+      "wrong_attribute": "Deve essere fornito almeno un testo o un'immagine per creare il commento.",
+      "program_not_found": "Programma non trovato.",
+      "access_token_not_found": "Token di accesso non trovato.",
+      "app_bundle_not_found": "Configurazione del bundle dell'app non trovata.",
+      "webapp_not_found": "Configurazione dell'app web non trovata.",
+      "_geoloc_errors": "=== GEOLOCATION ERRORS ===",
+      "OS-PLUG-GLOC-0002": "Si è verificato un errore durante la ricerca della posizione.",
+      "OS-PLUG-GLOC-0003": "La richiesta di autorizzazione per la localizzazione è stata respinta.",
+      "OS-PLUG-GLOC-0007": "I servizi di localizzazione sono disabilitati.",
+      "OS-PLUG-GLOC-0008": "L'utilizzazione dei servizi di localizzazione è limitata.",
+      "OS-PLUG-GLOC-0009": "La richiesta di attivazione della localizzazione è stata respinta.",
+      "OS-PLUG-GLOC-0010": "Non abbiamo ottenuto una posizione nel tempo assegnato.",
+      "OS-PLUG-GLOC-0014": "Si è verificato un errore di Play Services. Per favore, riprova.",
+      "OS-PLUG-GLOC-0017": "Non è possibile recuperare la posizione perché il dispositivo ha sia la rete che la localizzazione disabilitate."
+    }
+  },
+  "favorite_stations": {
+    "add_favorite_station_hint": "Noleggia più velocemente salvando la tua stazione preferita.",
+    "no_favorite": "Non hai ancora aggiunto stazioni preferite",
+    "no_vehicle": "Nessun veicolo disponibile",
+    "title": "Stazioni preferite"
+  },
+  "feedback": {
+    "success": "Grazie per il tuo feedback! Consideriamo ogni messaggio per migliorare la tua esperienza.",
+    "title": "Invia un feedback"
+  },
+  "forfait": {
+    "cancel_selection": "Annulla la selezione",
+    "cancel_subscription": "Annulla il mio abbonamento",
+    "reduction_code": "Codice di riduzione",
+    "select_another_plan": "Scegli un piano",
+    "status": {
+      "active_message": "Il tuo abbonamento è attivo. Devi annullare il tuo abbonamento per poterlo cambiare.",
+      "default_message": "Non hai ancora un abbonamento attivo. Seleziona un piano per iniziare.",
+      "deletion_requested_message": "Il tuo abbonamento è in fase di chiusura. Terminerà automaticamente una volta che il nostro sistema avrà verificato che non hai più viaggi o fatture in corso.",
+      "waiting_validation_message": "Il tuo abbonamento è in fase di attivazione. Sarà attivo a breve.",
+      "incomplete_message": "Il tuo abbonamento è incompleto. Completa le informazioni mancanti per attivarlo.",
+      "past_due_message": "Il tuo abbonamento è scaduto. Regolarizza il pagamento per continuare a usufruire del servizio.",
+      "unpaid_message": "Il tuo abbonamento non è pagato. Effettua il pagamento per riattivare il tuo abbonamento."
+    }
+  },
+  "forfaits": {
+    "title": "Clicca per selezionare",
+    "title_unauthenticated": "Piani disponibili"
+  },
+  "grace_period": {
+    "message": "Hai {{total}} minuti gratuiti {{per_period}}. Ti rimangono {{remaining}} minuti {{remaining_period}} (esclusi i viaggi in corso).",
+    "per_day": "al giorno",
+    "per_week": "a settimana",
+    "per_month": "al mese",
+    "per_days": "per {{count}} giorni",
+    "per_weeks": "per {{count}} settimane",
+    "per_months": "per {{count}} mesi",
+    "today": "oggi",
+    "this_week": "questa settimana",
+    "this_month": "questo mese",
+    "period_days": "su {{count}} giorni",
+    "period_weeks": "su {{count}} settimane",
+    "period_months": "su {{count}} mesi"
+  },
+  "generic": {
+    "cancel": "Annulla",
+    "choose_plan": "Scegli questo piano",
+    "close": "Chiudi",
+    "continue": "Continua",
+    "dring": "Dring Dring!",
+    "edit": "Modifica",
+    "email": "Email",
+    "error": "Errore",
+    "error_occurred": "Si è verificato un errore imprevisto",
+    "favorite": "Salva",
+    "first_name": "Nome",
+    "get_directions": "Indicazioni",
+    "go_to_home": "Torna alla home",
+    "information": "Informazione",
+    "last_name": "Cognome",
+    "loading": "Caricamento...",
+    "location_impossible": "Noleggio impossibile",
+    "no_vehicles": "Nessun veicolo disponibile",
+    "password": "Password",
+    "phone_number": "Numero di telefono",
+    "please_wait": "Attendere prego...",
+    "save": "Salva",
+    "saved": "Salvato",
+    "send": "Invia",
+    "thanks": "Grazie!",
+    "unlock": "Noleggia",
+    "verify_account": "Verifica il mio account",
+    "what_to_do": "Cosa vuoi fare?",
+    "resubmit_documents": "Reinvia i documenti"
+  },
+  "invoices": {
+    "bell_icon_alt": "Icona campanello bicicletta",
+    "no_paid_trips": "Non hai ancora fatture aperte.",
+    "pay_button": "Paga",
+    "start_rental": "Inizia un noleggio",
+    "title": "Fatture",
+    "unpaid_message": "Non puoi più iniziare un noleggio finché non hai pagato le tue fatture non pagate.",
+    "unpaid_title": "Fatture non pagate",
+    "upcoming": "La tua prossima fattura sarà di {{amount}}€."
+  },
+  "launch": {
+    "no_update": "La tua applicazione è già aggiornata",
+    "searching_for_updates": "Ricerca di aggiornamenti..."
+  },
+  "kyc": {
+    "title": "Verifica dell'identità",
+    "subtitle": "Documenti d'identità",
+    "description": "Fornisci i documenti richiesti per completare la verifica della tua identità.",
+    "loading": "Caricamento...",
+    "required": "Obbligatorio",
+    "optional": "Opzionale",
+    "disabled": "Disabilitato",
+    "document_disabled": "Questo tipo di documento è attualmente disabilitato",
+    "no_documents_available": "Nessun tipo di documento disponibile",
+    "no_images_available": "Nessuna immagine disponibile per questo documento",
+    "skip_step": "Salta questo passaggio",
+    "continue": "Continua",
+    "back_to_menu": "Torna al menu",
+    "submit_document": "Invia documento",
+    "submit_and_continue": "Invia e continua",
+    "resubmit_documents": "Rinvia i documenti",
+    "document_uploaded": "Documento inviato con successo",
+    "document_removed": "Documento rimosso con successo",
+    "front_image_required": "L'immagine frontale è obbligatoria",
+    "upload_error": "Errore durante l'invio del documento",
+    "remove_error": "Errore durante la rimozione del documento",
+    "document_not_found_error": "Documento non trovato (il backend non è ancora pronto)",
+    "network_error": "Errore di connessione di rete",
+    "uploading": "Invio in corso...",
+    "uploading_documents": "Invio documenti in corso...",
+    "deleting": "Rimozione in corso...",
+    "upload_success": "Documento inviato con successo",
+    "progress": "Progresso",
+    "completed": "completato",
+    "existing_documents": "Documenti Attuali",
+    "upload_documents": "Carica Nuovi Documenti",
+    "submit_documents": "Invia Documenti",
+    "back_to_account": "Torna all'Account",
+    "no_documents_to_upload": "Nessun documento da caricare",
+    "documents_uploaded_successfully": "Documenti caricati con successo",
+    "delete_success": "Documento eliminato con successo",
+    "delete_error": "Errore durante l'eliminazione",
+    "rejection_reason": "Motivo del rifiuto",
+    "complete_mandatory_documents": "Completa tutti i documenti obbligatori per continuare",
+    "error": {
+      "title": "Errore",
+      "description": "Si è verificato un errore durante il caricamento della pagina"
+    },
+    "status": {
+      "missing": "Non inviato",
+      "pending": "Validazione in corso",
+      "approved": "Convalidato",
+      "rejected": "Rifiutato"
+    },
+    "rejection_reasons": {
+      "identity_card": "La carta d'identità fornita non è chiara o valida",
+      "passport": "Il passaporto fornito non è chiaro o valido",
+      "driving_license": "La patente di guida fornita non è chiara o valida",
+      "selfie": "La foto selfie non è chiara o valida",
+      "identity_document": "Il documento di identità fornito non è chiaro o valido"
+    },
+    "documents": {
+      "identity_card": {
+        "title": "Carta d'identità",
+        "description": "Fornisci il fronte e il retro della tua carta d'identità"
+      },
+      "passport": {
+        "title": "Passaporto",
+        "description": "Fornisci le pagine di identificazione del tuo passaporto"
+      },
+      "driving_license": {
+        "title": "Patente di guida",
+        "description": "Fornisci il fronte e il retro della tua patente di guida"
+      },
+      "selfie": {
+        "title": "Foto selfie",
+        "description": "Scatta una foto di te stesso con il tuo documento di identità"
+      },
+      "identity_document": {
+        "title": "Documento di identità",
+        "description": "Fornisci il fronte e il retro del tuo documento di identità"
+      }
+    }
+  },
+  "loading": {
+    "deleting_card": "Eliminazione della carta...",
+    "saving_card": "Convalida in corso..."
+  },
+  "map": {
+    "SHARE_LOCATION_PROMPT": "Visualizza le stazioni vicine a te condividendo la tua posizione.",
+    "SHARE_MY_POSITION": "Continua",
+    "browser_geolocation": {
+      "chrome": {
+        "documentation": "Ulteriori informazioni sulla geolocalizzazione in Chrome",
+        "step1": "Fai clic sull'icona di localizzazione (marker) nella barra degli indirizzi",
+        "step2": "Seleziona \"Consenti\" nel menu a discesa",
+        "step3": "Se hai precedentemente negato l'accesso, seleziona \"Impostazioni del sito\"",
+        "step4": "Cambia l'autorizzazione di Localizzazione in \"Consenti\"",
+        "title": "Istruzioni per Chrome"
+      },
+      "firefox": {
+        "step1": "Fai clic sull'icona del lucchetto/scudo nella barra degli indirizzi",
+        "step2": "Seleziona \"Localizzazione\" e cambia in \"Consenti\"",
+        "title": "Istruzioni per Firefox"
+      },
+      "generic": {
+        "step1": "Cerca i prompt di autorizzazione della localizzazione che appaiono nella parte superiore della pagina",
+        "step2": "Fai clic sulla barra degli indirizzi e verifica le impostazioni di autorizzazione della localizzazione",
+        "step3": "Vai alle impostazioni del browser e cerca \"Autorizzazioni di localizzazione\"",
+        "title": "Istruzioni per browser"
+      },
+      "header": "Accesso alla localizzazione richiesto",
+      "message": "Per utilizzare le funzionalità della mappa, devi attivare l'accesso alla localizzazione nel tuo browser. Segui le istruzioni qui sotto per il tuo browser:",
+      "safari": {
+        "step1": "Vai su Impostazioni > Impostazioni per {{program}}.ecovelo.mobi",
+        "step2": "Seleziona Posizione > Consenti",
+        "title": "Istruzioni per Safari"
+      }
+    },
+    "denied_position_alert": {
+      "button": "Chiudi",
+      "header": "Accesso alla posizione negato",
+      "message": "Per utilizzare questa funzionalità, autorizza l'accesso alla tua posizione nelle impostazioni del tuo dispositivo.",
+      "settings": "Apri impostazioni",
+      "subheader": "Non possiamo accedere alla tua posizione"
+    }
+  },
+  "media": {
+    "error": {
+      "compression_failed": "Compressione del file fallita",
+      "file_too_large": "File troppo grande (max 6MB)",
+      "no_file_selected": "Nessun file selezionato",
+      "processing_failed": "Elaborazione del file fallita",
+      "upload_failed": "Caricamento del file fallito"
+    },
+    "uploading": "Caricamento del file in corso..."
+  },
+  "nearest_station": {
+    "go_to_station": "Indicazioni",
+    "nearest_station": "Stazione più vicina"
+  },
+  "nearest_vehicles": {
+    "title": "Veicoli nelle vicinanze"
+  },
+  "payment": {
+    "disclaimer": "Pagamento e deposito cauzionale effettuati dopo la registrazione della carta.",
+    "save_payment_method": "Salva la tua carta",
+    "apple_pay": {
+      "not_available": "Apple Pay non è disponibile su questo dispositivo.",
+      "setup_failed": "Impossibile configurare Apple Pay. Riprova.",
+      "payment_failed": "Pagamento Apple Pay fallito. Utilizza una carta bancaria tradizionale."
+    },
+    "google_pay": {
+      "not_available": "Google Pay non è disponibile su questo dispositivo.",
+      "setup_failed": "Impossibile configurare Google Pay. Riprova.",
+      "payment_failed": "Pagamento Google Pay fallito. Utilizza una carta bancaria tradizionale."
+    },
+    "errors": {
+      "setup_intent_failed": "Impossibile inizializzare il processo di pagamento. Riprova.",
+      "setup_intent_retrieve_failed": "Impossibile recuperare le informazioni di pagamento. Riprova.",
+      "card_setup_failed": "Registrazione della carta fallita. Controlla le tue informazioni.",
+      "network_error": "Problema di connessione con il nostro fornitore di pagamenti. Riprova.",
+      "generic_error": "Si è verificato un errore durante l'elaborazione del pagamento. Riprova."
+    },
+    "card_errors": {
+      "card_declined": "La tua carta è stata rifiutata. Utilizza un'altra carta.",
+      "expired_card": "La tua carta è scaduta. Utilizza un'altra carta.",
+      "incorrect_cvc": "Il codice CVC è errato. Controlla e riprova.",
+      "processing_error": "Errore nell'elaborazione della carta. Riprova.",
+      "authentication_required": "È richiesta un'autenticazione aggiuntiva per questa carta.",
+      "insufficient_funds": "Fondi insufficienti sulla tua carta. Utilizza un'altra carta.",
+      "generic_decline": "La tua banca ha rifiutato questa transazione. Contatta la tua banca per maggiori informazioni.",
+      "lost_card": "Questa carta è stata segnalata come smarrita. Utilizza un'altra carta.",
+      "stolen_card": "Questa carta è stata segnalata come rubata. Utilizza un'altra carta.",
+      "pickup_card": "La tua banca richiede il ritiro di questa carta. Contatta la tua banca.",
+      "restricted_card": "Questa carta ha restrizioni che impediscono questo pagamento. Contatta la tua banca.",
+      "security_violation": "La tua banca ha rifiutato questo pagamento per motivi di sicurezza.",
+      "service_not_allowed": "Questo tipo di transazione non è consentito su questa carta.",
+      "transaction_not_allowed": "La tua banca ha rifiutato questa transazione. Contatta la tua banca.",
+      "try_again_later": "La tua banca non può elaborare questa transazione al momento. Riprova più tardi.",
+      "withdrawal_count_limit_exceeded": "Hai superato il limite di transazioni per questa carta oggi."
+    }
+  },
+  "new_password": {
+    "success": "Password aggiornata con successo"
+  },
+  "news": {
+    "error": "",
+    "feedback": "Invia il tuo suggerimento",
+    "no_news": "Nessun annuncio al momento! Lavoriamo costantemente per migliorare i nostri servizi e i tuoi suggerimenti sono preziosi.",
+    "title": "Novità"
+  },
+  "nfc": {
+    "active": "Attiva",
+    "associate_button": "Associa",
+    "associate_new_card": "Associa una nuova carta",
+    "associated_on": "associata il",
+    "card_image": "Immagine della carta",
+    "card_model": "Carta NFC",
+    "card_number": "Numero della carta",
+    "dissociated_on": "dissociata il",
+    "invalid_format": "Formato non valido",
+    "my_cards": "Le mie carte NFC",
+    "no_cards_found": "Nessuna carta NFC registrata",
+    "single_card_warning": "Puoi avere solo una carta attiva sul tuo account. Aggiungere una carta sostituirà la carta precedente se presente."
+  },
+  "pass": {
+    "associating": "Associazione della carta in corso...",
+    "dissociating": "Dissociazione della carta in corso..."
+  },
+  "pitstop": {
+    "secure_bike_message": "Per proteggere il tuo veicolo durante una sosta, attaccalo a un arredo urbano usando la catena integrata sul retro del veicolo.",
+    "take_photo": "Scatta una foto"
+  },
+  "promo": {
+    "errors": {
+      "empty_code": "Inserisci un codice",
+      "invalid": "Codice promozionale non valido o scaduto"
+    },
+    "loading": {
+      "applying": "Applicazione del codice promozionale..."
+    },
+    "success": {
+      "applied": "Codice promozionale applicato con successo"
+    }
+  },
+  "push_notifications": {
+    "accept": "Attiva le notifiche",
+    "accept_cta": "Apri impostazioni",
+    "accept_header": "Attiva le notifiche",
+    "accept_message": "Sembra che tu abbia disattivato le notifiche. Per ricevere le notifiche, attivale nelle impostazioni del tuo dispositivo.",
+    "deny_cta": "Apri impostazioni",
+    "deny_header": "Disattiva le notifiche",
+    "deny_message": "Per disattivare le notifiche, modifica le impostazioni del tuo dispositivo.",
+    "description": "Permettici di inviarti notifiche per informarti della fine dei tuoi viaggi e altre informazioni importanti.",
+    "skip": "Continua senza notifiche",
+    "title": "Notifica di viaggio"
+  },
+  "recommandation": {
+    "loading": "Raccomandazione in corso...",
+    "recommanded_by": "Raccomandato da",
+    "success": "La tua raccomandazione è stata registrata con successo"
+  },
+  "recommandation_congrats": {
+    "message": "La tua raccomandazione è stata registrata con successo! I ciclisti nei dintorni potranno ora beneficiare del tuo consiglio.",
+    "success_alt": "Grazie!"
+  },
+  "report_congrats": {
+    "message": "I nostri agenti potranno ora elaborare la tua segnalazione!",
+    "success_alt": "Grazie!"
+  },
+  "reset_password": {
+    "code_sent": "Codice di reimpostazione inviato con successo",
+    "send_code": "Invia il codice",
+    "title": "Reimposta la password",
+    "errors": {
+      "code_mismatch": "Il codice di conferma non è corretto.",
+      "code_expired": "Il codice di conferma è scaduto. Si prega di richiedere un nuovo codice.",
+      "limit_exceeded": "Limite di tentativi superato. Riprova più tardi.",
+      "password_requirements": "La password non soddisfa i requisiti di sicurezza.",
+      "username_not_found": "Nessun account è associato a questo numero di telefono.",
+      "invalid_parameter": "Parametro non valido fornito.",
+      "generic": "Si è verificato un errore durante la reimpostazione della password.",
+      "recaptcha_failed": "Verifica reCAPTCHA fallita. Riprova."
+    }
+  },
+  "searchbar": {
+    "placeholder": "Stazione, bici, indirizzo...",
+    "no_results": "Nessun risultato trovato"
+  },
+  "search": {
+    "stations": "Stazioni",
+    "vehicles": "Veicoli",
+    "no_info": "Informazioni non disponibili",
+    "not_rentable": "Non disponibile"
+  },
+  "settings": {
+    "change_password": "Modifica la mia password",
+    "delete_account": "Elimina il mio account",
+    "infos": {
+      "title": "Informazioni personali",
+      "email_changed": "Email modificata con successo",
+      "email_changed_note": "La tua email ci permette di tenerti informato quando il tuo account richiede un'azione da parte tua (Metodo di pagamento in scadenza, abbonamento in scadenza, ecc.)",
+      "errors": {
+        "invalid_email": "Inserisci un indirizzo email valido"
+      }
+    },
+    "notifications": {
+      "can_disable": "Disattivabile in qualsiasi momento",
+      "title": "Attiva le notifiche"
+    },
+    "terms_of_service": "Termini e condizioni di accesso e utilizzo",
+    "title": "Impostazioni"
+  },
+  "signal": {
+    "example": "esempio: Avevo assistenza all'inizio del viaggio ma si è interrotta dopo 5 minuti",
+    "more": "Per elaborare al meglio la tua segnalazione, non esitare a fornire dettagli.",
+    "no_results": "Nessun risultato trovato",
+    "search": "Veicolo o stazione interessata",
+    "search_error": "Si è verificato un errore durante la ricerca",
+    "title": "Segnala"
+  },
+  "signin": {
+    "apple_signin": "Accedi con Apple",
+    "forgot_password": "Password dimenticata?",
+    "google_signin": "Accedi con Google",
+    "or": "o",
+    "signup": "Non sei ancora registrato? Registrati",
+    "skip_step": "Salta questo passaggio",
+    "title": "Accedi"
+  },
+  "signup": {
+    "apple_signup": "Registrati con Apple",
+    "complete_profile": "Completa il tuo profilo",
+    "google_signup": "Registrati con Google",
+    "or": "o",
+    "signin": "Hai già un account? Accedi",
+    "skip_step": "Salta questo passaggio",
+    "title": "Registrati"
+  },
+  "subscription": {
+    "billing": {
+      "display": {
+        "days": "Fatturazione giornaliera",
+        "months": "Fatturazione mensile",
+        "years": "Fatturazione annuale"
+      }
+    },
+    "creation": {
+      "error": "Errore durante la creazione dell'abbonamento",
+      "error_with_detail": "Errore durante la creazione dell'abbonamento: {{detail}}",
+      "loading": "Creazione dell'abbonamento..."
+    },
+    "deletion": {
+      "confirm": {
+        "cancel": "Annulla",
+        "confirm": "Conferma",
+        "message": "Il tuo abbonamento passerà allo stato \"eliminazione richiesta\" mentre il nostro sistema verifica che non hai fatture in corso. Poi tornerai alla tariffazione predefinita. Potrai quindi scegliere un nuovo piano se lo desideri.",
+        "title": "Sei sicuro?"
+      },
+      "error": "Errore durante l'eliminazione dell'abbonamento",
+      "loading": "Eliminazione dell'abbonamento...",
+      "no_active": "Nessun abbonamento attivo",
+      "success": "Abbonamento eliminato"
+    },
+    "status": {
+      "default_pricing": "Tariffazione predefinita: {{price}}",
+      "incomplete": "Abbonamento incompleto",
+      "unpaid": "Abbonamento non pagato",
+      "past_due": "Scaduto",
+      "waiting_validation": "Abbonamento in attesa di convalida",
+      "active": "Abbonamento attivo",
+      "deletion_requested": "Abbonamento in corso di eliminazione",
+      "expires_in": "Scade tra {{days}} giorni. Dopo questo periodo, la tariffazione sarà di {{price}}"
+    }
+  },
+  "subscription_item": {
+    "back_side": "Lato posteriore",
+    "date_range": "Dal {{start}} al {{end}}",
+    "front_side": "Lato anteriore",
+    "since_date": "Dal {{date}}",
+    "supporting_documents": "Documenti giustificativi",
+    "terminate": "Termina"
+  },
+  "support": {
+    "call_us": "Chiamaci",
+    "contact_us": "Contattaci",
+    "email_us": "Inviaci un'email",
+    "faq": {
+      "all_none": "Tutte / nessuna",
+      "no_results": "Nessuna domanda corrisponde alla tua ricerca, se il tuo problema non è elencato qui, contattaci!",
+      "search_placeholder": "La tua domanda",
+      "select_categories": "Filtra per categoria",
+      "title": "FAQ"
+    },
+    "opening_hours": {
+      "days": {
+        "1": "Lunedì",
+        "2": "Martedì",
+        "3": "Mercoledì",
+        "4": "Giovedì",
+        "5": "Venerdì",
+        "6": "Sabato",
+        "0": "Domenica",
+        "holidays": "Festivi"
+      },
+      "format": "HH:mm",
+      "time_slot": "dalle {{open}} alle {{close}}",
+      "closed": "Chiuso",
+      "from": "Dal",
+      "to": "al"
+    },
+    "title": "Supporto"
+  },
+  "tasks": {
+    "creating": "Registrazione in corso...",
+    "errors": {
+      "creation": "Errore durante la creazione della segnalazione"
+    },
+    "success": {
+      "created": "Grazie per la tua segnalazione!"
+    }
+  },
+  "trip": {
+    "status": {
+      "completed": "Completato",
+      "renting": "In noleggio",
+      "terminating": "Terminazione in corso",
+      "termination_requested": "Richiesta di terminazione"
+    },
+    "metrics": {
+      "co2_saved": "gCO2 risparmiati",
+      "kcal_burned": "Kcal bruciate"
+    }
+  },
+  "trips": {
+    "previous": "Viaggi precedenti",
+    "today": "Oggi",
+    "yesterday": "Ieri"
+  },
+  "trips_congrats": {
+    "continue": "Continua >",
+    "lets_go": "Andiamo!",
+    "scooter_message": "Il tuo veicolo è sbloccato, fai attenzione.",
+    "success_alt": "successo",
+    "unlock_code_message": "Ecco il tuo codice di sblocco da inserire sul retro del veicolo {{number}}",
+    "auto_unlock_message": "Veicolo n°{{number}} sbloccato con successo"
+  },
+  "trips_dring": {
+    "description": "Inizia il tuo viaggio ora e unisciti alla nostra comunità di ciclisti appassionati!",
+    "start_trip": "Inizia il mio primo viaggio"
+  },
+  "verify_phone": {
+    "code_expired_error": "Il codice è scaduto. Richiedi un nuovo codice.",
+    "code_mismatch_error": "Il codice inserito non corrisponde. Riprova.",
+    "confirming_cyclist": "Conferma del ciclista in corso...",
+    "delete_account": "Conferma l'eliminazione dell'account",
+    "delete_account_message": "Questa registrazione verrà chiusa e tutti i dati eliminati. Potrai creare un nuovo account con il numero di telefono corretto.",
+    "error_message": "Verifica del numero di telefono fallita. Riprova.",
+    "init_error": "Errore di inizializzazione. Riprova.",
+    "instructions": "Inserisci il codice ricevuto via SMS al {{phone}}.",
+    "limit_exceeded_error": "Limite di tentativi superato. Riprova più tardi.",
+    "phone_error": "Un errore nel numero di telefono?",
+    "resend_code": "Non hai ancora ricevuto il codice?",
+    "resend_code_link": "Rinvia il codice",
+    "signup_again": "Ricomincia la registrazione",
+    "subtitle": "Verifica del tuo numero di telefono",
+    "verify_button": "Verifica",
+    "verifying": "Verifica in corso..."
+  },
+  "wallet": {
+    "apply": "Applica",
+    "apply_promo": "Applica codice promozionale",
+    "no_transactions": "Nessuna transazione",
+    "promo_code": "Codice promozionale",
+    "transactions": "Transazioni",
+    "transactions_error": "Errore durante il caricamento delle transazioni: {{message}}",
+    "transaction": {
+      "reason": {
+        "adjustment": "Rettifica",
+        "applied_to_invoice": "Applicato alla fattura",
+        "applied_to_trip": "Applicato al viaggio",
+        "credit_note": "Nota di credito",
+        "initial": "Iniziale",
+        "invoice_overpaid": "Fattura sovrapagata",
+        "invoice_too_large": "Fattura troppo grande",
+        "invoice_too_small": "Fattura troppo piccola",
+        "refund": "Rimborso",
+        "remise": "Sconto",
+        "unspent_receiver_credit": "Credito non speso",
+        "unapplied_from_invoice": "Non applicato dalla fattura"
+      }
+    }
+  },
+  "common": {
+    "retry": "Riprova",
+    "rejection_reason": "Motivo del rifiuto"
+  },
+  "qr-scanner": {
+    "title": "Scansiona codice QR",
+    "instruction": "Posiziona il codice QR della bici all'interno del riquadro per scannerizzarlo",
+    "scan_instruction": "Posiziona il codice QR della bici all'interno del riquadro",
+    "start-scan": "Inizia scansione",
+    "scanning": "Scansione codice QR...",
+    "error": {
+      "permission": "Permesso di accesso alla fotocamera negato",
+      "generic": "Errore nella scansione del codice QR",
+      "invalid_format": "Non abbiamo trovato il veicolo che stavi cercando. Riprova."
+    }
+  },
+  "auto_unlock": {
+    "unlocking_title": "Sblocco in corso...",
+    "success": "Sbloccato!",
+    "success_message": "Puoi rimuovere la catena dalla tua bici",
+    "error_title": "Oops!",
+    "start_ride": "Buon viaggio e sii prudente"
+  },
+  "qr_code": {
+    "error": {
+      "missing_vehicle_id": "Nessun veicolo specificato nel link",
+      "authentication_required": "Devi essere connesso per sbloccare un veicolo",
+      "profile_error": "Errore nel caricamento del tuo profilo",
+      "initialization_failed": "Errore durante l'inizializzazione",
+      "wrong_program": "Questo veicolo non appartiene a questo programma o non esiste"
+    },
+    "not_rentable": {
+      "title": "Veicolo non disponibile",
+      "back_to_map": "Torna alla mappa",
+      "general": "Questo veicolo non è disponibile per il noleggio al momento.",
+      "maintenance": "Questo veicolo è in manutenzione e non può essere noleggiato.",
+      "lost": "Questo veicolo è segnalato come smarrito e non può essere noleggiato.",
+      "destroyed": "Questo veicolo non è più in servizio.",
+      "update": "Questo veicolo è in aggiornamento e non può essere noleggiato.",
+      "caddie_blocked": "Questo veicolo è bloccato da un altro veicolo collegato.",
+      "unknown": "Questo veicolo non è disponibile per un motivo sconosciuto."
+    }
+  },
+  "vehicle": {
+    "number": "Bici n°",
+    "unlock": "Noleggia",
+    "station": "Stazione",
+    "unlock_confirm": "Sblocca questa bici",
+    "battery_remaining": "{{percent}}% di batteria rimanente, circa {{km}}km",
+    "battery_sufficient_question": "È sufficiente per il tuo viaggio?",
+    "continue": "Continua",
+    "skip_next_time": "Non mostrare più questa pagina e avvia direttamente i miei prossimi noleggi"
+  },
+  "unlock_options": {
+    "title": "Come sbloccare?",
+    "message": "Scegli il tuo metodo di sblocco",
+    "scan_qr": "Scansiona codice QR",
+    "manual_entry": "Inserisci il numero manualmente"
+  }
+}

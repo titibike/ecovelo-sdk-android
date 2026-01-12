@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/header/header.component.scss"],
+  "sourcesContent": ["ion-toolbar {\n  --min-height: 100px !important;\n}\nion-img::part(image) {\n  max-height: 60px !important;\n}\n"],
+  "mappings": ";AAAA;AACE,gBAAA;;AAEF,OAAA,OAAA;AACE,cAAA;;",
+  "names": []
+}

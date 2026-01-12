@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/vehicle/vehicle.component.scss"],
+  "sourcesContent": ["ion-row {\n  width: 100%;\n}\nion-note {\n  width: 50px;\n}\n"],
+  "mappings": ";AAAA;AACE,SAAA;;AAEF;AACE,SAAA;;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/account/support/support.page.scss"],
+  "sourcesContent": [".buttons {\n  display: flex;\n  flex-direction: column;\n}\na {\n  text-decoration: none;\n}\nion-text {\n  padding-left: 5px;\n}\n#faq {\n  margin-top: 20px;\n  border-top: 1px solid var(--ion-color-grey-shade);\n}\nion-modal#example-modal {\n  --width: fit-content;\n  --min-width: 250px;\n  --max-width: 80vw;\n  --height: fit-content;\n  --border-radius: 6px;\n  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);\n}\n\nion-modal#example-modal .wrapper {\n  padding: 20px;\n}\n\n.compact-list {\n  --ion-item-padding-start: 0;\n  --ion-item-padding-end: 0;\n  --ion-item-padding-top: 2px;\n  --ion-item-padding-bottom: 2px;\n}\n\n.compact-item {\n  --min-height: 24px;\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,kBAAA;;AAEF;AACE,mBAAA;;AAEF;AACE,gBAAA;;AAEF,CAAA;AACE,cAAA;AACA,cAAA,IAAA,MAAA,IAAA;;AAEF,SAAA,CAAA;AACE,WAAA;AACA,eAAA;AACA,eAAA;AACA,YAAA;AACA,mBAAA;AACA,gBAAA,EAAA,KAAA,KAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;;AAGF,SAAA,CATA,cASA,CAAA;AACE,WAAA;;AAGF,CAAA;AACE,4BAAA;AACA,0BAAA;AACA,0BAAA;AACA,6BAAA;;AAGF,CAAA;AACE,gBAAA;;",
+  "names": []
+}

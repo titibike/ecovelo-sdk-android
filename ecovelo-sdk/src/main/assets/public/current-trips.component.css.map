@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/drawers/current-trips/current-trips.component.scss"],
+  "sourcesContent": [":host {\n  ion-toolbar {\n    --background: #fff;\n  }\n}\n.ecl-recommandation_item {\n  border-radius: 99px;\n  border-top-left-radius: 0;\n}\n\n.vehicle-icon-container {\n  position: relative;\n  overflow: visible;\n}\n\n.pitstop-lock-icon {\n  position: absolute;\n  top: -5px;\n  left: -3px;\n  font-size: 20px;\n  z-index: 1;\n  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));\n}\n\n.vehicle-icon-dimmed {\n  opacity: 0.7;\n  filter: blur(0.5px);\n}\n"],
+  "mappings": ";AACE,MAAA;AACE,gBAAA;;AAGJ,CAAA;AACE,iBAAA;AACA,0BAAA;;AAGF,CAAA;AACE,YAAA;AACA,YAAA;;AAGF,CAAA;AACE,YAAA;AACA,OAAA;AACA,QAAA;AACA,aAAA;AACA,WAAA;AACA,UAAA,YAAA,EAAA,EAAA,IAAA,KAAA,GAAA,EAAA,GAAA,EAAA,GAAA,EAAA;;AAGF,CAAA;AACE,WAAA;AACA,UAAA,KAAA;;",
+  "names": []
+}

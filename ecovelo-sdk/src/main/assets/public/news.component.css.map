@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/drawers/news/news.component.scss"],
+  "sourcesContent": [".ecl-news-wrapper {\n  display: flex;\n  overflow-x: auto;\n\n  ion-card {\n    flex: 0 0 65%;\n    height: 300px;\n    display: flex;\n    flex-direction: column;\n\n    ion-img {\n      height: 50%;\n      object-fit: cover;\n    }\n\n    ion-card-header {\n      padding: 12px 20px 4px 20px;\n      ion-card-title {\n        font-size: 1.2rem;\n        ::ng-deep p {\n          margin: 0;\n        }\n      }\n    }\n  }\n}\nion-modal.modal-sheet::part(content) {\n  overflow: visible;\n  --overflow: visible;\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,cAAA;;AAEA,CAJF,iBAIE;AACE,QAAA,EAAA,EAAA;AACA,UAAA;AACA,WAAA;AACA,kBAAA;;AAEA,CAVJ,iBAUI,SAAA;AACE,UAAA;AACA,cAAA;;AAGF,CAfJ,iBAeI,SAAA;AACE,WAAA,KAAA,KAAA,IAAA;;AACA,CAjBN,iBAiBM,SAAA,gBAAA;AACE,aAAA;;AACA,CAnBR,iBAmBQ,SAAA,gBAAA,eAAA,UAAA;AACE,UAAA;;AAMV,SAAA,CAAA,WAAA,OAAA;AACE,YAAA;AACA,cAAA;;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/modals/feedback/feedback.component.scss"],
+  "sourcesContent": ["ion-textarea {\n  min-height: 250px !important;\n}\n"],
+  "mappings": ";AAAA;AACE,cAAA;;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/main-drawer/main-drawer.component.scss"],
+  "sourcesContent": ["ion-content {\n  &::part(scroll) {\n    overflow-y: auto;\n    overscroll-behavior: contain;\n  }\n}\n"],
+  "mappings": ";AACE,WAAA,OAAA;AACE,cAAA;AACA,uBAAA;;",
+  "names": []
+}

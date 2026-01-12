@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/modals/signal/signal.component.scss"],
+  "sourcesContent": ["ion-textarea {\n  min-height: 100px !important;\n}\n"],
+  "mappings": ";AAAA;AACE,cAAA;;",
+  "names": []
+}

@@ -1,0 +1,1171 @@
+{
+  "abo_congrats": {
+    "ready_to_ride": "You are now ready to ride with {{program}}!",
+    "title": "Let's ride!",
+    "waiting_validation": "Your subscription is pending validation. You will soon be able to start your first trip with {{program}}!"
+  },
+  "abonnements": {
+    "active_subscription": "Active subscription",
+    "error": {
+      "loading": "An error occurred while loading your subscriptions.",
+      "title": "Error"
+    },
+    "no_subscription": {
+      "message": "You don't have any subscriptions at the moment.",
+      "title": "No subscription"
+    },
+    "pending_subscription": "Subscription pending validation",
+    "previous_subscriptions": "Previous subscriptions"
+  },
+  "account": {
+    "deletion": {
+      "confirm": "Delete",
+      "error": "An error occurred while deleting the account",
+      "header": "Delete your account",
+      "loading": "Deleting account...",
+      "message": "Warning, your access to the rental service will be immediately suspended. Your account and data will be permanently deleted after verification that no payment or trip is in progress."
+    },
+    "menu": {
+      "account_blocked": {
+        "message": "Your account has been blocked since {{date}} at {{time}}. You can no longer rent vehicles.",
+        "reason": "Reason for blocking: {{reason}}",
+        "title": "Account blocked",
+        "reasons": {
+          "Subscription does not allow renting": "Your subscription does not allow renting.",
+          "Unpaid invoices": "You have unpaid invoices",
+          "No valid payment method available": "No valid payment method available",
+          "Identity verification incomplete": "Identity verification incomplete",
+          "KYC documents incomplete": "Identity verification incomplete",
+          "Unknown account state": "Unknown account state",
+          "Account not confirmed": "Account not confirmed",
+          "Account deleted": "Account deleted",
+          "Account deletion requested": "Account deletion requested",
+          "Account blocked": "Account blocked"
+        },
+        "location_impossible": "Rental impossible"
+      },
+      "account_deletion": {
+        "message": "Your account is being deleted. It will be permanently deleted after verification that no payment or trip is in progress.",
+        "title": "Account being deleted"
+      },
+      "footer": {
+        "cookies": "Cookie policy",
+        "privacy": "Privacy policy",
+        "report_problem": "Report a problem"
+      },
+      "greeting": "Hello {{name}}!",
+      "invoices": {
+        "last_invoice": "Last invoice: {{amount}}€ on {{date}}",
+        "no_invoices": "No invoices",
+        "title": "Invoices",
+        "unpaid_invoices": "You have one or more unpaid invoices"
+      },
+      "logout": "Log out",
+      "nfc": {
+        "no_active_card": "No active NFC card",
+        "title": "NFC Card"
+      },
+      "no_trip": "No trip in progress",
+      "no_upcoming_invoice": "No upcoming invoice",
+      "payment_methods": {
+        "card_expired": "Your card has expired, please update it to continue renting.",
+        "card_expiring_soon": "Your card will expire soon, please update it to continue renting.",
+        "card_info": "{{number}} | Exp: {{expiry}}",
+        "no_payment_method": "No payment method",
+        "title": "Payment methods"
+      },
+      "settings": {
+        "cgu_update": "We changed our Terms of Service on {{date}}, to continue renting, please accept our Terms of Service.",
+        "description": "Data management, notifications",
+        "title": "Settings"
+      },
+      "subscriptions": {
+        "loading_error": "Loading error",
+        "pending_validation": "| Pending validation",
+        "plans": "Plans",
+        "title": "Subscriptions",
+        "view_plans": "Choose a plan"
+      },
+      "support": {
+        "access": "Have a question? Access support",
+        "title": "Support"
+      },
+      "trips": {
+        "active_over_24h": "Trip in progress over 24h",
+        "active_over_3h": "Trip in progress over 3h",
+        "no_trip": "No trip",
+        "title": "Trips"
+      },
+      "unauthenticated": {
+        "login": "Log in",
+        "signup": "Sign up",
+        "subscriptions": "Plans",
+        "support": "Support center",
+        "terms": "Terms of Service",
+        "welcome": "Welcome",
+        "welcome_message": "🚴‍♂️ Ready to ride? Join us for simple and quick trips!"
+      },
+      "wallet": {
+        "balance": "balance: {{amount}}€ | {{minutes}} minutes",
+        "title": "Wallet"
+      },
+      "kyc": {
+        "title": "Identity Verification",
+        "description": "Manage your identity documents",
+        "status": {
+          "complete": "Documents approved",
+          "pending": "Documents under review",
+          "incomplete": "Documents required",
+          "rejected": "Some documents were rejected"
+        }
+      },
+      "vlld": {
+        "title": "VLLD Space",
+        "description": "Access the medium and long-term bike rental space"
+      },
+      "sections": {
+        "bike_sharing": "Bike sharing",
+        "long_term": "Long term bike rental",
+        "my_account": "My account"
+      }
+    }
+  },
+  "renting": {
+    "actions": {
+      "start": "Start",
+      "pause": "Pause"
+    },
+    "alerts": {
+      "attention": "Already?",
+      "position_unknown": "We couldn't determine your position relative to the vehicle, are you close enough to start the trip?",
+      "vehicle_far": "The vehicle is {{distance}}m away from you. Are you sure you want to start the trip now?",
+      "pause_trip": "Minute stop",
+      "pause_trip_confirmation": "Do you want to pause your trip? Don't forget that billing continues during the stop"
+    },
+    "loading": {
+      "end_trip": "Trip ending in progress...",
+      "end_trip_request": "Trip end request in progress...",
+      "resume_trip": "Trip resumption in progress..."
+    },
+    "success": {
+      "end_trip_request": "Trip end request sent successfully"
+    }
+  },
+  "auth": {
+    "existing_account": {
+      "forgot_password": "Forgot password",
+      "message": "This phone number is already associated with an account. Sign in to access your account.",
+      "signin": "Sign in",
+      "title": "Existing account"
+    },
+    "signing_in": "Signing in...",
+    "updating_password": "Updating password...",
+    "errors": {
+      "program_closed": "It is impossible to create a cyclist in a service that has been closed.",
+      "phone_number_already_used": "A user already exists with this phone number.",
+      "email_already_used": "A user already exists with this email address.",
+      "signup_lock_already_exists": "An account creation attempt is already in progress for this phone number.",
+      "invalid_email": "Your email address is invalid.",
+      "invalid_phone_number": "Your phone number is invalid.",
+      "cognito_account_not_found": "Unable to find the account associated with the user.",
+      "cognito_email_invalid": "The provided email is not valid.",
+      "cognito_name_required": "The user's name is required for account creation.",
+      "cognito_role_required": "The user's role is required for account creation.",
+      "cognito_phone_number_required": "The user's phone number is required for account creation.",
+      "program_required": "The program was not provided for account creation.",
+      "user_creation_failed": "The user could not be created.",
+      "already_used_phone_number": "A cyclist already exists with this phone number.",
+      "wrong_confirmation_method": "To confirm your account, please log into the application.",
+      "phone_number_not_verified": "Please confirm your phone number.",
+      "already_confirmed": "Your account is already active.",
+      "force_change_password": "The temporary password must be provided in the application to choose a new one.",
+      "invalid_password": "The provided password is not valid.",
+      "already_activated": "Your account is already active."
+    }
+  },
+  "bike-number": {
+    "battery-info": "{{percent}}% battery remaining (approximately {{distance}}km)",
+    "bikebell-image": "Bike bell",
+    "discover-stations": "Access the station map >",
+    "enter-number": "Choose a vehicle",
+    "enter-number-description": "Enter the vehicle number located on the frame or the box",
+    "location-request-message": "We would like to offer you vehicles near your position. For this, we need your location.",
+    "not-available": "This vehicle is temporarily unavailable. Please choose another one.",
+    "not-found": "Vehicle not found",
+    "number": "Vehicle number",
+    "request-location": "Enable location",
+    "searching": "Searching...",
+    "start-renting": "Start"
+  },
+  "cards": {
+    "add_card": "Add a card",
+    "default": "Default",
+    "delete": "Delete",
+    "empty": "You don't have any saved cards yet",
+    "my_cards": "My cards",
+    "save": "Save",
+    "set_default": "Set as default"
+  },
+  "cgu": {
+    "accept": "I have read and accept the",
+    "accept_button": "Accept terms and conditions",
+    "accepted": "Terms and conditions accepted",
+    "accepted_on": "Terms and conditions accepted on:",
+    "name": "terms and conditions of access and use",
+    "update_message": "Our terms and conditions are evolving to incorporate new features. Please review and accept these terms and conditions, published on"
+  },
+  "cgu_congrats": {
+    "message": "Thank you for accepting our terms and conditions. You can now fully enjoy our services!",
+    "success_alt": "Terms accepted",
+    "title": "Thank you!",
+    "error": "An error occurred while accepting the terms and conditions. Please try again."
+  },
+  "change_password": {
+    "current_password": "Current password",
+    "new_password": "New password",
+    "title": "Change my password",
+    "update_button": "Update password"
+  },
+  "confirm_code": {
+    "change_password": "Change password",
+    "confirm_password": "Confirm the new password",
+    "enter_code": "Enter the confirmation code received by SMS and create a new password.",
+    "err_CodeMismatchException": "The confirmation code is incorrect",
+    "err_different_password": "Passwords do not match",
+    "err_missing_code": "The confirmation code is required",
+    "err_password_length": "The password must contain at least 6 characters",
+    "new_password": "Enter the new password",
+    "success": "Password successfully updated",
+    "title": "Create a new password"
+  },
+  "cookies": {
+    "accept_all_btn": "Accept all",
+    "accept_body": "By clicking \"I accept\", you consent to the purposes above.",
+    "accept_btn": "I accept",
+    "alert": {
+      "accept": "Accept",
+      "close": "Close",
+      "header": "Analytics cookies required",
+      "message": "To allow us to collect your feedback, we need your authorization for analytics cookies."
+    },
+    "analytics_body": "Your data may be used to improve existing systems and software and develop new products.",
+    "analytics_title": "Analytics cookies",
+    "first_body": "We use cookies to provide you with the best experience on our site. You can manage your cookie preferences.",
+    "modal_title": "Manage my cookies",
+    "needed_body": "These cookies are necessary for the proper functioning of the site and therefore cannot be disabled. They are generally used to provide you with the content and functions of the site or to perform the actions you initiate (remembering your cookie choices or allowing you to authenticate on the site).",
+    "needed_title": "Strictly necessary cookies"
+  },
+  "country": {
+    "results": "{{displayed}} displayed out of {{total}}",
+    "search": "Search for a country"
+  },
+  "current_trips": {
+    "completed_trips": "Recent trips",
+    "current_trips": "Current trips",
+    "pitstop": "Quick stop",
+    "recommend_bike": "Would you recommend this vehicle?",
+    "terminating_message": "Your vehicle is securely docked at the station",
+    "pitstop_info_message": "You must first resume your trip before you can end it",
+    "renting_info_message": "Information about your ongoing trip"
+  },
+  "documents": {
+    "back_side": "Back side",
+    "camera": "Camera",
+    "description": "Please provide the following documents to finalize your subscription:",
+    "front_side": "Front side",
+    "gallery": "Gallery",
+    "select": "Select",
+    "title": "Supporting documents",
+    "subtitle": "Required documents",
+    "validate_subscription": "Validate my subscription",
+    "validate_kyc": "Validate my documents",
+    "submit": "Submit documents",
+    "generic_description": "Please provide the front and back of this document",
+    "kyc": {
+      "identity_card": "Identity Card",
+      "passport": "Passport",
+      "driving_license": "Driving License",
+      "selfie": "Selfie Photo",
+      "identity_document": "Identity Document"
+    }
+  },
+  "kyc": {
+    "title": "Identity Verification",
+    "subtitle": "Identity Documents",
+    "description": "Please provide the requested documents to complete your identity verification.",
+    "loading": "Loading...",
+    "required": "Required",
+    "optional": "Optional",
+    "skip_step": "Skip this step",
+    "continue": "Continue",
+    "back_to_menu": "Back to menu",
+    "submit_document": "Submit document",
+    "submit_and_continue": "Submit and continue",
+    "document_uploaded": "Document uploaded successfully",
+    "document_removed": "Document removed successfully",
+    "front_image_required": "Front image is required",
+    "upload_error": "Error uploading document",
+    "remove_error": "Error removing document",
+    "document_not_found_error": "Document not found (backend not ready yet)",
+    "network_error": "Network connection error",
+    "uploading": "Uploading...",
+    "deleting": "Deleting...",
+    "upload_success": "Document uploaded successfully",
+    "delete_success": "Document deleted successfully",
+    "delete_error": "Error deleting document",
+    "rejection_reason": "Rejection reason",
+    "complete_mandatory_documents": "Please complete all mandatory documents to continue",
+    "progress": "Progress",
+    "completed": "completed",
+    "no_documents_available": "No document types are available for verification",
+    "no_images_available": "No images available for this document",
+    "existing_documents": "Current Documents",
+    "upload_documents": "Upload New Documents",
+    "submit_documents": "Submit Documents",
+    "back_to_account": "Back to Account",
+    "no_documents_to_upload": "No documents to upload",
+    "documents_uploaded_successfully": "Documents uploaded successfully",
+    "error": {
+      "title": "Error",
+      "description": "An error occurred while loading the page"
+    },
+    "status": {
+      "not_submitted": "Document not submitted",
+      "pending": "Validation in progress",
+      "approved": "Document validated",
+      "rejected": "Document rejected"
+    },
+    "rejection_reasons": {
+      "identity_card": "The identity card provided is not clear or valid",
+      "passport": "The passport provided is not clear or valid",
+      "driving_license": "The driving license provided is not clear or valid",
+      "selfie": "The selfie photo is not clear or valid",
+      "identity_document": "The identity document provided is not clear or valid"
+    },
+    "documents": {
+      "identity_card": {
+        "title": "Identity Card",
+        "description": "Please provide the front and back of your identity card"
+      },
+      "passport": {
+        "title": "Passport",
+        "description": "Please provide the identification pages of your passport"
+      },
+      "driving_license": {
+        "title": "Driving License",
+        "description": "Please provide the front and back of your driving license"
+      },
+      "selfie": {
+        "title": "Selfie Photo",
+        "description": "Please take a photo of yourself with your identity document"
+      },
+      "identity_document": {
+        "title": "Identity Document",
+        "description": "Please provide the front and back of your identity document"
+      }
+    }
+  },
+  "ending_trips": {
+    "automatic_closure": "Your trip automatically closes when you secure the vehicle at a station.",
+    "ending_code": "End of trip code",
+    "error_message": "In case of error, enter the code displayed on the screen at the back of your vehicle.",
+    "no_code": "No code?",
+    "photo_message": "Once the photo is sent, the duration of your trip will be fixed until our system is certain the vehicle has been properly returned. If you take the vehicle again or if it is not properly locked at the station, your trip will be reopened.",
+    "photo_only_message": "To end your rental, please take a photo of the vehicle parked in the designated area.",
+    "take_photo": "Take a photo of the vehicle at the station"
+  },
+  "external_auth": {
+    "title": "External Authentication",
+    "failed_title": "Authentication Failed",
+    "generic_error": "External authentication failed. Please sign in again.",
+    "retry": "Retry",
+    "sign_in_again": "Sign In Again",
+    "back_to_map": "Back to Map",
+    "refresh_session": "Refresh Session",
+    "session_refreshed": "Session refreshed successfully",
+    "session_refresh_failed": "Failed to refresh session",
+    "retry_failed": "Retry failed",
+    "help_text": "If the problem persists, please contact customer support.",
+    "signing_out": "Signing out..."
+  },
+  "error": {
+    "generic": "An error has occurred. If the error persists, please contact support.",
+    "key": {
+      "account_blocked": "Your current account status does not allow you to rent a vehicle.",
+      "_comment": "=== STRIPE DECLINE CODES ===",
+      "insufficient_funds": "Insufficient funds on your card. Please use another card.",
+      "lost_card": "This card has been reported as lost. Please use another card.",
+      "stolen_card": "This card has been reported as stolen. Please use another card.",
+      "pickup_card": "Your bank requests this card to be retrieved. Contact your bank.",
+      "restricted_card": "This card has restrictions that prevent this payment. Contact your bank.",
+      "security_violation": "Your bank declined this payment for security reasons.",
+      "service_not_allowed": "This type of transaction is not allowed on this card.",
+      "transaction_not_allowed": "Your bank declined this transaction. Contact your bank.",
+      "try_again_later": "Your bank cannot process this transaction right now. Please try again later.",
+      "withdrawal_count_limit_exceeded": "You have exceeded the transaction limit for this card today.",
+      "generic_decline": "Your bank declined this transaction. Contact your bank for more information.",
+      "card_declined": "Your card was declined. Please use another card.",
+      "expired_card": "Your card has expired. Please use another card.",
+      "incorrect_cvc": "The CVC code is incorrect. Please check and try again.",
+      "processing_error": "Error processing the card. Please try again.",
+      "authentication_required": "Additional authentication is required for this card.",
+      "client_secret_required": "Client secret is required to perform this operation.",
+      "apple_pay_payment_failed": "Apple Pay payment failed. Please try again.",
+      "google_pay_payment_failed": "Google Pay payment failed. Please try again.",
+
+      "_comment2": "=== COGNITO/AWS ERRORS ===",
+      "UserNotFoundException": "This phone number does not seem to be associated with an account.",
+      "NotAuthorizedException": "Incorrect username or password.",
+      "InvalidPasswordException": "The provided password is not valid.",
+      "UserNotConfirmedException": "User is not confirmed. Please check your phone.",
+      "CodeMismatchException": "The confirmation code is incorrect.",
+      "CodeExpiredException": "The confirmation code has expired. Please request a new code.",
+      "LimitExceededException": "Attempt limit exceeded. Please try again later.",
+      "TooManyRequestsException": "Too many failed login attempts. Please try again later.",
+      "InvalidParameterException": "Invalid parameter provided.",
+      "UserLambdaValidationException": "Validation error during account creation.",
+      "InvalidCredentialsException": "Incorrect username or password.",
+      "UsernameExistsException": "This username already exists.",
+      "AliasExistsException": "This email address or phone number is already in use.",
+
+      "_comment_cognito_keys": "=== COGNITO ERROR KEYS (from message parsing) ===",
+      "user_not_found": "This phone number does not seem to be associated with an account. If you signed up with Apple or Google, please use that sign-in method.",
+      "not_authorized": "Incorrect username or password.",
+      "user_not_confirmed": "User is not confirmed. Please check your phone.",
+      "code_mismatch": "The confirmation code is incorrect.",
+      "code_expired": "The confirmation code has expired. Please request a new code.",
+      "limit_exceeded": "Attempt limit exceeded. Please try again later.",
+      "too_many_requests": "Too many failed login attempts. Please try again later.",
+
+      "_comment3": "=== BACKEND API ERRORS ===",
+      "program_closed": "It is impossible to create a cyclist in a service that has been closed.",
+      "phone_number_already_used": "A user already exists with this phone number.",
+      "email_already_used": "A user already exists with this email address.",
+      "signup_lock_already_exists": "An account creation attempt is already in progress for this phone number.",
+      "invalid_email": "Your email address is invalid.",
+      "invalid_phone_number": "Your phone number is invalid.",
+      "cognito_account_not_found": "Unable to find the account associated with the user.",
+      "cognito_email_invalid": "The provided email is not valid.",
+      "cognito_name_required": "The user's name is required for account creation.",
+      "cognito_role_required": "The user's role is required for account creation.",
+      "cognito_phone_number_required": "The user's phone number is required for account creation.",
+      "program_required": "The program was not provided for account creation.",
+      "user_creation_failed": "The user could not be created.",
+      "wrong_object_found": "A user with this ID was found but they are not a cyclist.",
+      "already_used_phone_number": "A cyclist already exists with this phone number.",
+      "wrong_confirmation_method": "To confirm your account, please log into the application.",
+      "phone_number_not_verified": "Please confirm your phone number.",
+      "already_confirmed": "Your account is already active.",
+      "force_change_password": "The temporary password must be provided in the application to choose a new one.",
+      "invalid_password": "The provided password is not valid.",
+      "already_activated": "Your account is already active.",
+      "forbidden_login_google": "Your account was created via Google. To log in, simply choose 'Sign in with Google'",
+      "forbidden_login_apple": "Your account was created via Apple. To log in, simply choose 'Sign in with Apple'",
+      "blocked_cyclist": "This account has been blocked for security reasons and cannot be deleted. Please contact customer service.",
+
+      "_comment4": "=== LOCATION/RENTING ERRORS ===",
+      "no_registration": "You are not registered to this service.",
+      "cyclist_blocked": "Your account is blocked.",
+      "cyclist_deletion_requested": "Your account is being deleted.",
+      "cyclist_deleted": "Your account has been deleted.",
+      "cyclist_unconfirmed": "Your account has not been confirmed.",
+      "registration_blocked": "Your account is blocked for this service.",
+      "registration_deleted": "Your registration in this service has been deleted.",
+      "program_blocked": "The service has been temporarily closed and no rental is currently possible.",
+      "program_not_launch": "The service will only be available from the launch date.",
+      "program_draft": "The service is not yet open.",
+      "service_closed_hour": "The service is not available for rental at this time.",
+      "terms_not_validated": "You have not accepted the terms and conditions of use.",
+      "max_renting_count_reached": "You have reached the maximum number of simultaneous rentals.",
+      "missing_kyc_document": "You must provide an additional document to be able to rent.",
+      "not_provided_kyc_document": "A required document has not been provided.",
+      "rejected_kyc_document": "A required document has been rejected.",
+      "unverified_kyc_document": "A required document still needs verification.",
+      "open_facture": "You cannot rent while you have open invoices.",
+      "draft_facture": "You cannot rent while you have draft invoices.",
+      "uncollectible_facture": "You cannot rent while you have uncollectible invoices.",
+      "no_active_subscription": "Your current subscription is not active.",
+      "not_validated_abonnement": "Your subscription has not been validated.",
+      "no_default_payment": "You don't have a default payment card.",
+      "no_default_payment_source": "You don't have a default payment card.",
+      "invalid_default_payment": "Your default payment method no longer seems valid.",
+      "invalid_default_payment_source": "Your default payment method no longer seems valid.",
+      "not_allowed_vehicule_type": "You are not authorized to rent this type of vehicle with your current plan.",
+      "create_deposit_failed": "Creating the security deposit failed.",
+
+      "_comment5": "=== VEHICLE/TRIP ERRORS ===",
+      "not_rentable": "This vehicle is not available for rent. Please try with another bike.",
+      "not_synchro": "This vehicle is not available as it is out of sync. Please try with another bike.",
+      "low_battery": "This vehicle has too low battery to be rented.",
+      "rent_locked_cyclist": "A rental attempt is already in progress for your account.",
+      "rent_locked_vehicule": "A rental attempt is already in progress for this vehicle.",
+      "trip_not_renting": "This action is not possible with the current trip status.",
+      "tr_wrong_parameters": "Invalid parameters for this trip end request.",
+      "trip_duration_too_short": "The trip duration is too short.",
+      "dockless_zone_too_far": "Your vehicle does not seem to be in the drop-off zone.",
+      "no_dockless_zone": "Please verify that you are located in a drop-off zone.",
+      "wrong_vehicule_type": "You cannot return this type of vehicle in this zone.",
+      "wrong_end_code": "The provided return code is incorrect.",
+      "end_code_wrong_program_dock": "Return prohibited on a station belonging to another service.",
+      "end_code_wrong_program_vehicule": "Return prohibited on a bike belonging to another service.",
+      "end_code_vehicule_renting": "Return prohibited on a bike being rented.",
+      "resume_forbidden": "This action is not possible with the current trip status.",
+      "missing_pending_request": "The trip does not have a pending end request.",
+      "trip_not_completed": "It is not possible to recommend the vehicle while its current trip is not completed.",
+      "trip_too_old": "The vehicle cannot be recommended for this trip as it is too old.",
+      "vehicule_already_recommended": "The vehicle has already been recommended for this trip.",
+
+      "_comment6": "=== SUBSCRIPTION ERRORS ===",
+      "abonnement_program_closed": "This service has been closed. It is now impossible to take a subscription.",
+      "already_existing_abonnement": "You already have an active subscription.",
+      "archived_forfait": "It is impossible to create a subscription from an archived plan.",
+      "draft_forfait": "It is impossible to create a subscription from a draft plan.",
+      "inactive_cyclist": "An active account is required to take a subscription.",
+      "forfait_default": "It is impossible to create a subscription from the default plan.",
+      "unpaid_invoices": "Please settle all your invoices before taking a new subscription.",
+      "forfait_not_live": "It is impossible to create a subscription from a plan that is not live.",
+      "missing_documents": "Documents are required for subscription creation.",
+      "missing_document": "A document is missing for subscription creation.",
+      "failed_validator": "You must have a CPA subscription to benefit from this plan.",
+      "subscription_requires_action": "3D Secure authorization is required.",
+      "abonnement_creation_locked": "A subscription creation is already in progress.",
+      "abonnement_locked_creation": "A subscription creation is already in progress.",
+      "membership_deletion_pending": "Your membership for the organization is being deleted.",
+      "no_subscription": "You don't have a subscription.",
+      "subscription_not_valid": "You don't have a valid subscription.",
+      "no_credit_card": "You don't have a valid card.",
+      "canceled_abonnement": "A canceled subscription cannot be modified.",
+      "validation_error": "Impossible to validate a subscription that is not in 'awaiting validation'.",
+      "invalidation_error": "Impossible to invalidate a subscription that is not in 'awaiting validation' status.",
+      "abonnement_deletion_trips": "This subscription cannot be canceled because trips are in progress.",
+      "abonnement_deletion_factures": "This subscription cannot be canceled because invoices have not been paid.",
+      "forbidden_deposit_abonnement": "It is impossible to create a security deposit on a subscription that is not active.",
+
+      "_comment7": "=== GENERIC BACKEND ERRORS ===",
+      "object_not_found": "No object found.",
+      "wrong_argument": "Invalid parameter for this operation.",
+      "wrong_arguments": "Invalid parameters for this operation.",
+      "wrong_arguement": "Invalid parameter for this operation.",
+      "missing_parameter": "A required parameter is missing.",
+      "wrong_parameter": "The provided parameter is not valid.",
+      "missing_files": "At least one file must be provided.",
+      "invalid_file_type": "Invalid file type.",
+      "invalid_file_url": "The file URL is not valid.",
+      "invalid_status": "Invalid verification status.",
+      "document_not_pending": "The document is not pending verification.",
+      "missing_reviewer": "Missing reviewer identifier for verification.",
+      "missing_rejection_reason": "Missing rejection reason for the document.",
+      "invalid_parameter": "The rejection reason can only be specified when the document is rejected.",
+      "document_already_exists": "The document already exists for this cyclist.",
+      "not_implemented": "This feature is not yet available.",
+      "score_lock": "An error occurred. Please try again.",
+
+      "_comment8": "=== ORGANIZATION ERRORS ===",
+      "unactive_member": "It is impossible to remove a member who is not active.",
+      "deleted_organization": "It is impossible to modify an organization that has been deleted.",
+      "archived_organization": "It is impossible to invite a member to an organization that has been archived.",
+      "user_does_not_exist": "Email and name are required to create a new user.",
+      "unactive_supervisor": "It is impossible to remove a supervisor who is not active.",
+      "invalid_data": "The organization membership end date must be later than the current date.",
+      "missing_parameters": "No user exists with this email and no name was provided to create this user.",
+
+      "_comment9": "=== PASS/NFC ERRORS ===",
+      "no_number_available": "There is no more space available to add a new maintenance badge.",
+      "forbidden_pass": "It is impossible to associate this badge to your account because it is already in use.",
+      "pass_lock_already_exists": "A badge creation attempt is already in progress for this uid.",
+      "pass_maintenance_already_associated": "The maintenance badge is already used on the indicated number.",
+      "pass_not_found": "The pass was not found.",
+      "code_no_match": "The confirmation code is incorrect.",
+
+      "_comment10": "=== PROGRAM ERRORS ===",
+      "forbidden_update": "This attribute cannot be modified.",
+      "closed_program": "It is impossible to modify a program that has been closed.",
+      "missing_language": "The language cannot be set because it has never been configured.",
+
+      "_comment11": "=== REGISTRATION ERRORS ===",
+      "deleted_registration": "It is impossible to modify a user's registration to a program that has been deleted.",
+      "unconfirmed_registration": "A user's registration to a program cannot be activated as long as the account has not been confirmed.",
+      "forbidden_deletion": "It is impossible to delete a cyclist's registration to a program.",
+      "missing_registration": "The user is not registered to this program.",
+      "user_deleted": "It is impossible to change the status of a deleted user.",
+      "missing_value": "Missing setter function.",
+      "forbidden_attribute": "A cyclist cannot have a coordinator.",
+
+      "_comment12": "=== PAYMENT SPECIFIC ERRORS ===",
+      "wrong_customer": "You are not authorized to access this payment method.",
+      "deposit_requires_action": "3D Secure authorization is required.",
+      "amount_below_50_cts": "The invoice total amount cannot be less than 50 cents.",
+      "draft_invoice": "It is prohibited to force payment of a draft invoice.",
+
+      "_comment13": "=== FORFAIT/PLAN ERRORS ===",
+      "forfait_program_closed": "This service has been closed. It is now impossible to create a new plan.",
+      "forfait_default_creation_forbidden": "The default plan cannot be created by users.",
+      "plan_item_not_found": "The pricing plan does not exist in the forfait.",
+      "duplicate_plan_item": "The pricing plan has been provided twice.",
+      "incomplete_plan_items": "All pricing plans have not been provided to reorganize their order.",
+      "default_subscription_exists": "The default subscription already exists.",
+
+      "_comment14": "=== STRIPE PAYMENT ERRORS ===",
+      "unknown_decline": "Your card was declined for an unknown reason. Please contact your bank for more information.",
+      "charge_idempotency": "This payment has already been made.",
+      "api_connection_error": "A network error occurred. Please try again in a few moments.",
+      "invalid_request_error": "The provided parameters are invalid.",
+      "stripe_error": "A Stripe error occurred.",
+      "incomplete_number": "The card number provided is incomplete.",
+
+      "_comment15": "=== NOTIFICATION ERRORS ===",
+      "device_not_found": "No endpoint found for the user with this token.",
+      "no_push_devices": "The user has not authorized any of their devices to receive notifications.",
+
+      "_comment16": "=== TASK/INCIDENT ERRORS ===",
+      "closed_task": "A closed task cannot be modified.",
+      "closed_incident": "A closed incident cannot be modified.",
+      "wrong_attribute": "At least one text or image must be provided to create the comment.",
+
+      "_comment17": "=== ADDITIONAL ERROR KEYS ===",
+      "program_not_found": "Program not found.",
+      "access_token_not_found": "Access token not found.",
+      "app_bundle_not_found": "App bundle configuration not found.",
+      "webapp_not_found": "Web app configuration not found.",
+
+      "_geoloc_errors": "=== GEOLOCATION ERRORS ===",
+      "OS-PLUG-GLOC-0002": "An error occurred while retrieving the position.",
+      "OS-PLUG-GLOC-0003": "The permission request for location was denied.",
+      "OS-PLUG-GLOC-0007": "Location services are disabled.",
+      "OS-PLUG-GLOC-0008": "Location services are restricted.",
+      "OS-PLUG-GLOC-0009": "The request to activate location was denied.",
+      "OS-PLUG-GLOC-0010": "We did not get a position in the allotted time.",
+      "OS-PLUG-GLOC-0014": "A Play Services error occurred. Please try again.",
+      "OS-PLUG-GLOC-0017": "Unable to retrieve position because the device has both network and location disabled."
+    }
+  },
+  "favorite_stations": {
+    "add_favorite_station_hint": "Rent faster by saving your favorite station.",
+    "no_favorite": "You haven't added any favorite stations yet",
+    "no_vehicle": "No vehicle available",
+    "remove_favorite_message": "Are you sure you want to remove this favorite station?",
+    "title": "Favorite stations"
+  },
+  "feedback": {
+    "success": "Thank you for your feedback! We take every message into account to improve your experience.",
+    "title": "Submit feedback"
+  },
+  "forfait": {
+    "cancel_selection": "Cancel selection",
+    "cancel_subscription": "Cancel my subscription",
+    "reduction_code": "Discount code",
+    "select_another_plan": "Choose a plan",
+    "status": {
+      "active_message": "Your subscription is active. You must cancel your subscription to be able to change it.",
+      "default_message": "You don't have an active subscription yet. Select a plan to get started.",
+      "deletion_requested_message": "Your subscription is being closed. It will automatically end once our system has verified that you no longer have any ongoing trips or invoices.",
+      "waiting_validation_message": "Your subscription is being activated. It will be active shortly.",
+      "incomplete_message": "Your subscription is incomplete. Please complete the missing information to activate it.",
+      "past_due_message": "Your subscription is past due. Please settle your payment to continue enjoying the service.",
+      "unpaid_message": "Your subscription is unpaid. Please make the payment to reactivate your subscription."
+    }
+  },
+  "forfaits": {
+    "title": "Click to select",
+    "title_unauthenticated": "Available plans"
+  },
+  "grace_period": {
+    "message": "You get {{total}} free minutes {{per_period}}. You have {{remaining}} minutes left {{remaining_period}} (excluding ongoing trips).",
+    "per_day": "per day",
+    "per_week": "per week",
+    "per_month": "per month",
+    "per_days": "per {{count}} days",
+    "per_weeks": "per {{count}} weeks",
+    "per_months": "per {{count}} months",
+    "today": "today",
+    "this_week": "this week",
+    "this_month": "this month",
+    "period_days": "over {{count}} days",
+    "period_weeks": "over {{count}} weeks",
+    "period_months": "over {{count}} months"
+  },
+  "generic": {
+    "cancel": "Cancel",
+    "choose_plan": "Choose this plan",
+    "close": "Close",
+    "continue": "Continue",
+    "dring": "Ring Ring!",
+    "edit": "Edit",
+    "email": "Email",
+    "error": "Error",
+    "error_occurred": "An unexpected error occurred",
+    "favorite": "Save",
+    "first_name": "First name",
+    "get_directions": "Get directions",
+    "go_to_home": "Return to home",
+    "information": "Information",
+    "last_name": "Last name",
+    "loading": "Loading...",
+    "location_impossible": "Rental impossible",
+    "no_vehicles": "No vehicles available",
+    "password": "Password",
+    "phone_number": "Phone number",
+    "please_wait": "Please wait...",
+    "save": "Save",
+    "saved": "Saved",
+    "send": "Send",
+    "thanks": "Thank you!",
+    "unlock": "Rent",
+    "verify_account": "Verify my account",
+    "what_to_do": "What would you like to do?"
+  },
+  "common": {
+    "retry": "Retry"
+  },
+  "invoices": {
+    "bell_icon_alt": "Bike bell icon",
+    "no_paid_trips": "You don't have any open invoices yet.",
+    "pay_button": "Pay",
+    "start_rental": "Start a rental",
+    "status": {
+      "draft": "Draft",
+      "open": "Pending payment",
+      "paid": "Paid",
+      "uncollectible": "Uncollectible",
+      "void": "Void"
+    },
+    "title": "Invoices",
+    "unpaid_message": "You can no longer start a rental until you have paid your unpaid invoices.",
+    "unpaid_title": "Unpaid Invoices",
+    "upcoming": "Your next invoice will be {{amount}}€."
+  },
+  "launch": {
+    "no_update": "Your application is already up to date",
+    "searching_for_updates": "Searching for updates..."
+  },
+  "map": {
+    "SHARE_LOCATION_PROMPT": "View nearby stations by sharing your location.",
+    "SHARE_MY_POSITION": "Continue",
+    "browser_geolocation": {
+      "chrome": {
+        "documentation": "Learn more about location in Chrome",
+        "step1": "Click on the location icon (marker) in the address bar",
+        "step2": "Select \"Allow\" from the dropdown menu",
+        "step3": "If you previously denied access, select \"Site settings\"",
+        "step4": "Change the Location permission to \"Allow\"",
+        "title": "Instructions for Chrome"
+      },
+      "firefox": {
+        "step1": "Click on the lock/shield icon in the address bar",
+        "step2": "Select \"Location\" and change to \"Allow\"",
+        "title": "Instructions for Firefox"
+      },
+      "generic": {
+        "step1": "Look for location permission prompts that appear at the top of the page",
+        "step2": "Click on the address bar and check location permission settings",
+        "step3": "Go to your browser settings and search for \"Location permissions\"",
+        "title": "Instructions for browser"
+      },
+      "header": "Location access required",
+      "message": "To use map features, you must enable location access in your browser. Follow the instructions below for your browser:",
+      "safari": {
+        "step1": "Go to Settings > Settings for {{program}}.ecovelo.mobi",
+        "step2": "Select Location > Allow",
+        "title": "Instructions for Safari"
+      }
+    },
+    "denied_position_alert": {
+      "button": "Close",
+      "header": "Location access denied",
+      "message": "To use this feature, please allow access to your location in your device settings.",
+      "settings": "Open settings",
+      "subheader": "We cannot access your location"
+    }
+  },
+  "location": {
+    "browser_instructions": {
+      "chrome": {
+        "step1": "Tap the lock icon in the address bar",
+        "step2": "Tap Site settings",
+        "step3": "Tap Location",
+        "step4": "Select Allow",
+        "title": "Instructions for Chrome"
+      },
+      "firefox": {
+        "step1": "Tap the three dots in the address bar",
+        "step2": "Tap Site settings",
+        "step3": "Tap Location",
+        "step4": "Select Allow",
+        "title": "Instructions for Firefox"
+      },
+      "message": "To use map features, you must enable location access in your browser. Follow the instructions below for your browser:",
+      "safari": {
+        "step1": "Go to Settings > Settings for {{program}}.ecovelo.mobi",
+        "step2": "Select Location > Allow",
+        "title": "Instructions for Safari"
+      }
+    },
+    "denied_position_alert": {
+      "button": "Close",
+      "header": "Location access denied",
+      "message": "To use this feature, please allow access to your location in your device settings.",
+      "settings": "Open settings",
+      "subheader": "We cannot access your location"
+    }
+  },
+  "media": {
+    "error": {
+      "compression_failed": "File compression failed",
+      "file_too_large": "File too large (max 6MB)",
+      "no_file_selected": "No file selected",
+      "processing_failed": "File processing failed",
+      "upload_failed": "File upload failed"
+    },
+    "uploading": "Uploading file..."
+  },
+  "nearest_station": {
+    "go_to_station": "Get directions",
+    "nearest_station": "Nearest station"
+  },
+  "nearest_vehicles": {
+    "title": "Nearby vehicles"
+  },
+  "payment": {
+    "disclaimer": "Payment and security deposit made after card registration.",
+    "save_payment_method": "Save your card",
+    "apple_pay": {
+      "not_available": "Apple Pay is not available on this device.",
+      "setup_failed": "Unable to set up Apple Pay. Please try again.",
+      "payment_failed": "Apple Pay payment failed. Please use a traditional bank card."
+    },
+    "google_pay": {
+      "not_available": "Google Pay is not available on this device.",
+      "setup_failed": "Unable to set up Google Pay. Please try again.",
+      "payment_failed": "Google Pay payment failed. Please use a traditional bank card."
+    },
+    "errors": {
+      "setup_intent_failed": "Unable to initialize payment process. Please try again.",
+      "setup_intent_retrieve_failed": "Unable to retrieve payment information. Please try again.",
+      "card_setup_failed": "Card registration failed. Please check your information.",
+      "network_error": "Connection problem with our payment provider. Please try again.",
+      "generic_error": "An error occurred while processing your payment. Please try again."
+    },
+    "card_errors": {
+      "card_declined": "Your card was declined. Please use another card.",
+      "expired_card": "Your card has expired. Please use another card.",
+      "incorrect_cvc": "The CVC code is incorrect. Please check and try again.",
+      "processing_error": "Error processing the card. Please try again.",
+      "authentication_required": "Additional authentication is required for this card.",
+      "insufficient_funds": "Insufficient funds on your card. Please use another card.",
+      "generic_decline": "Your bank declined this transaction. Contact your bank for more information.",
+      "lost_card": "This card has been reported as lost. Please use another card.",
+      "stolen_card": "This card has been reported as stolen. Please use another card.",
+      "pickup_card": "Your bank requests this card to be retrieved. Please contact your bank.",
+      "restricted_card": "This card has restrictions that prevent this payment. Contact your bank.",
+      "security_violation": "Your bank declined this payment for security reasons.",
+      "service_not_allowed": "This type of transaction is not allowed on this card.",
+      "transaction_not_allowed": "Your bank declined this transaction. Contact your bank.",
+      "try_again_later": "Your bank cannot process this transaction right now. Please try again later.",
+      "withdrawal_count_limit_exceeded": "You have exceeded the transaction limit for this card today."
+    }
+  },
+  "push_notifications": {
+    "accept": "Enable notifications",
+    "accept_cta": "Open settings",
+    "accept_header": "Enable notifications",
+    "accept_message": "It seems you have disabled notifications. To receive notifications, please enable them in your device settings.",
+    "deny_cta": "Open settings",
+    "deny_header": "Disable notifications",
+    "deny_message": "To disable notifications, please modify your device settings.",
+    "description": "Allow us to send you notifications to inform you about the end of your trips and other important information.",
+    "skip": "Continue without notifications",
+    "title": "Trip notification"
+  },
+  "recommandation": {
+    "recommanded_by": "Recommended by",
+    "success": "Your recommendation has been successfully recorded"
+  },
+  "recommandation_congrats": {
+    "message": "Your recommendation has been successfully recorded! Cyclists around will now benefit from your advice.",
+    "success_alt": "Thank you!"
+  },
+  "report_congrats": {
+    "message": "Our agents will now be able to process your report!",
+    "success_alt": "Thank you!"
+  },
+  "reset_password": {
+    "code_sent": "Reset code successfully sent",
+    "send_code": "Send code",
+    "title": "Reset password",
+    "errors": {
+      "code_mismatch": "The confirmation code is incorrect.",
+      "code_expired": "The confirmation code has expired. Please request a new code.",
+      "limit_exceeded": "Attempt limit exceeded. Please try again later.",
+      "password_requirements": "The password does not meet security requirements.",
+      "username_not_found": "No account is associated with this phone number.",
+      "invalid_parameter": "Invalid parameter provided.",
+      "generic": "An error occurred during password reset.",
+      "recaptcha_failed": "reCAPTCHA verification failed. Please try again."
+    }
+  },
+  "searchbar": {
+    "placeholder": "Station, bike, address...",
+    "no_results": "No results found"
+  },
+  "search": {
+    "stations": "Stations",
+    "vehicles": "Vehicles",
+    "no_info": "Information not available",
+    "not_rentable": "Not available",
+    "no_results": "No results found"
+  },
+  "settings": {
+    "change_password": "Change my password",
+    "delete_account": "Delete my account",
+    "infos": {
+      "title": "Personal information",
+      "email_changed": "Email changed successfully",
+      "email_changed_note": "Your email allows us to keep you informed when your account requires action from you (Payment method expiring, subscription coming to an end, etc.)",
+      "errors": {
+        "invalid_email": "Enter a valid email"
+      }
+    },
+    "notifications": {
+      "can_disable": "Can be disabled at any time",
+      "title": "Enable notifications"
+    },
+    "terms_of_service": "Terms and conditions of access and use",
+    "title": "Settings"
+  },
+  "signal": {
+    "example": "example: I had assistance at the beginning of the trip but it cut out after 5 minutes",
+    "more": "To best process your report, feel free to provide details.",
+    "no_results": "No results found",
+    "search": "Vehicle or station concerned",
+    "search_error": "An error occurred during the search",
+    "title": "Report"
+  },
+  "signin": {
+    "apple_signin": "Sign in with Apple",
+    "forgot_password": "Forgot password?",
+    "google_signin": "Sign in with Google",
+    "or": "or",
+    "signup": "Not registered yet? Sign up",
+    "skip_step": "Skip this step",
+    "title": "Sign in"
+  },
+  "signup": {
+    "apple_signup": "Sign up with Apple",
+    "complete_profile": "Complete your profile",
+    "google_signup": "Sign up with Google",
+    "or": "or",
+    "signin": "Already have an account? Sign in",
+    "skip_step": "Skip this step",
+    "title": "Sign up"
+  },
+  "subscription": {
+    "billing": {
+      "display": {
+        "days": "Daily billing",
+        "weeks": "Weekly billing",
+        "months": "Monthly billing",
+        "years": "Annual billing"
+      }
+    },
+    "creation": {
+      "error": "Error creating subscription",
+      "error_with_detail": "Error creating subscription: {{detail}}",
+      "loading": "Creating subscription..."
+    },
+    "deletion": {
+      "confirm": {
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "message": "Your subscription will change to \"deletion requested\" status while our system verifies that you don't have any ongoing invoices. Then you will return to the default pricing. You can then choose a new plan if you wish.",
+        "title": "Are you sure?"
+      },
+      "error": "Error deleting subscription",
+      "loading": "Deleting subscription...",
+      "no_active": "No active subscription",
+      "success": "Subscription deleted"
+    },
+    "status": {
+      "default_pricing": "Default pricing: {{price}}",
+      "incomplete": "Incomplete subscription",
+      "unpaid": "Unpaid subscription",
+      "past_due": "Past due",
+      "waiting_validation": "Subscription pending validation",
+      "active": "Active subscription",
+      "deletion_requested": "Subscription deletion requested",
+      "expires_in": "Expires in {{days}} days. After this period, the pricing will be {{price}}"
+    }
+  },
+  "subscription_item": {
+    "back_side": "Back side",
+    "date_range": "From {{start}} to {{end}}",
+    "front_side": "Front side",
+    "since_date": "Since {{date}}",
+    "supporting_documents": "Supporting documents",
+    "terminate": "Terminate"
+  },
+  "support": {
+    "call_us": "Call us",
+    "contact_us": "Contact us",
+    "email_us": "Email us",
+    "faq": {
+      "all_none": "All / none",
+      "no_results": "No questions match your search, if your problem is not listed here, contact us!",
+      "search_placeholder": "Your question",
+      "select_categories": "Filter by category",
+      "title": "FAQ"
+    },
+    "opening_hours": {
+      "days": {
+        "1": "Monday",
+        "2": "Tuesday",
+        "3": "Wednesday",
+        "4": "Thursday",
+        "5": "Friday",
+        "6": "Saturday",
+        "0": "Sunday",
+        "holidays": "Holidays"
+      },
+      "format": "HH:mm",
+      "time_slot": "from {{open}} to {{close}}",
+      "closed": "Closed",
+      "from": "From",
+      "to": "to"
+    },
+    "title": "Support"
+  },
+  "tasks": {
+    "creating": "Saving...",
+    "errors": {
+      "creation": "Error creating the report"
+    },
+    "success": {
+      "created": "Thank you for your report!"
+    }
+  },
+  "trip": {
+    "metrics": {
+      "co2_saved": "gCO2 saved",
+      "kcal_burned": "Kcal burned"
+    },
+    "status": {
+      "completed": "Completed",
+      "renting": "Renting",
+      "terminating": "Terminating",
+      "termination_requested": "Termination requested"
+    }
+  },
+  "trips": {
+    "previous": "Previous trips",
+    "today": "Today",
+    "yesterday": "Yesterday"
+  },
+  "trips_congrats": {
+    "continue": "Continue >",
+    "lets_go": "Let's go!",
+    "scooter_message": "Your vehicle is unlocked, be careful.",
+    "success_alt": "success",
+    "unlock_code_message": "Here is your unlock code to enter at the back of vehicle {{number}}",
+    "auto_unlock_message": "Vehicle #{{number}} successfully unlocked"
+  },
+  "trips_dring": {
+    "description": "Start your journey now and join our community of passionate cyclists!",
+    "start_trip": "Start my first trip"
+  },
+  "verify_phone": {
+    "code_expired_error": "The code has expired. Please request a new code.",
+    "code_mismatch_error": "The code entered does not match. Please try again.",
+    "confirming_cyclist": "Confirming cyclist...",
+    "delete_account": "Confirm account deletion",
+    "delete_account_message": "This registration will be closed and all data deleted. You can create a new account with the correct phone number.",
+    "error_message": "Failed to verify phone number. Please try again.",
+    "init_error": "Initialization error. Please try again.",
+    "instructions": "Please enter the code received by SMS at {{phone}}.",
+    "limit_exceeded_error": "Attempt limit exceeded. Please try again later.",
+    "phone_error": "An error in the phone number?",
+    "resend_code": "Haven't received the code yet?",
+    "resend_code_link": "Resend code",
+    "signup_again": "Restart registration",
+    "subtitle": "Verifying your phone number",
+    "verify_button": "Verify",
+    "verifying": "Verifying..."
+  },
+  "wallet": {
+    "apply": "Apply",
+    "apply_promo": "Apply promo code",
+    "no_transactions": "No transactions",
+    "promo_code": "Promo code",
+    "transactions": "Transactions",
+    "transactions_error": "Error loading transactions: {{message}}",
+    "transaction": {
+      "reason": {
+        "adjustment": "Adjustment",
+        "applied_to_invoice": "Applied to invoice",
+        "applied_to_trip": "Applied to trip",
+        "credit_note": "Credit note",
+        "initial": "Initial",
+        "invoice_overpaid": "Invoice overpaid",
+        "invoice_too_large": "Invoice too large",
+        "invoice_too_small": "Invoice too small",
+        "refund": "Refund",
+        "remise": "Discount",
+        "unspent_receiver_credit": "Unspent credit",
+        "unapplied_from_invoice": "Unapplied from invoice"
+      }
+    }
+  },
+  "qr-scanner": {
+    "title": "Scan QR Code",
+    "instruction": "Position the bike's QR code within the frame to scan it",
+    "scan_instruction": "Position the bike's QR code within the frame",
+    "start-scan": "Start Scan",
+    "scanning": "Scanning for QR code...",
+    "error": {
+      "permission": "Camera access permission denied",
+      "generic": "Error scanning QR code",
+      "invalid_format": "We couldn't find the vehicle you were looking for. Please try again."
+    }
+  },
+  "auto_unlock": {
+    "unlocking_title": "Unlocking...",
+    "success": "Unlocked!",
+    "success_message": "You can remove the chain from your bike",
+    "error_title": "Oops!",
+    "start_ride": "Have a good ride and be careful"
+  },
+  "qr_code": {
+    "error": {
+      "missing_vehicle_id": "No vehicle specified in the link",
+      "authentication_required": "You must be logged in to unlock a vehicle",
+      "profile_error": "Error loading your profile",
+      "initialization_failed": "Error during initialization",
+      "wrong_program": "This vehicle does not belong to this program or does not exist"
+    },
+    "not_rentable": {
+      "title": "Vehicle unavailable",
+      "back_to_map": "Back to map",
+      "general": "This vehicle is not available for rental at the moment.",
+      "maintenance": "This vehicle is under maintenance and cannot be rented.",
+      "lost": "This vehicle is reported as lost and cannot be rented.",
+      "destroyed": "This vehicle is no longer in service.",
+      "update": "This vehicle is being updated and cannot be rented.",
+      "caddie_blocked": "This vehicle is blocked by another attached vehicle.",
+      "unknown": "This vehicle is not available for an unknown reason."
+    }
+  },
+  "vehicle": {
+    "number": "Bike n°",
+    "unlock": "Rent",
+    "station": "Station",
+    "unlock_confirm": "Unlock this bike",
+    "battery_remaining": "{{percent}}% battery remaining, approximately {{km}}km",
+    "battery_sufficient_question": "Is this sufficient for your trip?",
+    "continue": "Continue",
+    "skip_next_time": "Don't show this page again and start my next rentals directly"
+  },
+  "unlock_options": {
+    "title": "How to unlock?",
+    "message": "Choose your unlock method",
+    "scan_qr": "Scan QR Code",
+    "manual_entry": "Enter number manually"
+  }
+}

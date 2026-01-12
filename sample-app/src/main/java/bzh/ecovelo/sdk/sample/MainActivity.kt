@@ -102,45 +102,71 @@ class MainActivity : AppCompatActivity() {
             toggleAuth()
         }
         
-        // Bouton pour lancer Ecovelo
-        binding.buttonRental.setOnClickListener {
-            openEcovelo()
+        // Bouton pour lancer Breizhgo (app Ionic)
+        binding.buttonBreizhgo.setOnClickListener {
+            openBreizhgo()
         }
         
-        // Masquer le bouton réservation (plus besoin, c'est dans l'app)
+        // Bouton pour lancer le Placeholder (test)
+        binding.buttonPlaceholder.setOnClickListener {
+            openPlaceholder()
+        }
+        
+        // Masquer les anciens boutons (gardés pour compatibilité)
+        binding.buttonRental.visibility = android.view.View.GONE
         binding.buttonReservation.visibility = android.view.View.GONE
         
         // Informations SDK
         binding.textSdkVersion.text = "SDK Version: ${EcoveloSDK.version}"
-        
-        // Renommer le bouton
-        binding.buttonRental.text = "🚲 Ouvrir Ecovelo"
     }
     
     /**
-     * Ouvre l'application Ecovelo.
+     * Ouvre l'application Breizhgo (app Ionic réelle).
      * 
-     * Le SDK peut être lancé avec ou sans token :
-     * - Avec token : accès complet
-     * - Sans token : mode exploration, bouton "Se connecter" visible
+     * Charge les assets depuis assets/public/ (app Ionic buildée).
      */
-    private fun openEcovelo() {
+    private fun openBreizhgo() {
+        Log.d(TAG, "Opening Breizhgo (assets/public)")
         EcoveloSDK.start(
             activity = this,
+            assetsPath = EcoveloSDK.ASSETS_PATH_DEFAULT, // "public"
             onResult = { result ->
-                when (result) {
-                    is EcoveloResult.Closed -> {
-                        Log.d(TAG, "Ecovelo fermé")
-                        showToast("Application Ecovelo fermée")
-                    }
-                    is EcoveloResult.Error -> {
-                        Log.e(TAG, "Erreur: ${result.message}")
-                        showToast("Erreur: ${result.message}")
-                    }
-                }
-                updateAuthStatus()
+                handleSDKResult(result, "Breizhgo")
             }
         )
+    }
+    
+    /**
+     * Ouvre le Placeholder (pour tester le SDK).
+     * 
+     * Charge les assets depuis assets/placeholder/.
+     */
+    private fun openPlaceholder() {
+        Log.d(TAG, "Opening Placeholder (assets/placeholder)")
+        EcoveloSDK.start(
+            activity = this,
+            assetsPath = EcoveloSDK.ASSETS_PATH_PLACEHOLDER, // "placeholder"
+            onResult = { result ->
+                handleSDKResult(result, "Placeholder")
+            }
+        )
+    }
+    
+    /**
+     * Gère le résultat du SDK.
+     */
+    private fun handleSDKResult(result: EcoveloResult, source: String) {
+        when (result) {
+            is EcoveloResult.Closed -> {
+                Log.d(TAG, "$source fermé")
+                showToast("$source fermé")
+            }
+            is EcoveloResult.Error -> {
+                Log.e(TAG, "Erreur $source: ${result.message}")
+                showToast("Erreur: ${result.message}")
+            }
+        }
+        updateAuthStatus()
     }
     
     /**

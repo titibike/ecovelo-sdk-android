@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/dring/station-dring/station-dring.component.scss"],
+  "sourcesContent": ["img {\n  border-radius: 10px;\n}\n"],
+  "mappings": ";AAAA;AACE,iBAAA;;",
+  "names": []
+}

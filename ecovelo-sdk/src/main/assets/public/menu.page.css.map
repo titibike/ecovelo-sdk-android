@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/account/menu/menu.page.scss"],
+  "sourcesContent": [".show-on-small {\n  display: none;\n}\n\n@media (max-width: 390px) {\n  .show-on-large {\n    display: none;\n  }\n  .show-on-small {\n    display: inline;\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;;AAGF,OAAA,CAAA,SAAA,EAAA;AACE,GAAA;AACE,aAAA;;AAEF,GARF;AASI,aAAA;;;",
+  "names": []
+}

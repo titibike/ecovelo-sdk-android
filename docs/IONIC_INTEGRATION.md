@@ -1,18 +1,47 @@
-# Intégration de l'app Ionic dans le SDK
+# Intégration de l'app Ionic dans le SDK Android Breizhgo
 
-Ce guide explique comment builder l'app Ionic (appli-usager-v3) pour l'intégrer dans le SDK Android Breizhgo.
+Ce guide explique comment adapter l'application Ionic `appli-usager-v3` pour fonctionner dans le SDK Android Breizhgo.
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    App Hôte (Cityway)                       │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │              Ecovelo SDK Android                      │  │
+│  │  ┌─────────────────────────────────────────────────┐  │  │
+│  │  │         Capacitor BridgeActivity               │  │  │
+│  │  │  ┌───────────────────────────────────────────┐  │  │  │
+│  │  │  │      App Ionic (appli-usager-v3)         │  │  │  │
+│  │  │  │                                           │  │  │  │
+│  │  │  │  • Angular + Ionic                        │  │  │  │
+│  │  │  │  • Logique métier (location, résa...)    │  │  │  │
+│  │  │  │  • UI/UX complète                         │  │  │  │
+│  │  │  │  • Communication via EcoveloNative plugin │  │  │  │
+│  │  │  └───────────────────────────────────────────┘  │  │  │
+│  │  │                     ↕                           │  │  │
+│  │  │  ┌───────────────────────────────────────────┐  │  │  │
+│  │  │  │     Plugins Capacitor Natifs              │  │  │  │
+│  │  │  │  • EcoveloNative (auth, config, events)   │  │  │  │
+│  │  │  │  • Camera, Geolocation, etc.              │  │  │  │
+│  │  │  └───────────────────────────────────────────┘  │  │  │
+│  │  └─────────────────────────────────────────────────┘  │  │
+│  └───────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## Prérequis
 
 - Node.js 18+
 - npm ou yarn
 - Accès au repo `appli-usager-v3`
+- Android Studio (pour tester le SDK)
 
-## Étape 1 : Modifications dans appli-usager-v3
+## Modifications requises dans appli-usager-v3
 
-### 1.1 Créer le plugin EcoveloNative (TypeScript)
+### 1. Créer le plugin EcoveloNative (TypeScript)
 
-Créer le fichier `src/app/plugins/ecovelo-native.ts` :
+Créer le fichier `src/app/plugins/ecovelo-native.plugin.ts` :
 
 ```typescript
 import { registerPlugin } from '@capacitor/core';
@@ -22,9 +51,21 @@ import { registerPlugin } from '@capacitor/core';
  * Ce plugin est disponible uniquement en mode SDK (pas en mode standalone).
  */
 export interface EcoveloNativePlugin {
-  // Auth
-  getAccessToken(): Promise<{ token: string; hasToken: boolean }>;
-  getIdToken(): Promise<{ token: string; hasToken: boolean }>;
+  // ============ AUTHENTIFICATION ============
+  
+  /**
+   * Récupère le token d'accès OAuth2 depuis l'app hôte.
+   */
+  getAccessToken(): Promise<{ token: string | null; hasToken: boolean }>;
+  
+  /**
+   * Récupère l'ID Token OIDC.
+   */
+  getIdToken(): Promise<{ token: string | null; hasToken: boolean }>;
+  
+  /**
+   * Récupère les informations utilisateur.
+   */
   getUserInfo(): Promise<{
     authenticated: boolean;
     sub?: string;
@@ -34,11 +75,29 @@ export interface EcoveloNativePlugin {
     phone?: string;
     phoneVerified?: boolean;
   }>;
-  refreshToken(): Promise<{ success: boolean; token: string }>;
+  
+  /**
+   * Rafraîchit le token d'accès.
+   */
+  refreshToken(): Promise<{ success: boolean; token: string | null }>;
+  
+  /**
+   * Vérifie si l'utilisateur est authentifié.
+   */
   isAuthenticated(): Promise<{ authenticated: boolean }>;
+  
+  /**
+   * Demande la connexion à l'app hôte.
+   * Déclenche le callback onLoginRequired côté natif.
+   * L'app hôte lancera le SSO mon-compte.bzh.
+   */
   requestLogin(): Promise<{ requested: boolean }>;
   
-  // Config
+  // ============ CONFIGURATION ============
+  
+  /**
+   * Récupère la configuration du SDK.
+   */
   getConfig(): Promise<{
     territoryId: string;
     environment: string;
@@ -50,30 +109,68 @@ export interface EcoveloNativePlugin {
     };
   }>;
   
-  // Phone
-  requestPhone(): Promise<{ phone: string; verified: boolean }>;
-  submitPhone(options: { phone: string; verified: boolean }): Promise<{ success: boolean }>;
+  // ============ ÉVÉNEMENTS ============
   
-  // Events
-  emitEvent(options: { name: string; data: any }): Promise<void>;
+  /**
+   * Émet un événement vers l'app hôte (analytics).
+   */
+  emitEvent(options: { name: string; data?: any }): Promise<void>;
   
-  // Navigation
+  // ============ NAVIGATION ============
+  
+  /**
+   * Ferme le SDK et retourne à l'app hôte.
+   */
   close(options: { result: string; data?: any }): Promise<void>;
+  
+  /**
+   * Déconnecte l'utilisateur.
+   */
   logout(): Promise<{ success: boolean }>;
 }
 
+/**
+ * Plugin EcoveloNative.
+ * 
+ * Usage:
+ * ```typescript
+ * import { EcoveloNative } from './plugins/ecovelo-native.plugin';
+ * 
+ * const { authenticated } = await EcoveloNative.isAuthenticated();
+ * ```
+ */
 export const EcoveloNative = registerPlugin<EcoveloNativePlugin>('EcoveloNative');
 ```
 
-### 1.2 Créer le service de détection SDK
+### 2. Créer le service de détection SDK
 
 Créer le fichier `src/app/services/sdk-mode.service.ts` :
 
 ```typescript
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
-import { EcoveloNative } from '../plugins/ecovelo-native';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { EcoveloNative } from '../plugins/ecovelo-native.plugin';
+
+export interface SdkConfig {
+  territoryId: string;
+  environment: string;
+  debugMode: boolean;
+  features: {
+    reservationEnabled: boolean;
+    mapEnabled: boolean;
+    qrCodeScanEnabled: boolean;
+  };
+}
+
+export interface UserInfo {
+  sub?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  phoneVerified?: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -81,67 +178,119 @@ import { BehaviorSubject } from 'rxjs';
 export class SdkModeService {
   
   /**
-   * True si l'app tourne dans le SDK Breizhgo (pas en standalone)
+   * True si l'app tourne dans le SDK Breizhgo (pas en standalone).
    */
   readonly isSDKMode: boolean;
   
   /**
-   * État de connexion (observable)
+   * Configuration du SDK (disponible uniquement en mode SDK).
    */
-  private _isLoggedIn = new BehaviorSubject<boolean>(false);
-  readonly isLoggedIn$ = this._isLoggedIn.asObservable();
+  private _config: SdkConfig | null = null;
+  
+  /**
+   * État de connexion (observable).
+   */
+  private _isAuthenticated = new BehaviorSubject<boolean>(false);
+  readonly isAuthenticated$: Observable<boolean> = this._isAuthenticated.asObservable();
+  
+  /**
+   * Informations utilisateur (observable).
+   */
+  private _userInfo = new BehaviorSubject<UserInfo | null>(null);
+  readonly userInfo$: Observable<UserInfo | null> = this._userInfo.asObservable();
   
   constructor() {
     // Détecter si le plugin EcoveloNative est disponible
     this.isSDKMode = Capacitor.isPluginAvailable('EcoveloNative');
     
     if (this.isSDKMode) {
-      console.log('[SdkModeService] Mode SDK détecté');
+      console.log('[SdkModeService] Mode SDK détecté - Breizhgo');
       this.initSDKMode();
     } else {
       console.log('[SdkModeService] Mode standalone');
     }
   }
   
-  private async initSDKMode() {
-    // Écouter les mises à jour de token
-    window.addEventListener('ecovelo-token-updated', (event: any) => {
-      console.log('[SdkModeService] Token mis à jour', event.detail);
-      this._isLoggedIn.next(event.detail.hasToken);
-    });
+  private async initSDKMode(): Promise<void> {
+    try {
+      // Charger la configuration
+      this._config = await EcoveloNative.getConfig();
+      console.log('[SdkModeService] Config:', this._config);
+      
+      // Vérifier l'état d'authentification initial
+      await this.refreshAuthState();
+      
+      // Écouter les mises à jour de token
+      window.addEventListener('ecovelo-token-updated', async (event: any) => {
+        console.log('[SdkModeService] Token mis à jour:', event.detail);
+        await this.refreshAuthState();
+      });
+      
+    } catch (error) {
+      console.error('[SdkModeService] Erreur initialisation:', error);
+    }
+  }
+  
+  /**
+   * Rafraîchit l'état d'authentification.
+   */
+  async refreshAuthState(): Promise<void> {
+    if (!this.isSDKMode) return;
     
-    // Vérifier l'état initial
-    const { hasToken } = await EcoveloNative.getAccessToken();
-    this._isLoggedIn.next(hasToken);
+    try {
+      const { authenticated } = await EcoveloNative.isAuthenticated();
+      this._isAuthenticated.next(authenticated);
+      
+      if (authenticated) {
+        const userInfo = await EcoveloNative.getUserInfo();
+        if (userInfo.authenticated) {
+          this._userInfo.next({
+            sub: userInfo.sub,
+            email: userInfo.email,
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
+            phone: userInfo.phone,
+            phoneVerified: userInfo.phoneVerified
+          });
+        }
+      } else {
+        this._userInfo.next(null);
+      }
+    } catch (error) {
+      console.error('[SdkModeService] Erreur refresh auth:', error);
+    }
+  }
+  
+  /**
+   * Retourne la configuration SDK.
+   */
+  getConfig(): SdkConfig | null {
+    return this._config;
   }
   
   /**
    * Récupère le token d'accès.
    * En mode SDK: depuis l'app hôte (Cityway)
-   * En mode standalone: depuis Cognito
+   * En mode standalone: depuis Cognito (à implémenter)
    */
   async getAccessToken(): Promise<string | null> {
     if (this.isSDKMode) {
       const { token, hasToken } = await EcoveloNative.getAccessToken();
       return hasToken ? token : null;
-    } else {
-      // Mode standalone: utiliser Cognito
-      // return this.cognitoService.getToken();
-      return null;
     }
+    // Mode standalone: utiliser votre service Cognito existant
+    return null;
   }
   
   /**
-   * Récupère les infos utilisateur.
+   * Récupère l'ID Token.
    */
-  async getUserInfo(): Promise<any | null> {
+  async getIdToken(): Promise<string | null> {
     if (this.isSDKMode) {
-      const userInfo = await EcoveloNative.getUserInfo();
-      return userInfo.authenticated ? userInfo : null;
-    } else {
-      // Mode standalone
-      return null;
+      const { token, hasToken } = await EcoveloNative.getIdToken();
+      return hasToken ? token : null;
     }
+    return null;
   }
   
   /**
@@ -151,35 +300,37 @@ export class SdkModeService {
     if (this.isSDKMode) {
       const { authenticated } = await EcoveloNative.isAuthenticated();
       return authenticated;
-    } else {
-      // Mode standalone
-      return false;
     }
+    // Mode standalone
+    return false;
   }
   
   /**
    * Demande la connexion.
    * En mode SDK: déclenche le callback onLoginRequired vers l'app hôte
-   * En mode standalone: redirige vers Cognito
+   * En mode standalone: redirige vers Cognito (à implémenter)
    */
   async requestLogin(): Promise<void> {
     if (this.isSDKMode) {
+      console.log('[SdkModeService] Demande de connexion à l\'app hôte');
       await EcoveloNative.requestLogin();
       // L'app hôte va lancer le SSO, puis appeler updateToken()
       // L'événement 'ecovelo-token-updated' sera émis
     } else {
-      // Mode standalone: rediriger vers Cognito
-      // this.router.navigate(['/login']);
+      // Mode standalone: implémenter la redirection Cognito
+      console.log('[SdkModeService] Mode standalone - redirection Cognito');
     }
   }
   
   /**
-   * Émet un événement vers l'app hôte (analytics, etc.)
+   * Émet un événement vers l'app hôte (analytics).
    */
-  async emitEvent(name: string, data: any): Promise<void> {
+  async emitEvent(name: string, data?: any): Promise<void> {
     if (this.isSDKMode) {
       await EcoveloNative.emitEvent({ name, data });
     }
+    // En mode standalone, vous pouvez aussi logger l'événement
+    console.log(`[Analytics] ${name}`, data);
   }
   
   /**
@@ -190,15 +341,27 @@ export class SdkModeService {
       await EcoveloNative.close({ result });
     }
   }
+  
+  /**
+   * Déconnecte l'utilisateur.
+   */
+  async logout(): Promise<void> {
+    if (this.isSDKMode) {
+      await EcoveloNative.logout();
+    }
+    this._isAuthenticated.next(false);
+    this._userInfo.next(null);
+  }
 }
 ```
 
-### 1.3 Modifier le service d'authentification
+### 3. Adapter le service d'authentification existant
 
-Mettre à jour votre service d'auth existant pour utiliser `SdkModeService` :
+Modifier votre service d'auth pour utiliser `SdkModeService` :
 
 ```typescript
 // auth.service.ts
+import { Injectable } from '@angular/core';
 import { SdkModeService } from './sdk-mode.service';
 
 @Injectable({ providedIn: 'root' })
@@ -206,64 +369,188 @@ export class AuthService {
   
   constructor(
     private sdkMode: SdkModeService,
-    // ... autres dépendances
+    // ... autres dépendances (CognitoService, etc.)
   ) {}
   
+  /**
+   * Récupère le token d'accès pour les appels API.
+   */
   async getToken(): Promise<string | null> {
     if (this.sdkMode.isSDKMode) {
       return this.sdkMode.getAccessToken();
-    } else {
-      return this.cognitoService.getToken();
     }
+    // Mode standalone: utiliser Cognito
+    return this.cognitoService.getToken();
   }
   
+  /**
+   * Déclenche le flow de connexion.
+   */
   async login(): Promise<void> {
     if (this.sdkMode.isSDKMode) {
       await this.sdkMode.requestLogin();
     } else {
-      // Cognito login
+      // Mode standalone: redirection Cognito
+      await this.cognitoService.login();
+    }
+  }
+  
+  /**
+   * Vérifie si l'utilisateur est connecté.
+   */
+  async isAuthenticated(): Promise<boolean> {
+    if (this.sdkMode.isSDKMode) {
+      return this.sdkMode.isAuthenticated();
+    }
+    return this.cognitoService.isAuthenticated();
+  }
+  
+  /**
+   * Déconnecte l'utilisateur.
+   */
+  async logout(): Promise<void> {
+    if (this.sdkMode.isSDKMode) {
+      await this.sdkMode.logout();
+    } else {
+      await this.cognitoService.logout();
     }
   }
 }
 ```
 
-### 1.4 Ajouter le bouton "Se connecter" conditionnel
+### 4. Ajouter le bouton "Se connecter" conditionnel
 
-Dans vos composants qui nécessitent une connexion :
+Dans les composants qui nécessitent une connexion :
 
 ```html
-<!-- Exemple dans un composant -->
-<ion-button 
-  *ngIf="!(sdkMode.isLoggedIn$ | async)"
-  (click)="onLoginClick()">
-  Se connecter
-</ion-button>
+<!-- header.component.html -->
+<ion-buttons slot="end">
+  <!-- Bouton connexion si non authentifié -->
+  <ion-button 
+    *ngIf="!(sdkMode.isAuthenticated$ | async)"
+    (click)="onLoginClick()">
+    <ion-icon name="person-outline" slot="start"></ion-icon>
+    Se connecter
+  </ion-button>
+  
+  <!-- Menu utilisateur si authentifié -->
+  <ion-button 
+    *ngIf="sdkMode.isAuthenticated$ | async"
+    (click)="openUserMenu()">
+    <ion-icon name="person" slot="icon-only"></ion-icon>
+  </ion-button>
+</ion-buttons>
 ```
 
 ```typescript
-async onLoginClick() {
-  await this.sdkMode.requestLogin();
+// header.component.ts
+import { Component } from '@angular/core';
+import { SdkModeService } from '../services/sdk-mode.service';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html'
+})
+export class HeaderComponent {
+  constructor(public sdkMode: SdkModeService) {}
+  
+  async onLoginClick(): Promise<void> {
+    await this.sdkMode.requestLogin();
+  }
 }
 ```
 
-### 1.5 Émettre les événements analytics
+### 5. Émettre les événements analytics
+
+Ajouter l'émission d'événements aux moments clés :
 
 ```typescript
-// Quand une location démarre
-await this.sdkMode.emitEvent('rental_started', { rentalId: '123' });
+// rental.service.ts
+import { SdkModeService } from './sdk-mode.service';
 
-// Quand une location se termine
-await this.sdkMode.emitEvent('rental_ended', { rentalId: '123', duration: 30 });
+@Injectable({ providedIn: 'root' })
+export class RentalService {
+  constructor(private sdkMode: SdkModeService) {}
+  
+  async startRental(bikeId: string, stationId: string): Promise<void> {
+    // ... logique de location
+    
+    // Émettre l'événement analytics
+    await this.sdkMode.emitEvent('rental_started', {
+      bikeId,
+      stationId,
+      timestamp: new Date().toISOString()
+    });
+  }
+  
+  async endRental(rentalId: string): Promise<void> {
+    // ... logique de fin de location
+    
+    await this.sdkMode.emitEvent('rental_ended', {
+      rentalId,
+      duration: this.calculateDuration(),
+      timestamp: new Date().toISOString()
+    });
+  }
+}
 
-// Quand une réservation est créée
-await this.sdkMode.emitEvent('reservation_created', { reservationId: '456' });
+// reservation.service.ts
+@Injectable({ providedIn: 'root' })
+export class ReservationService {
+  constructor(private sdkMode: SdkModeService) {}
+  
+  async createReservation(data: ReservationData): Promise<void> {
+    // ... logique de réservation
+    
+    await this.sdkMode.emitEvent('reservation_created', {
+      reservationId: result.id,
+      stationId: data.stationId,
+      scheduledTime: data.scheduledTime
+    });
+  }
+  
+  async cancelReservation(reservationId: string): Promise<void> {
+    // ... logique d'annulation
+    
+    await this.sdkMode.emitEvent('reservation_cancelled', {
+      reservationId
+    });
+  }
+}
 ```
 
-## Étape 2 : Configuration du build
+### 6. Créer l'environnement Breizhgo
 
-### 2.1 Créer une configuration Angular pour Breizhgo
+Créer `src/environments/environment.breizhgo.ts` :
 
-Dans `angular.json`, ajouter une configuration spécifique :
+```typescript
+export const environment = {
+  production: true,
+  
+  // Identifiant du territoire
+  territoryId: 'breizhgo',
+  
+  // API Ecovelo
+  apiUrl: 'https://api.breizhgo.ecovelo.bzh',
+  
+  // Désactiver Cognito en mode SDK (l'auth vient de l'app hôte)
+  cognitoEnabled: false,
+  
+  // Mode SDK activé
+  sdkMode: true,
+  
+  // Thème Breizhgo
+  theme: {
+    primaryColor: '#0055A4',
+    secondaryColor: '#E4002B',
+    logoUrl: 'assets/breizhgo/logo.svg'
+  }
+};
+```
+
+### 7. Configuration Angular
+
+Ajouter la configuration dans `angular.json` :
 
 ```json
 {
@@ -277,32 +564,21 @@ Dans `angular.json`, ajouter une configuration spécifique :
       ],
       "optimization": true,
       "outputHashing": "all",
-      "sourceMap": false
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "vendorChunk": false,
+      "buildOptimizer": true
     }
   }
 }
 ```
 
-### 2.2 Créer l'environnement Breizhgo
+## Build et déploiement
 
-`src/environments/environment.breizhgo.ts` :
+### Script de build
 
-```typescript
-export const environment = {
-  production: true,
-  territoryId: 'breizhgo',
-  apiUrl: 'https://api.ecovelo.bzh',
-  // Désactiver l'auth Cognito en mode SDK
-  cognitoEnabled: false,
-  sdkMode: true
-};
-```
-
-## Étape 3 : Build et copie des assets
-
-### 3.1 Script de build
-
-Créer `scripts/build-sdk.sh` dans appli-usager-v3 :
+Créer `scripts/build-breizhgo-sdk.sh` :
 
 ```bash
 #!/bin/bash
@@ -310,142 +586,116 @@ set -e
 
 echo "🔨 Building Ionic app for Breizhgo SDK..."
 
-# Build Angular avec la config breizhgo
-npm run build -- --configuration=breizhgo
+# Build Angular avec la configuration breizhgo
+ionic build --configuration=breizhgo
 
 # Répertoire de sortie
 OUTPUT_DIR="www"
 
-# Répertoire cible dans le SDK Android
-SDK_ASSETS_DIR="../ecovelo-sdk-android/ecovelo-sdk/src/main/assets/public"
+# Chemin vers le SDK Android (à adapter)
+SDK_ANDROID_PATH="../ecovelo-sdk-android"
+SDK_ASSETS_DIR="$SDK_ANDROID_PATH/ecovelo-sdk/src/main/assets/public"
 
-echo "📦 Copying assets to SDK..."
+if [ -d "$SDK_ANDROID_PATH" ]; then
+    echo "📦 Copying assets to SDK Android..."
+    
+    # Créer le répertoire si nécessaire
+    mkdir -p "$SDK_ASSETS_DIR"
+    
+    # Supprimer les anciens assets
+    rm -rf "$SDK_ASSETS_DIR"/*
+    
+    # Copier les nouveaux
+    cp -r "$OUTPUT_DIR"/* "$SDK_ASSETS_DIR/"
+    
+    echo "✅ Assets copiés vers $SDK_ASSETS_DIR"
+else
+    echo "⚠️  SDK Android non trouvé à $SDK_ANDROID_PATH"
+    echo "    Copiez manuellement le contenu de $OUTPUT_DIR"
+fi
 
-# Créer le répertoire si nécessaire
-mkdir -p "$SDK_ASSETS_DIR"
-
-# Supprimer les anciens assets
-rm -rf "$SDK_ASSETS_DIR"/*
-
-# Copier les nouveaux
-cp -r "$OUTPUT_DIR"/* "$SDK_ASSETS_DIR/"
-
-echo "✅ Done! Assets copied to $SDK_ASSETS_DIR"
 echo ""
-echo "📱 You can now build the Android SDK:"
-echo "   cd ../ecovelo-sdk-android"
-echo "   ./gradlew :sample-app:assembleDebug"
+echo "📱 Build terminé!"
+echo "   Fichiers dans: $OUTPUT_DIR"
 ```
 
-### 3.2 Exécuter le build
+### Commandes
 
 ```bash
-cd appli-usager-v3
-chmod +x scripts/build-sdk.sh
-./scripts/build-sdk.sh
+# Rendre le script exécutable
+chmod +x scripts/build-breizhgo-sdk.sh
+
+# Builder pour le SDK
+./scripts/build-breizhgo-sdk.sh
+
+# Ou manuellement
+ionic build --configuration=breizhgo
 ```
 
-## Étape 4 : Tester sur émulateur
+## Structure finale des assets
 
-```bash
-cd ecovelo-sdk-android
-
-# Sync Gradle
-./gradlew --refresh-dependencies
-
-# Build et installer sur émulateur
-./gradlew :sample-app:installDebug
-
-# Ou ouvrir dans Android Studio
-open -a "Android Studio" .
-```
-
-## Structure des assets après build
+Après le build, le dossier `www/` contiendra :
 
 ```
-ecovelo-sdk/src/main/assets/public/
-├── index.html
-├── main.js
-├── polyfills.js
-├── runtime.js
-├── styles.css
-├── assets/
-│   ├── icon/
-│   ├── i18n/
+www/
+├── browser/           # ← Le contenu est ICI (Angular 17+)
+│   ├── index.html
+│   ├── main-*.js
+│   ├── polyfills-*.js
+│   ├── styles-*.css
+│   ├── assets/
+│   │   ├── icon/
+│   │   ├── i18n/          # Traductions
+│   │   ├── breizhgo/      # Assets spécifiques Breizhgo
+│   │   └── ...
 │   └── ...
-└── ...
+├── 3rdpartylicenses.txt
+└── prerendered-routes.json
 ```
 
-## CI/CD (GitHub Actions)
+> ⚠️ **Important** : Avec Angular 17+, le contenu web est dans `www/browser/`, pas directement dans `www/`.
 
-Exemple de workflow pour automatiser le build :
+Ces fichiers doivent être copiés dans :
 
-```yaml
-# .github/workflows/build-sdk.yml
-name: Build SDK
-
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-jobs:
-  build-ionic:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          repository: titibike/appli-usager-v3
-          token: ${{ secrets.GH_TOKEN }}
-          path: appli-usager-v3
-      
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-      
-      - name: Install & Build Ionic
-        working-directory: appli-usager-v3
-        run: |
-          npm ci
-          npm run build -- --configuration=breizhgo
-      
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ionic-assets
-          path: appli-usager-v3/www
-  
-  build-android:
-    needs: build-ionic
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - uses: actions/download-artifact@v4
-        with:
-          name: ionic-assets
-          path: ecovelo-sdk/src/main/assets/public
-      
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      
-      - name: Build SDK
-        run: ./gradlew :ecovelo-sdk:assembleRelease
-      
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ecovelo-sdk-aar
-          path: ecovelo-sdk/build/outputs/aar/*.aar
+```
+ecovelo-sdk-android/ecovelo-sdk/src/main/assets/public/
 ```
 
-## Checklist
+## Checklist d'intégration
 
-- [ ] Plugin `EcoveloNative` créé dans appli-usager-v3
-- [ ] Service `SdkModeService` implémenté
-- [ ] Auth service modifié pour supporter les 2 modes
-- [ ] Configuration Angular `breizhgo` créée
+- [ ] Plugin `EcoveloNative` créé (`src/app/plugins/ecovelo-native.plugin.ts`)
+- [ ] Service `SdkModeService` créé (`src/app/services/sdk-mode.service.ts`)
+- [ ] Service d'auth adapté pour le mode SDK
+- [ ] Bouton "Se connecter" ajouté (visible si non authentifié)
+- [ ] Événements analytics émis (rental_started, rental_ended, etc.)
 - [ ] Environnement `environment.breizhgo.ts` créé
+- [ ] Configuration Angular `breizhgo` ajoutée
 - [ ] Script de build créé
-- [ ] Assets copiés dans le SDK
-- [ ] Test sur émulateur OK
+- [ ] Assets copiés dans le SDK Android
+- [ ] Test sur émulateur Android OK
+- [ ] Test sur device physique OK
+
+## Événements analytics recommandés
+
+| Événement | Quand | Données |
+|-----------|-------|---------|
+| `app_opened` | Au démarrage | `{ timestamp }` |
+| `rental_started` | Location démarrée | `{ bikeId, stationId, timestamp }` |
+| `rental_ended` | Location terminée | `{ rentalId, duration, cost, timestamp }` |
+| `reservation_created` | Réservation créée | `{ reservationId, stationId, scheduledTime }` |
+| `reservation_cancelled` | Réservation annulée | `{ reservationId, reason }` |
+| `station_viewed` | Station consultée | `{ stationId }` |
+| `qr_scanned` | QR code scanné | `{ bikeId, success }` |
+| `error_occurred` | Erreur | `{ error, context }` |
+
+## Notes importantes
+
+1. **Mode dual** : L'app doit fonctionner à la fois en standalone (Cognito) et en SDK (token de l'hôte). Utilisez `SdkModeService.isSDKMode` pour distinguer les deux modes.
+
+2. **Token refresh** : En mode SDK, le refresh du token est géré par l'app hôte. L'événement `ecovelo-token-updated` est émis quand le token change.
+
+3. **Fermeture du SDK** : L'utilisateur peut fermer le SDK via un bouton ou le back button. Utilisez `SdkModeService.closeSDK()` pour retourner proprement à l'app hôte.
+
+4. **Pas de Cognito** : En mode SDK, toute l'authentification passe par l'app hôte. Ne déclenchez JAMAIS le flow Cognito en mode SDK.
+
+5. **Téléphone** : Le SSO mon-compte.bzh ne fournit pas le téléphone. Si nécessaire, demandez-le à l'utilisateur et stockez-le localement ou via votre API.

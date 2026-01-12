@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/supporting-documents/supporting-documents.page.scss"],
+  "sourcesContent": ["ion-thumbnail {\n  --border-radius: 4px;\n}\n\np {\n  color: var(--ion-color-medium);\n  font-size: 0.9em;\n  margin-top: -0.5em;\n  margin-bottom: 1em;\n}\n"],
+  "mappings": ";AAAA;AACE,mBAAA;;AAGF;AACE,SAAA,IAAA;AACA,aAAA;AACA,cAAA;AACA,iBAAA;;",
+  "names": []
+}
