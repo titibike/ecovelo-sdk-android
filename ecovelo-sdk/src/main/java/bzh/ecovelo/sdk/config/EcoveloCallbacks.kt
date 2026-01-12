@@ -28,52 +28,24 @@ import bzh.ecovelo.sdk.phone.PhoneRequest
  * ```
  */
 data class EcoveloCallbacks(
-    /**
-     * Appelé lorsqu'une location démarre.
-     * 
-     * @param rentalId Identifiant de la location
-     */
-    val onRentalStarted: ((rentalId: String) -> Unit)? = null,
+    
+    // ==================== Authentification ====================
     
     /**
-     * Appelé lorsqu'une location se termine.
+     * Appelé lorsque l'utilisateur clique sur "Se connecter" dans l'app.
      * 
-     * @param rentalId Identifiant de la location
-     * @param durationMinutes Durée de la location en minutes
-     */
-    val onRentalEnded: ((rentalId: String, durationMinutes: Int) -> Unit)? = null,
-    
-    /**
-     * Appelé lorsqu'une réservation est créée.
+     * L'application hôte doit :
+     * 1. Lancer le flow SSO mon-compte.bzh
+     * 2. Une fois connecté, appeler [EcoveloSDK.updateToken]
      * 
-     * @param reservationId Identifiant de la réservation
+     * ⚠️ Ce callback est OBLIGATOIRE si le SDK est lancé sans token.
      */
-    val onReservationCreated: ((reservationId: String) -> Unit)? = null,
-    
-    /**
-     * Appelé lorsqu'une réservation est annulée.
-     * 
-     * @param reservationId Identifiant de la réservation
-     */
-    val onReservationCancelled: ((reservationId: String) -> Unit)? = null,
-    
-    /**
-     * Appelé en cas d'erreur.
-     * 
-     * @param error L'erreur survenue
-     */
-    val onError: ((error: Throwable) -> Unit)? = null,
-    
-    /**
-     * Appelé lorsque l'authentification est requise.
-     * 
-     * L'application hôte doit rediriger vers le SSO pour connecter l'utilisateur.
-     */
-    val onAuthRequired: (() -> Unit)? = null,
+    val onLoginRequired: (() -> Unit)? = null,
     
     /**
      * Appelé lorsque le SDK a besoin du numéro de téléphone.
      * 
+     * Le SSO mon-compte.bzh ne fournit pas le téléphone.
      * L'application hôte peut :
      * - Laisser le SDK afficher son UI native (par défaut)
      * - Gérer elle-même la collecte du téléphone
@@ -81,6 +53,41 @@ data class EcoveloCallbacks(
      * @param request Objet permettant de répondre à la demande
      */
     val onPhoneRequired: ((request: PhoneRequest) -> Unit)? = null,
+    
+    // ==================== Analytics (optionnels) ====================
+    
+    /**
+     * Appelé lorsqu'une location démarre.
+     * Utile pour le tracking analytics.
+     */
+    val onRentalStarted: ((rentalId: String) -> Unit)? = null,
+    
+    /**
+     * Appelé lorsqu'une location se termine.
+     * Utile pour le tracking analytics.
+     */
+    val onRentalEnded: ((rentalId: String, durationMinutes: Int) -> Unit)? = null,
+    
+    /**
+     * Appelé lorsqu'une réservation est créée.
+     * Utile pour le tracking analytics.
+     */
+    val onReservationCreated: ((reservationId: String) -> Unit)? = null,
+    
+    /**
+     * Appelé lorsqu'une réservation est annulée.
+     * Utile pour le tracking analytics.
+     */
+    val onReservationCancelled: ((reservationId: String) -> Unit)? = null,
+    
+    // ==================== Erreurs ====================
+    
+    /**
+     * Appelé en cas d'erreur.
+     */
+    val onError: ((error: Throwable) -> Unit)? = null,
+    
+    // ==================== Cycle de vie ====================
     
     /**
      * Appelé lorsque l'utilisateur ferme le SDK.

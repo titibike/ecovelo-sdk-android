@@ -102,30 +102,43 @@ class MyAuthProvider : EcoveloAuthProvider {
 
 // Enregistrer le provider
 EcoveloSDK.setAuthProvider(MyAuthProvider())
+
+// Configurer le callback de connexion (OBLIGATOIRE)
+EcoveloSDK.setCallbacks(
+    EcoveloCallbacks(
+        onLoginRequired = {
+            // L'utilisateur a cliqué sur "Se connecter" dans l'app
+            // Lancer le flow SSO mon-compte.bzh
+            startSSOLogin { success ->
+                if (success) {
+                    // Notifier le SDK que le token est disponible
+                    EcoveloSDK.updateToken()
+                }
+            }
+        }
+    )
+)
 ```
 
 ## 🚀 Utilisation
 
-Le SDK expose **deux modes d'intégration** conformément au DOC01010 :
-- **Activity** : Point d'entrée simple, recommandé
-- **Fragment** : Intégration flexible (BottomSheet, ViewPager, etc.)
+Le SDK expose un **point d'entrée unique** qui lance l'application usager Ecovelo. L'utilisateur navigue ensuite librement dans l'app (carte, stations, location, réservation, etc.).
 
-### Option 1 : Via Activity
+### Option 1 : Via Activity (recommandé)
 
 ```kotlin
-// Depuis une Activity
-EcoveloSDK.startRentalFlow(
+// Le SDK peut être lancé AVEC ou SANS token
+// Sans token = mode exploration (carte, stations)
+// L'app affichera un bouton "Se connecter" si nécessaire
+
+EcoveloSDK.start(
     activity = this,
-    options = RentalOptions(
-        stationId = "gare-rennes", // Optionnel: pré-sélection de station
-        onComplete = { result ->
-            when (result) {
-                is RentalResult.Success -> Log.d("Ecovelo", "Location terminée")
-                is RentalResult.Cancelled -> Log.d("Ecovelo", "Annulé par l'utilisateur")
-                is RentalResult.Error -> Log.e("Ecovelo", "Erreur: ${result.message}")
-            }
+    onResult = { result ->
+        when (result) {
+            is EcoveloResult.Closed -> Log.d("Ecovelo", "App fermée")
+            is EcoveloResult.Error -> Log.e("Ecovelo", "Erreur: ${result.message}")
         }
-    )
+    }
 )
 ```
 
@@ -133,13 +146,12 @@ EcoveloSDK.startRentalFlow(
 
 ```kotlin
 // Créer le fragment
-val fragment = EcoveloFragment.newRentalInstance(stationId = "gare-rennes")
+val fragment = EcoveloFragment.newInstance()
 
 // Configurer le callback
 fragment.setResultListener { result ->
     when (result) {
-        is EcoveloFragment.Result.RentalCompleted -> { /* succès */ }
-        is EcoveloFragment.Result.Cancelled -> { /* annulé */ }
+        is EcoveloFragment.Result.Closed -> { /* app fermée */ }
         is EcoveloFragment.Result.Error -> { /* erreur */ }
     }
 }
@@ -148,26 +160,6 @@ fragment.setResultListener { result ->
 supportFragmentManager.beginTransaction()
     .replace(R.id.container, fragment)
     .commit()
-```
-
-### Parcours de réservation
-
-```kotlin
-// Via Activity
-EcoveloSDK.startReservationFlow(
-    activity = this,
-    options = ReservationOptions(
-        departureStationId = "gare-rennes",
-        departureTime = LocalDateTime.now().plusHours(2),
-        onComplete = { result -> /* ... */ }
-    )
-)
-
-// Via Fragment
-val fragment = EcoveloFragment.newReservationInstance(
-    stationId = "gare-rennes",
-    departureTime = "2025-12-17T14:00:00"
-)
 ```
 
 ## 📁 Structure du projet

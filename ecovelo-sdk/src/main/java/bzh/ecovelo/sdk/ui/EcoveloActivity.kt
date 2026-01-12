@@ -20,19 +20,14 @@ import bzh.ecovelo.sdk.bridge.EcoveloNativePlugin
  */
 class EcoveloActivity : BridgeActivity() {
     
-    private val flowType: String by lazy {
-        intent.getStringExtra(EXTRA_FLOW_TYPE) ?: FLOW_RENTAL
-    }
-    
-    private val stationId: String? by lazy {
-        intent.getStringExtra(EXTRA_STATION_ID)
-    }
-    
     override fun onCreate(savedInstanceState: Bundle?) {
         // Enregistrer notre plugin custom AVANT super.onCreate()
         registerPlugin(EcoveloNativePlugin::class.java)
         
         super.onCreate(savedInstanceState)
+        
+        // Référencer cette activity pour updateToken()
+        EcoveloSDK.setCurrentActivity(this)
         
         // Activer le debug WebView en mode développement
         if (EcoveloSDK.getConfig().debugMode) {
@@ -41,6 +36,32 @@ class EcoveloActivity : BridgeActivity() {
         
         // Injecter les paramètres de lancement dans le bridge
         injectLaunchParams()
+    }
+    
+    override fun onDestroy() {
+        EcoveloSDK.setCurrentActivity(null)
+        super.onDestroy()
+    }
+    
+    /**
+     * Appelé quand le token est mis à jour après connexion SSO.
+     * Notifie l'app Ionic pour qu'elle rafraîchisse l'état.
+     */
+    internal fun notifyTokenUpdated() {
+        val userInfo = EcoveloSDK.getAuthProvider().getUserInfo()
+        val token = EcoveloSDK.getAuthProvider().getAccessToken()
+        
+        val script = """
+            window.dispatchEvent(new CustomEvent('ecovelo-token-updated', { 
+                detail: {
+                    hasToken: ${token != null},
+                    userEmail: ${userInfo?.email?.let { "'$it'" } ?: "null"},
+                    userFirstName: ${userInfo?.firstName?.let { "'$it'" } ?: "null"}
+                }
+            }));
+        """.trimIndent()
+        
+        bridge.webView.evaluateJavascript(script, null)
     }
     
     /**
@@ -55,9 +76,6 @@ class EcoveloActivity : BridgeActivity() {
         val script = """
             window.EcoveloLaunchParams = {
                 mode: 'sdk',
-                flow: '$flowType',
-                stationId: ${stationId?.let { "'$it'" } ?: "null"},
-                departureTime: ${intent.getStringExtra(EXTRA_DEPARTURE_TIME)?.let { "'$it'" } ?: "null"},
                 territoryId: '${config.territoryId}',
                 environment: '${config.environment.name}',
                 debugMode: ${config.debugMode},
@@ -105,16 +123,6 @@ class EcoveloActivity : BridgeActivity() {
     }
     
     companion object {
-        const val EXTRA_FLOW_TYPE = "flow_type"
-        const val EXTRA_STATION_ID = "station_id"
-        const val EXTRA_DEPARTURE_TIME = "departure_time"
-        
-        const val FLOW_RENTAL = "rental"
-        const val FLOW_RESERVATION = "reservation"
-        
-        const val RESULT_RENTAL_COMPLETED = 1001
-        const val RESULT_RENTAL_IN_PROGRESS = 1002
-        const val RESULT_RESERVATION_CREATED = 1003
         const val RESULT_ERROR = 1099
     }
 }

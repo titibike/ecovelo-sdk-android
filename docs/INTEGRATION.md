@@ -171,63 +171,96 @@ class CityWayAuthProvider(
 
 // Enregistrer le provider
 EcoveloSDK.setAuthProvider(CityWayAuthProvider(iamSession))
+
+// IMPORTANT: Configurer le callback de connexion
+EcoveloSDK.setCallbacks(
+    EcoveloCallbacks(
+        // Appelé quand l'utilisateur clique "Se connecter" dans l'app Ecovelo
+        onLoginRequired = {
+            launchSSOFlow()
+        }
+    )
+)
+```
+
+### Gestion de la connexion SSO
+
+```kotlin
+/**
+ * Lance le flow SSO mon-compte.bzh
+ */
+private fun launchSSOFlow() {
+    // Votre logique SSO (AppAuth, etc.)
+    monCompteBzhAuth.startLogin { result ->
+        when (result) {
+            is LoginResult.Success -> {
+                // Token obtenu, notifier le SDK
+                EcoveloSDK.updateToken()
+            }
+            is LoginResult.Cancelled -> {
+                // L'utilisateur a annulé, rien à faire
+            }
+            is LoginResult.Error -> {
+                // Gérer l'erreur
+                showError(result.message)
+            }
+        }
+    }
+}
 ```
 
 ## Lancement du SDK
 
-Le SDK expose **deux modes d'intégration** : Activity ou Fragment.
+Le SDK expose un **point d'entrée unique** qui lance l'application usager Ecovelo. 
+L'utilisateur navigue ensuite librement dans l'app (carte, stations, location, réservation, etc.).
+
+### Avec ou sans token
+
+Le SDK peut être lancé **avec ou sans token** :
+
+| Mode | Token | Comportement |
+|------|-------|--------------|
+| **Connecté** | ✅ Fourni | Accès complet (location, réservation) |
+| **Exploration** | ❌ Absent | Carte, stations visibles. Bouton "Se connecter" |
+
+Quand l'utilisateur clique sur "Se connecter", le callback `onLoginRequired` est appelé.
 
 ### Option 1 : Via Activity (recommandé)
 
 ```kotlin
 import bzh.ecovelo.sdk.EcoveloSDK
-import bzh.ecovelo.sdk.rental.RentalOptions
-import bzh.ecovelo.sdk.rental.RentalResult
+import bzh.ecovelo.sdk.EcoveloResult
 
-class BikeStationActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     
-    private fun startBikeRental() {
-        // Vérifier l'authentification
-        if (!EcoveloSDK.isAuthenticated()) {
-            startIAMLogin()
-            return
-        }
-        
-        // Lancer le parcours de location
-        EcoveloSDK.startRentalFlow(
+    private fun openEcovelo() {
+        // Lancer l'application Ecovelo (avec ou sans token)
+        EcoveloSDK.start(
             activity = this,
-            options = RentalOptions(
-                stationId = "gare-rennes", // Optionnel
-                onComplete = { result ->
-                    handleRentalResult(result)
-                }
-            )
+            onResult = { result ->
+                handleResult(result)
+            }
         )
     }
     
-    private fun handleRentalResult(result: RentalResult) {
+    private fun handleResult(result: EcoveloResult) {
         when (result) {
-            is RentalResult.Success -> {
-                // ✅ Location terminée avec succès
-                Log.d("Ecovelo", "Location terminée: ${result.rentalId}")
-                Log.d("Ecovelo", "Durée: ${result.durationMinutes} min")
+            is EcoveloResult.Closed -> {
+                // L'utilisateur a fermé l'app Ecovelo
+                Log.d("Ecovelo", "App fermée")
             }
             
-            is RentalResult.Cancelled -> {
-                // ❌ Annulé par l'utilisateur
-                Log.d("Ecovelo", "Location annulée")
-            }
-            
-            is RentalResult.Error -> {
-                // ⚠️ Erreur
+            is EcoveloResult.Error -> {
+                // Une erreur s'est produite
                 Log.e("Ecovelo", "Erreur: ${result.message}")
             }
-            
-            is RentalResult.InProgress -> {
-                // 🚲 Location en cours (vélo non rendu)
-                Log.d("Ecovelo", "Location en cours: ${result.rentalId}")
-            }
         }
+    }
+    
+    // Gérer le retour de l'Activity
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        EcoveloSDK.handleActivityResult(requestCode, resultCode, data)
     }
 }
 ```
@@ -241,29 +274,23 @@ import bzh.ecovelo.sdk.ui.EcoveloFragment
 
 class MainActivity : AppCompatActivity() {
     
-    private fun showBikeRentalFragment() {
+    private fun showEcoveloFragment() {
         // Créer le fragment
-        val fragment = EcoveloFragment.newRentalInstance(
-            stationId = "gare-rennes" // Optionnel
-        )
+        val fragment = EcoveloFragment.newInstance()
         
-        // Configurer le callback de résultat
+        // Configurer le callback
         fragment.setResultListener { result ->
             when (result) {
-                is EcoveloFragment.Result.RentalCompleted -> {
-                    Log.d("Ecovelo", "Terminé: ${result.rentalId}")
-                    closeFragment()
-                }
-                is EcoveloFragment.Result.Cancelled -> {
+                is EcoveloFragment.Result.Closed -> {
                     closeFragment()
                 }
                 is EcoveloFragment.Result.Error -> {
                     showError(result.message)
+                    closeFragment()
                 }
                 is EcoveloFragment.Result.AuthRequired -> {
                     startIAMLogin()
                 }
-                else -> {}
             }
         }
         
@@ -278,26 +305,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.popBackStack()
     }
 }
-```
-
-### Parcours de réservation
-
-```kotlin
-// Via Activity
-EcoveloSDK.startReservationFlow(
-    activity = this,
-    options = ReservationOptions(
-        departureStationId = "gare-rennes",
-        departureTime = LocalDateTime.now().plusHours(2),
-        onComplete = { result -> /* ... */ }
-    )
-)
-
-// Via Fragment
-val fragment = EcoveloFragment.newReservationInstance(
-    stationId = "gare-rennes",
-    departureTime = "2025-12-17T14:00:00"
-)
 ```
 
 ## Callbacks globaux

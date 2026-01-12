@@ -6,8 +6,6 @@ import android.content.Intent
 import bzh.ecovelo.sdk.auth.EcoveloAuthProvider
 import bzh.ecovelo.sdk.config.EcoveloCallbacks
 import bzh.ecovelo.sdk.config.EcoveloConfig
-import bzh.ecovelo.sdk.rental.RentalOptions
-import bzh.ecovelo.sdk.reservation.ReservationOptions
 import bzh.ecovelo.sdk.ui.EcoveloActivity
 import java.lang.ref.WeakReference
 
@@ -121,60 +119,76 @@ object EcoveloSDK {
     }
     
     /**
-     * Lance le parcours de location de vélo.
+     * Lance l'application usager Ecovelo.
      * 
-     * Cette méthode ouvre l'écran de location où l'utilisateur peut :
-     * - Voir la carte des stations
-     * - Sélectionner un vélo
-     * - Démarrer et terminer une location
+     * L'application peut être lancée **avec ou sans token** :
+     * - **Avec token** : L'utilisateur est connecté, peut louer/réserver
+     * - **Sans token** : Mode exploration (carte, stations), bouton "Se connecter" visible
      * 
-     * @param activity L'activité depuis laquelle lancer le parcours
-     * @param options Les options de configuration du parcours
+     * Quand l'utilisateur clique sur "Se connecter" dans l'app, le callback
+     * [EcoveloCallbacks.onLoginRequired] est appelé. L'app hôte doit alors :
+     * 1. Lancer le flow SSO mon-compte.bzh
+     * 2. Appeler [updateToken] avec le nouveau token
+     * 
+     * @param activity L'activité depuis laquelle lancer l'app
+     * @param onResult Callback appelé quand l'utilisateur ferme l'app
      */
     @JvmStatic
-    fun startRentalFlow(activity: Activity, options: RentalOptions = RentalOptions()) {
+    fun start(activity: Activity, onResult: ((EcoveloResult) -> Unit)? = null) {
         ensureInitialized()
         
-        if (!isAuthenticated()) {
-            callbacks?.onAuthRequired?.invoke()
-            return
-        }
+        // Stocker le callback pour le récupérer au retour
+        pendingResultCallback = onResult
         
-        val intent = Intent(activity, EcoveloActivity::class.java).apply {
-            putExtra(EcoveloActivity.EXTRA_FLOW_TYPE, EcoveloActivity.FLOW_RENTAL)
-            putExtra(EcoveloActivity.EXTRA_STATION_ID, options.stationId)
-        }
-        
-        activity.startActivityForResult(intent, REQUEST_CODE_RENTAL)
+        val intent = Intent(activity, EcoveloActivity::class.java)
+        activity.startActivityForResult(intent, REQUEST_CODE_ECOVELO)
     }
     
     /**
-     * Lance le parcours de réservation de vélo.
+     * Met à jour le token après une connexion SSO.
      * 
-     * Permet à l'utilisateur de réserver un vélo pour un créneau futur.
+     * À appeler après que l'utilisateur s'est connecté via mon-compte.bzh
+     * suite au callback [EcoveloCallbacks.onLoginRequired].
      * 
-     * @param activity L'activité depuis laquelle lancer le parcours
-     * @param options Les options de configuration de la réservation
+     * L'app Ionic sera notifiée et pourra continuer le parcours.
      */
     @JvmStatic
-    fun startReservationFlow(activity: Activity, options: ReservationOptions = ReservationOptions()) {
-        ensureInitialized()
-        ensureFeatureEnabled("reservation")
-        
-        if (!isAuthenticated()) {
-            callbacks?.onAuthRequired?.invoke()
-            return
-        }
-        
-        val intent = Intent(activity, EcoveloActivity::class.java).apply {
-            putExtra(EcoveloActivity.EXTRA_FLOW_TYPE, EcoveloActivity.FLOW_RESERVATION)
-            putExtra(EcoveloActivity.EXTRA_STATION_ID, options.departureStationId)
-            options.departureTime?.let { 
-                putExtra(EcoveloActivity.EXTRA_DEPARTURE_TIME, it.toString()) 
+    fun updateToken() {
+        // Notifier l'app Ionic que le token est disponible
+        currentActivity?.get()?.let { activity ->
+            if (activity is EcoveloActivity) {
+                activity.notifyTokenUpdated()
             }
         }
-        
-        activity.startActivityForResult(intent, REQUEST_CODE_RESERVATION)
+    }
+    
+    // Référence à l'activity courante pour updateToken
+    private var currentActivity: WeakReference<Activity>? = null
+    
+    internal fun setCurrentActivity(activity: Activity?) {
+        currentActivity = activity?.let { WeakReference(it) }
+    }
+    
+    // Callback en attente de résultat
+    private var pendingResultCallback: ((EcoveloResult) -> Unit)? = null
+    
+    /**
+     * À appeler depuis onActivityResult de l'Activity hôte.
+     */
+    @JvmStatic
+    fun handleActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CODE_ECOVELO) {
+            val result = when (resultCode) {
+                Activity.RESULT_CANCELED -> EcoveloResult.Closed
+                EcoveloActivity.RESULT_ERROR -> {
+                    val message = data?.getStringExtra("error_message") ?: "Unknown error"
+                    EcoveloResult.Error(message)
+                }
+                else -> EcoveloResult.Closed
+            }
+            pendingResultCallback?.invoke(result)
+            pendingResultCallback = null
+        }
     }
     
     // ============== Internal API ==============
@@ -229,7 +243,17 @@ object EcoveloSDK {
     
     // Constants
     private const val TAG = "EcoveloSDK"
-    const val REQUEST_CODE_RENTAL = 10001
-    const val REQUEST_CODE_RESERVATION = 10002
+    const val REQUEST_CODE_ECOVELO = 10001
+}
+
+/**
+ * Résultat de l'exécution du SDK.
+ */
+sealed class EcoveloResult {
+    /** L'utilisateur a fermé l'application */
+    object Closed : EcoveloResult()
+    
+    /** Une erreur s'est produite */
+    data class Error(val message: String, val cause: Throwable? = null) : EcoveloResult()
 }
 

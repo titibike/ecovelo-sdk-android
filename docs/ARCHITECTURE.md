@@ -93,12 +93,11 @@ Point d'entrée pour l'intégrateur (Cityway). API simple et documentée.
 
 | Classe | Responsabilité |
 |--------|---------------|
-| `EcoveloSDK` | Singleton : init, lancement Activity/Fragment |
+| `EcoveloSDK` | Singleton : init, `start()` pour lancer l'app |
+| `EcoveloResult` | Résultat simple : `Closed` ou `Error` |
 | `EcoveloConfig` | Configuration (territoire, environnement) |
 | `EcoveloAuthProvider` | Interface pour fournir le token IAM |
-| `EcoveloCallbacks` | Callbacks vers l'app hôte (fin parcours, erreurs) |
-| `RentalResult` | Modèle de résultat pour les callbacks |
-| `ReservationResult` | Modèle de résultat pour les callbacks |
+| `EcoveloCallbacks` | Callbacks optionnels (analytics, erreurs) |
 
 ### 2. Capacitor Layer (Runtime complet)
 
@@ -127,40 +126,70 @@ Application Ionic compilée (appli-usager-v3) embarquée dans le SDK :
 
 ## Flow d'authentification SSO
 
+Le SDK peut être lancé **avec ou sans token**. La connexion est gérée par l'app hôte (Cityway).
+
+### Scénario 1 : Utilisateur déjà connecté
+
 ```
-┌────────────┐     ┌────────────┐     ┌────────────┐     ┌────────────┐
-│  App Hôte  │     │   SDK      │     │  App Ionic │     │  Backend   │
-└─────┬──────┘     └─────┬──────┘     └─────┬──────┘     └─────┬──────┘
-      │                  │                  │                  │
-      │ 1. Login SSO     │                  │                  │
-      │ (mon-compte.bzh) │                  │                  │
-      │◄─────────────────┤                  │                  │
-      │                  │                  │                  │
-      │ 2. Token reçu    │                  │                  │
-      ├─────────────────►│                  │                  │
-      │                  │                  │                  │
-      │ 3. startRental() │                  │                  │
-      ├─────────────────►│                  │                  │
-      │                  │ 4. getToken()    │                  │
-      │                  ├─────────────────►│                  │
-      │                  │                  │                  │
-      │                  │                  │ 5. API call      │
-      │                  │                  │    + token       │
-      │                  │                  ├─────────────────►│
-      │                  │                  │                  │
-      │                  │                  │ 6. Validate SSO  │
-      │                  │                  │◄─────────────────┤
-      │                  │                  │                  │
-      │                  │                  │ 7. User exists?  │
-      │                  │                  │    Phone needed? │
-      │                  │                  │◄─────────────────┤
-      │                  │                  │                  │
-      │                  │ 8. requestPhone()│                  │
-      │                  │◄─────────────────┤                  │
-      │                  │                  │                  │
-      │ 9. Show phone UI │                  │                  │
-      │◄─────────────────┤                  │                  │
-      │                  │                  │                  │
+┌────────────┐     ┌────────────┐     ┌────────────┐
+│  App Hôte  │     │   SDK      │     │  App Ionic │
+└─────┬──────┘     └─────┬──────┘     └─────┬──────┘
+      │                  │                  │
+      │ Token disponible │                  │
+      │ (SSO OK)         │                  │
+      │                  │                  │
+      │ EcoveloSDK.start()                  │
+      ├─────────────────►│                  │
+      │                  │ getAccessToken() │
+      │                  ├─────────────────►│
+      │                  │                  │
+      │                  │  ✅ hasToken=true│
+      │                  │◄─────────────────┤
+      │                  │                  │
+      │                  │ Accès complet    │
+      │                  │ (location, etc.) │
+```
+
+### Scénario 2 : Utilisateur non connecté (mode exploration)
+
+```
+┌────────────┐     ┌────────────┐     ┌────────────┐
+│  App Hôte  │     │   SDK      │     │  App Ionic │
+└─────┬──────┘     └─────┬──────┘     └─────┬──────┘
+      │                  │                  │
+      │ Pas de token     │                  │
+      │                  │                  │
+      │ EcoveloSDK.start()                  │
+      ├─────────────────►│                  │
+      │                  │ getAccessToken() │
+      │                  ├─────────────────►│
+      │                  │                  │
+      │                  │ ❌ hasToken=false│
+      │                  │◄─────────────────┤
+      │                  │                  │
+      │                  │ Mode exploration │
+      │                  │ (carte, stations)│
+      │                  │                  │
+      │                  │ [Se connecter]   │
+      │                  │ (clic utilisateur)
+      │                  │                  │
+      │                  │ requestLogin()   │
+      │                  │◄─────────────────┤
+      │                  │                  │
+      │ onLoginRequired  │                  │
+      │◄─────────────────┤                  │
+      │                  │                  │
+      │ SSO mon-compte.bzh                  │
+      │ (flow externe)   │                  │
+      │                  │                  │
+      │ Token obtenu ✅  │                  │
+      │                  │                  │
+      │ updateToken()    │                  │
+      ├─────────────────►│                  │
+      │                  │ token-updated    │
+      │                  ├─────────────────►│
+      │                  │                  │
+      │                  │ Accès complet ✅ │
 ```
 
 ## Flow de demande de téléphone
@@ -222,10 +251,10 @@ Le SDK Android est une **capsule** qui :
 
 ```
 ecovelo-sdk/src/main/java/.../
-├── EcoveloSDK.kt              # Point d'entrée, init, lancement
+├── EcoveloSDK.kt              # Point d'entrée unique : init() + start()
 ├── ui/
 │   ├── EcoveloActivity.kt     # Capacitor BridgeActivity
-│   └── EcoveloFragment.kt     # Capacitor BridgeFragment
+│   └── EcoveloFragment.kt     # Capacitor BridgeFragment (alternative)
 ├── bridge/
 │   └── EcoveloNativePlugin.kt # Plugin Capacitor (auth, events)
 ├── auth/
@@ -233,14 +262,13 @@ ecovelo-sdk/src/main/java/.../
 │   └── EcoveloUserInfo.kt     # Modèle utilisateur
 ├── config/
 │   ├── EcoveloConfig.kt       # Configuration SDK
-│   └── EcoveloCallbacks.kt    # Callbacks vers app hôte
-├── rental/
-│   └── RentalModels.kt        # Modèles pour les callbacks (Result)
-├── reservation/
-│   └── ReservationModels.kt   # Modèles pour les callbacks (Result)
+│   └── EcoveloCallbacks.kt    # Callbacks optionnels (analytics)
 └── phone/
     └── PhoneRequest.kt        # Flow téléphone
 ```
+
+> **Note** : Pas de logique métier (location, réservation) dans le SDK.
+> L'utilisateur navigue librement dans l'app Ionic encapsulée.
 
 ### Logique métier (côté app Ionic - appli-usager-v3)
 

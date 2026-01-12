@@ -45,7 +45,7 @@ class EcoveloNativePlugin : Plugin() {
     /**
      * Retourne le token d'accès OAuth2.
      * 
-     * JS: const { token } = await EcoveloNative.getAccessToken();
+     * JS: const { token, hasToken } = await EcoveloNative.getAccessToken();
      */
     @PluginMethod
     fun getAccessToken(call: PluginCall) {
@@ -57,6 +57,34 @@ class EcoveloNativePlugin : Plugin() {
         }
         
         call.resolve(result)
+    }
+    
+    /**
+     * Demande à l'app hôte de lancer le flow de connexion SSO.
+     * 
+     * Appelé quand l'utilisateur clique sur "Se connecter" dans l'app Ionic.
+     * L'app hôte recevra le callback onLoginRequired et devra :
+     * 1. Lancer le flow SSO mon-compte.bzh
+     * 2. Appeler EcoveloSDK.updateToken() une fois connecté
+     * 
+     * L'app Ionic recevra ensuite l'événement 'ecovelo-token-updated'.
+     * 
+     * JS: await EcoveloNative.requestLogin();
+     */
+    @PluginMethod
+    fun requestLogin(call: PluginCall) {
+        val callbacks = EcoveloSDK.getCallbacks()
+        
+        if (callbacks?.onLoginRequired != null) {
+            // Notifier l'app hôte
+            callbacks.onLoginRequired.invoke()
+            
+            call.resolve(JSObject().apply {
+                put("requested", true)
+            })
+        } else {
+            call.reject("onLoginRequired callback not configured in host app")
+        }
     }
     
     /**

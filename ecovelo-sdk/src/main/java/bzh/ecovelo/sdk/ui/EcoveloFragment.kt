@@ -6,12 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.fragment.app.Fragment
-import com.getcapacitor.Bridge
 import com.getcapacitor.BridgeFragment
 import bzh.ecovelo.sdk.EcoveloSDK
-import bzh.ecovelo.sdk.bridge.EcoveloNativePlugin
-import bzh.ecovelo.sdk.rental.RentalResult
-import bzh.ecovelo.sdk.reservation.ReservationResult
 
 /**
  * Fragment principal du SDK basé sur Capacitor BridgeFragment.
@@ -22,40 +18,23 @@ import bzh.ecovelo.sdk.reservation.ReservationResult
  * ## Usage
  * 
  * ```kotlin
- * // Dans votre Activity ou Fragment parent
- * val ecoveloFragment = EcoveloFragment.newInstance(
- *     flowType = EcoveloFragment.FLOW_RENTAL,
- *     stationId = "gare-rennes"
- * )
+ * val fragment = EcoveloFragment.newInstance()
  * 
- * ecoveloFragment.setResultListener { result ->
+ * fragment.setResultListener { result ->
  *     when (result) {
- *         is EcoveloFragment.Result.RentalCompleted -> { /* ... */ }
- *         is EcoveloFragment.Result.Cancelled -> { /* ... */ }
- *         is EcoveloFragment.Result.Error -> { /* ... */ }
+ *         is EcoveloFragment.Result.Closed -> { /* app fermée */ }
+ *         is EcoveloFragment.Result.Error -> { /* erreur */ }
  *     }
  * }
  * 
  * supportFragmentManager.beginTransaction()
- *     .replace(R.id.container, ecoveloFragment)
+ *     .replace(R.id.container, fragment)
  *     .commit()
  * ```
  */
 class EcoveloFragment : BridgeFragment() {
     
     private var resultListener: ((Result) -> Unit)? = null
-    
-    private val flowType: String by lazy {
-        arguments?.getString(ARG_FLOW_TYPE) ?: FLOW_RENTAL
-    }
-    
-    private val stationId: String? by lazy {
-        arguments?.getString(ARG_STATION_ID)
-    }
-    
-    private val departureTime: String? by lazy {
-        arguments?.getString(ARG_DEPARTURE_TIME)
-    }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,14 +43,6 @@ class EcoveloFragment : BridgeFragment() {
         if (EcoveloSDK.getConfig().debugMode) {
             WebView.setWebContentsDebuggingEnabled(true)
         }
-    }
-    
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,7 +55,7 @@ class EcoveloFragment : BridgeFragment() {
     }
     
     /**
-     * Configure le listener pour recevoir le résultat du parcours.
+     * Configure le listener pour recevoir le résultat.
      */
     fun setResultListener(listener: (Result) -> Unit) {
         this.resultListener = listener
@@ -100,9 +71,6 @@ class EcoveloFragment : BridgeFragment() {
         val script = """
             window.EcoveloLaunchParams = {
                 mode: 'sdk',
-                flow: '$flowType',
-                stationId: ${stationId?.let { "'$it'" } ?: "null"},
-                departureTime: ${departureTime?.let { "'$it'" } ?: "null"},
                 territoryId: '${config.territoryId}',
                 environment: '${config.environment.name}',
                 debugMode: ${config.debugMode},
@@ -119,117 +87,43 @@ class EcoveloFragment : BridgeFragment() {
     }
     
     /**
-     * Appelé par le plugin natif quand le parcours est terminé.
+     * Appelé par le plugin natif quand l'utilisateur ferme l'app.
      */
     internal fun notifyResult(result: Result) {
         resultListener?.invoke(result)
     }
     
     /**
-     * Ferme le fragment (à appeler depuis le parent si nécessaire).
+     * Ferme le fragment.
      */
     fun close() {
+        resultListener?.invoke(Result.Closed)
         parentFragmentManager.beginTransaction()
             .remove(this)
             .commit()
     }
     
     /**
-     * Résultat du parcours SDK.
+     * Résultat du SDK.
      */
     sealed class Result {
+        /** L'utilisateur a fermé l'application */
+        object Closed : Result()
         
-        /**
-         * Location terminée avec succès.
-         */
-        data class RentalCompleted(
-            val rentalId: String,
-            val durationMinutes: Int
-        ) : Result()
+        /** Erreur pendant l'exécution */
+        data class Error(val message: String) : Result()
         
-        /**
-         * Réservation créée avec succès.
-         */
-        data class ReservationCreated(
-            val reservationId: String,
-            val stationName: String,
-            val departureTime: String
-        ) : Result()
-        
-        /**
-         * Location en cours (l'utilisateur a quitté sans rendre le vélo).
-         */
-        data class RentalInProgress(
-            val rentalId: String
-        ) : Result()
-        
-        /**
-         * Parcours annulé par l'utilisateur.
-         */
-        object Cancelled : Result()
-        
-        /**
-         * Erreur pendant le parcours.
-         */
-        data class Error(
-            val message: String,
-            val code: String? = null
-        ) : Result()
-        
-        /**
-         * Authentification requise.
-         */
+        /** Authentification requise */
         object AuthRequired : Result()
     }
     
     companion object {
-        const val ARG_FLOW_TYPE = "flow_type"
-        const val ARG_STATION_ID = "station_id"
-        const val ARG_DEPARTURE_TIME = "departure_time"
-        
-        const val FLOW_RENTAL = "rental"
-        const val FLOW_RESERVATION = "reservation"
-        
-        /**
-         * Crée une nouvelle instance du fragment pour le parcours de location.
-         * 
-         * @param stationId Station à pré-sélectionner (optionnel)
-         */
-        @JvmStatic
-        fun newRentalInstance(stationId: String? = null): EcoveloFragment {
-            return newInstance(FLOW_RENTAL, stationId, null)
-        }
-        
-        /**
-         * Crée une nouvelle instance du fragment pour le parcours de réservation.
-         * 
-         * @param stationId Station de départ (optionnel)
-         * @param departureTime Heure de départ ISO8601 (optionnel)
-         */
-        @JvmStatic
-        fun newReservationInstance(
-            stationId: String? = null,
-            departureTime: String? = null
-        ): EcoveloFragment {
-            return newInstance(FLOW_RESERVATION, stationId, departureTime)
-        }
-        
         /**
          * Crée une nouvelle instance du fragment.
          */
         @JvmStatic
-        fun newInstance(
-            flowType: String,
-            stationId: String? = null,
-            departureTime: String? = null
-        ): EcoveloFragment {
-            return EcoveloFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_FLOW_TYPE, flowType)
-                    stationId?.let { putString(ARG_STATION_ID, it) }
-                    departureTime?.let { putString(ARG_DEPARTURE_TIME, it) }
-                }
-            }
+        fun newInstance(): EcoveloFragment {
+            return EcoveloFragment()
         }
     }
 }
