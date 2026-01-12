@@ -92,6 +92,19 @@ data class EcoveloCallbacks(
     /**
      * Appelé lorsque l'utilisateur ferme le SDK.
      */
-    val onClose: (() -> Unit)? = null
+    val onClose: (() -> Unit)? = null,
+    
+    /**
+     * Appelé lorsque l'utilisateur se déconnecte.
+     */
+    val onLogout: (() -> Unit)? = null,
+    
+    /**
+     * Appelé pour les événements analytics génériques.
+     * 
+     * @param name Nom de l'événement
+     * @param data Données associées (JSON string)
+     */
+    val onEvent: ((name: String, data: String?) -> Unit)? = null
 )
 

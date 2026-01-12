@@ -31,12 +31,12 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "11"
     }
     
     buildFeatures {
@@ -73,29 +73,26 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     
     // ============================================
-    // CAPACITOR - Runtime complet pour les plugins
+    // CAPACITOR - Runtime complet
     // ============================================
-    implementation("com.capacitorjs:core:6.0.0")
+    implementation("com.capacitorjs:core:6.1.2")
     
-    // Plugins Capacitor utilisés par l'app Ionic Ecovelo
-    implementation("com.capacitorjs:camera:6.0.0")
-    implementation("com.capacitorjs:geolocation:6.0.0")
-    implementation("com.capacitorjs:filesystem:6.0.0")
-    implementation("com.capacitorjs:preferences:6.0.0")
-    implementation("com.capacitorjs:haptics:6.0.0")
-    implementation("com.capacitorjs:keyboard:6.0.0")
-    implementation("com.capacitorjs:status-bar:6.0.0")
-    implementation("com.capacitorjs:splash-screen:6.0.0")
-    implementation("com.capacitorjs:push-notifications:6.0.0")
-    implementation("com.capacitorjs:local-notifications:6.0.0")
-    
-    // Plugin BLE pour le déverrouillage vélo (si utilisé)
-    // implementation("com.capacitorjs:bluetooth-le:...")
-    
-    // Plugin QR Code Scanner
-    implementation("com.capacitorjs:barcode-scanner:6.0.0")
-    
+    // Note: Les plugins Capacitor officiels ne sont pas sur Maven Central.
+    // On utilise des plugins natifs personnalisés pour le SDK.
+    // Quand l'app Ionic sera intégrée, elle apportera ses propres plugins.
     // ============================================
+    
+    // WebView amélioré
+    implementation("androidx.webkit:webkit:1.10.0")
+    
+    // Camera (pour le plugin natif)
+    implementation("androidx.camera:camera-core:1.3.1")
+    implementation("androidx.camera:camera-camera2:1.3.1")
+    implementation("androidx.camera:camera-lifecycle:1.3.1")
+    implementation("androidx.camera:camera-view:1.3.1")
+    
+    // ExifInterface (pour les métadonnées photo)
+    implementation("androidx.exifinterface:exifinterface:1.3.7")
     
     // Tests
     testImplementation("junit:junit:4.13.2")
