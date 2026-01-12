@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference
 /**
  * Point d'entrée principal du SDK Ecovelo.
  * 
- * Ce SDK permet d'intégrer le parcours usager de location de vélos Ecovelo
+ * Ce SDK permet d'intégrer l'application usager Ecovelo (Breizhgo)
  * dans une application Android tierce.
  * 
  * ## Initialisation
@@ -22,7 +22,7 @@ import java.lang.ref.WeakReference
  * EcoveloSDK.init(
  *     context = this,
  *     config = EcoveloConfig.Builder()
- *         .setTerritoryId("bretagne-velo-gare")
+ *         .setTerritoryId("breizhgo")
  *         .setEnvironment(EcoveloEnvironment.PRODUCTION)
  *         .build()
  * )
@@ -30,16 +30,21 @@ import java.lang.ref.WeakReference
  * 
  * ## Authentification
  * 
- * Le SDK requiert un provider d'authentification pour obtenir les tokens SSO :
- * 
  * ```kotlin
  * EcoveloSDK.setAuthProvider(MyAuthProvider())
+ * EcoveloSDK.setCallbacks(EcoveloCallbacks(
+ *     onLoginRequired = { launchSSOMonCompteBzh() }
+ * ))
  * ```
  * 
  * ## Usage
  * 
  * ```kotlin
- * EcoveloSDK.startRentalFlow(activity, RentalOptions(...))
+ * // Lancer l'app (avec ou sans token)
+ * EcoveloSDK.start(activity) { result -> /* ... */ }
+ * 
+ * // Après connexion SSO réussie
+ * EcoveloSDK.updateToken()
  * ```
  */
 object EcoveloSDK {

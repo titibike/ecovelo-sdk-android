@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Ecovelo SDK Demo"
+        android:text="Breizhgo SDK Demo"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,20 +119,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:enabled="false"
-                android:text="🚲 Louer un vélo"
+                android:enabled="true"
+                android:text="🚲 Ouvrir Ecovelo"
                 app:cornerRadius="8dp"
                 app:icon="@drawable/ic_bike_placeholder"
                 app:iconGravity="start" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonReservation"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:enabled="false"
-                android:text="📅 Réserver un vélo"
+                android:text="💡 Fonctionne avec ou sans connexion"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp" />
+
+            <!-- Bouton masqué, gardé pour compatibilité -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonReservation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text=""
                 app:cornerRadius="8dp" />
 
         </LinearLayout>

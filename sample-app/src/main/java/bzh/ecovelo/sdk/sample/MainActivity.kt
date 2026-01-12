@@ -6,26 +6,22 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import bzh.ecovelo.sdk.EcoveloSDK
+import bzh.ecovelo.sdk.EcoveloResult
 import bzh.ecovelo.sdk.config.EcoveloCallbacks
-import bzh.ecovelo.sdk.rental.RentalOptions
-import bzh.ecovelo.sdk.rental.RentalResult
-import bzh.ecovelo.sdk.reservation.ReservationOptions
-import bzh.ecovelo.sdk.reservation.ReservationResult
 import bzh.ecovelo.sdk.sample.databinding.ActivityMainBinding
-import java.time.LocalDateTime
 
 /**
  * Activity principale de l'application de démonstration.
  * 
  * Montre comment :
  * - Configurer l'authentification SSO (simulée ici)
- * - Lancer le parcours de location
- * - Lancer le parcours de réservation
- * - Gérer les callbacks du SDK
+ * - Lancer le SDK Ecovelo
+ * - Gérer le callback de connexion (onLoginRequired)
  */
 class MainActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityMainBinding
+    private lateinit var authProvider: DemoAuthProvider
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +37,12 @@ class MainActivity : AppCompatActivity() {
     /**
      * Configure le provider d'authentification.
      * 
-     * Dans une vraie application, cela utiliserait le SDK mon-compte.bzh.
+     * Dans une vraie application (Cityway), cela utiliserait le SDK mon-compte.bzh.
      * Ici, nous simulons une authentification pour la démo.
      */
     private fun setupAuthProvider() {
-        // Utiliser le provider de démonstration
-        EcoveloSDK.setAuthProvider(DemoAuthProvider())
-        
+        authProvider = DemoAuthProvider()
+        EcoveloSDK.setAuthProvider(authProvider)
         updateAuthStatus()
     }
     
@@ -57,19 +52,32 @@ class MainActivity : AppCompatActivity() {
     private fun setupCallbacks() {
         EcoveloSDK.setCallbacks(
             EcoveloCallbacks(
+                // IMPORTANT: Callback appelé quand l'utilisateur clique "Se connecter" dans l'app
+                onLoginRequired = {
+                    Log.d(TAG, "Login requis - Lancement du SSO")
+                    showToast("Connexion SSO requise...")
+                    
+                    // Simuler le flow SSO (dans une vraie app: lancer mon-compte.bzh)
+                    simulateSSOLogin()
+                },
+                
+                // Callback optionnel pour le téléphone
+                onPhoneRequired = { request ->
+                    Log.d(TAG, "Téléphone requis pour ${request.userEmail}")
+                    request.useSDKUI()
+                },
+                
+                // Callbacks analytics (optionnels)
                 onRentalStarted = { rentalId ->
-                    Log.d(TAG, "Location démarrée: $rentalId")
-                    showToast("Location démarrée !")
+                    Log.d(TAG, "Analytics: Location démarrée $rentalId")
                 },
                 
                 onRentalEnded = { rentalId, duration ->
-                    Log.d(TAG, "Location terminée: $rentalId (durée: ${duration}min)")
-                    showToast("Location terminée - Durée: ${duration} minutes")
+                    Log.d(TAG, "Analytics: Location terminée $rentalId (${duration}min)")
                 },
                 
                 onReservationCreated = { reservationId ->
-                    Log.d(TAG, "Réservation créée: $reservationId")
-                    showToast("Réservation confirmée !")
+                    Log.d(TAG, "Analytics: Réservation créée $reservationId")
                 },
                 
                 onError = { error ->
@@ -77,16 +85,9 @@ class MainActivity : AppCompatActivity() {
                     showToast("Erreur: ${error.message}")
                 },
                 
-                onAuthRequired = {
-                    Log.d(TAG, "Authentification requise")
-                    showToast("Veuillez vous connecter")
-                    // Dans une vraie app: lancer le flow SSO
-                },
-                
-                onPhoneRequired = { request ->
-                    Log.d(TAG, "Téléphone requis pour ${request.userEmail}")
-                    // Laisser le SDK gérer l'UI de saisie du téléphone
-                    request.useSDKUI()
+                onClose = {
+                    Log.d(TAG, "SDK fermé")
+                    updateAuthStatus()
                 }
             )
         )
@@ -96,43 +97,94 @@ class MainActivity : AppCompatActivity() {
      * Configure l'interface utilisateur.
      */
     private fun setupUI() {
-        // Bouton de connexion/déconnexion
+        // Bouton de connexion/déconnexion (pour tester)
         binding.buttonLogin.setOnClickListener {
             toggleAuth()
         }
         
-        // Bouton de location
+        // Bouton pour lancer Ecovelo
         binding.buttonRental.setOnClickListener {
-            startRental()
+            openEcovelo()
         }
         
-        // Bouton de réservation
-        binding.buttonReservation.setOnClickListener {
-            startReservation()
-        }
+        // Masquer le bouton réservation (plus besoin, c'est dans l'app)
+        binding.buttonReservation.visibility = android.view.View.GONE
         
         // Informations SDK
         binding.textSdkVersion.text = "SDK Version: ${EcoveloSDK.version}"
+        
+        // Renommer le bouton
+        binding.buttonRental.text = "🚲 Ouvrir Ecovelo"
     }
     
     /**
-     * Simule la connexion/déconnexion.
+     * Ouvre l'application Ecovelo.
+     * 
+     * Le SDK peut être lancé avec ou sans token :
+     * - Avec token : accès complet
+     * - Sans token : mode exploration, bouton "Se connecter" visible
+     */
+    private fun openEcovelo() {
+        EcoveloSDK.start(
+            activity = this,
+            onResult = { result ->
+                when (result) {
+                    is EcoveloResult.Closed -> {
+                        Log.d(TAG, "Ecovelo fermé")
+                        showToast("Application Ecovelo fermée")
+                    }
+                    is EcoveloResult.Error -> {
+                        Log.e(TAG, "Erreur: ${result.message}")
+                        showToast("Erreur: ${result.message}")
+                    }
+                }
+                updateAuthStatus()
+            }
+        )
+    }
+    
+    /**
+     * Simule le flow SSO mon-compte.bzh.
+     * 
+     * Dans une vraie application Cityway :
+     * - Lancer l'intent vers mon-compte.bzh
+     * - Récupérer le token dans onActivityResult
+     * - Appeler EcoveloSDK.updateToken()
+     */
+    private fun simulateSSOLogin() {
+        // Simuler un délai de connexion SSO
+        binding.root.postDelayed({
+            // Simuler la connexion réussie
+            authProvider.simulateLogin(
+                email = "demo@ecovelo.bzh",
+                firstName = "Jean",
+                lastName = "Dupont"
+            )
+            
+            showToast("Connecté via SSO !")
+            
+            // IMPORTANT: Notifier le SDK que le token est disponible
+            EcoveloSDK.updateToken()
+            
+            updateAuthStatus()
+        }, 1500) // Simule 1.5s de flow SSO
+    }
+    
+    /**
+     * Simule la connexion/déconnexion (pour les tests).
      */
     private fun toggleAuth() {
-        val provider = EcoveloSDK.getAuthProvider() as? DemoAuthProvider ?: return
-        
-        if (provider.isAuthenticated()) {
-            provider.logout()
+        if (authProvider.isAuthenticated()) {
+            authProvider.logout()
             showToast("Déconnecté")
         } else {
-            provider.simulateLogin(
+            authProvider.simulateLogin(
                 email = "demo@ecovelo.bzh",
                 firstName = "Jean",
                 lastName = "Dupont"
             )
             showToast("Connecté en tant que Jean Dupont")
         }
-        
         updateAuthStatus()
     }
     
@@ -144,91 +196,19 @@ class MainActivity : AppCompatActivity() {
         
         binding.buttonLogin.text = if (isAuth) "Se déconnecter" else "Se connecter (démo)"
         binding.textAuthStatus.text = if (isAuth) {
-            val user = (EcoveloSDK.getAuthProvider() as? DemoAuthProvider)?.getUserInfo()
-            "Connecté: ${user?.fullName ?: "Utilisateur"}"
+            "Connecté: ${authProvider.getUserInfo()?.fullName ?: "Utilisateur"}"
         } else {
-            "Non connecté"
+            "Non connecté (mode exploration disponible)"
         }
         
-        binding.buttonRental.isEnabled = isAuth
-        binding.buttonReservation.isEnabled = isAuth
-    }
-    
-    /**
-     * Lance le parcours de location.
-     */
-    private fun startRental() {
-        EcoveloSDK.startRentalFlow(
-            activity = this,
-            options = RentalOptions(
-                // Pré-sélectionner la gare de Rennes (optionnel)
-                stationId = "gare-rennes",
-                onComplete = { result ->
-                    handleRentalResult(result)
-                }
-            )
-        )
-    }
-    
-    /**
-     * Lance le parcours de réservation.
-     */
-    private fun startReservation() {
-        EcoveloSDK.startReservationFlow(
-            activity = this,
-            options = ReservationOptions(
-                departureStationId = "gare-rennes",
-                departureTime = LocalDateTime.now().plusHours(2),
-                estimatedDurationMinutes = 30,
-                onComplete = { result ->
-                    handleReservationResult(result)
-                }
-            )
-        )
-    }
-    
-    /**
-     * Gère le résultat du parcours de location.
-     */
-    private fun handleRentalResult(result: RentalResult) {
-        when (result) {
-            is RentalResult.Success -> {
-                showToast("Location terminée: ${result.durationMinutes} min")
-            }
-            is RentalResult.Cancelled -> {
-                showToast("Location annulée")
-            }
-            is RentalResult.Error -> {
-                showToast("Erreur: ${result.message}")
-            }
-            is RentalResult.InProgress -> {
-                showToast("Location en cours depuis ${result.startTime}")
-            }
-        }
-    }
-    
-    /**
-     * Gère le résultat du parcours de réservation.
-     */
-    private fun handleReservationResult(result: ReservationResult) {
-        when (result) {
-            is ReservationResult.Success -> {
-                showToast("Réservation confirmée à ${result.stationName}")
-            }
-            is ReservationResult.Cancelled -> {
-                showToast("Réservation annulée")
-            }
-            is ReservationResult.Error -> {
-                showToast("Erreur: ${result.message}")
-            }
-        }
+        // Le bouton Ecovelo est TOUJOURS actif (avec ou sans token)
+        binding.buttonRental.isEnabled = true
     }
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        
-        // Le SDK gère automatiquement ses résultats
-        Log.d(TAG, "onActivityResult: requestCode=$requestCode, resultCode=$resultCode")
+        // Transmettre au SDK
+        EcoveloSDK.handleActivityResult(requestCode, resultCode, data)
     }
     
     private fun showToast(message: String) {
@@ -239,4 +219,3 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "MainActivity"
     }
 }
-
