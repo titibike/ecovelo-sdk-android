@@ -431,13 +431,18 @@ EcoveloConfig.Builder()
 // adb logcat -s EcoveloSDK
 ```
 
-### Inspecteur WebView
+### Inspecteur WebView (Capacitor)
 
-En mode debug, inspectez la WebView via Chrome DevTools :
+Capacitor utilise une vraie WebView Android. En mode debug, vous pouvez l'inspecter :
 
-1. Connectez l'appareil en USB
-2. Ouvrez `chrome://inspect` dans Chrome
-3. Cliquez "inspect" sur la WebView Ecovelo
+1. Assurez-vous que `debugMode = true` dans la config SDK
+2. Connectez l'appareil en USB avec le débogage USB activé
+3. Ouvrez `chrome://inspect` dans Chrome sur votre PC
+4. L'app Ionic apparaîtra dans la liste des WebViews
+5. Cliquez "inspect" pour ouvrir les DevTools
+
+> **Note** : Cela fonctionne car Capacitor utilise la WebView système Android,
+> pas un moteur JavaScript custom. Le build Ionic est du HTML/JS/CSS standard.
 
 ## Checklist d'intégration
 

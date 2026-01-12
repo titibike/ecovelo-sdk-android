@@ -84,16 +84,21 @@ Le SDK Ecovelo Android est conçu comme une **capsule autonome** qui embarque l'
 
 ## Composants principaux
 
+> ⚠️ Le SDK Android est une **capsule**. Il ne contient **aucune logique métier**.
+> Toute la logique (location, réservation, paiement, API) est dans l'app Ionic encapsulée.
+
 ### 1. Public API Layer
 
 Point d'entrée pour l'intégrateur (Cityway). API simple et documentée.
 
 | Classe | Responsabilité |
 |--------|---------------|
-| `EcoveloSDK` | Singleton de configuration et lancement des parcours |
-| `EcoveloConfig` | Configuration du SDK (territoire, environnement, features) |
-| `EcoveloAuthProvider` | Interface pour fournir les tokens SSO |
-| `EcoveloCallbacks` | Callbacks pour les événements (fin de location, erreurs) |
+| `EcoveloSDK` | Singleton : init, lancement Activity/Fragment |
+| `EcoveloConfig` | Configuration (territoire, environnement) |
+| `EcoveloAuthProvider` | Interface pour fournir le token IAM |
+| `EcoveloCallbacks` | Callbacks vers l'app hôte (fin parcours, erreurs) |
+| `RentalResult` | Modèle de résultat pour les callbacks |
+| `ReservationResult` | Modèle de résultat pour les callbacks |
 
 ### 2. Capacitor Layer (Runtime complet)
 
@@ -110,13 +115,15 @@ Le SDK utilise **Capacitor BridgeActivity** qui fournit le runtime complet :
 - Une simple WebView ne suffit pas pour le déverrouillage vélo, le scan QR, etc.
 - Communication bidirectionnelle via le bridge Capacitor standard
 
-### 3. Assets Ionic
+### 3. Assets Ionic (toute la logique métier)
 
-Application Ionic compilée et embarquée dans le SDK :
+Application Ionic compilée (appli-usager-v3) embarquée dans le SDK :
 
 - Assets dans `src/main/assets/public/` (standard Capacitor)
+- **Contient toute la logique métier** : location, réservation, paiement, API
 - Configuration Capacitor spécifique au mode SDK
 - Territoire `breizhgo` pré-configuré
+- Multilingue géré côté Ionic
 
 ## Flow d'authentification SSO
 
@@ -197,25 +204,57 @@ Le SSO `mon-compte.bzh` ne fournit pas le numéro de téléphone, obligatoire po
 
 ## Module de réservation
 
-### Fonctionnalités prévues
+### Principe
+
+> ⚠️ **Important** : Toute la logique métier (réservation, location, paiement, etc.) est implémentée dans l'**app Ionic** (appli-usager-v3), pas dans le SDK Android natif.
+
+Le SDK Android est une **capsule** qui :
+- Fournit le runtime Capacitor
+- Gère le bridge d'authentification (token IAM)
+- Transmet les callbacks à l'app hôte
+
+### Fonctionnalités (côté app Ionic)
 
 1. **Réservation simple** : Réserver un vélo sur une station pour un créneau
-2. **Réservation avec trajet** : Réserver un vélo avec destination (stations de départ et arrivée)
-3. **Gestion des réservations** : Consulter, modifier, annuler ses réservations
+2. **Gestion des réservations** : Consulter, modifier, annuler
 
-### Architecture
+### Architecture SDK Android (capsule uniquement)
 
 ```
-reservation/
-├── ReservationManager.kt       # Logique métier
-├── ReservationRepository.kt    # Appels API
-├── models/
-│   ├── Reservation.kt
-│   ├── ReservationSlot.kt
-│   └── ReservationStatus.kt
-└── ui/
-    ├── ReservationFragment.kt
-    └── ReservationViewModel.kt
+ecovelo-sdk/src/main/java/.../
+├── EcoveloSDK.kt              # Point d'entrée, init, lancement
+├── ui/
+│   ├── EcoveloActivity.kt     # Capacitor BridgeActivity
+│   └── EcoveloFragment.kt     # Capacitor BridgeFragment
+├── bridge/
+│   └── EcoveloNativePlugin.kt # Plugin Capacitor (auth, events)
+├── auth/
+│   ├── EcoveloAuthProvider.kt # Interface pour token IAM
+│   └── EcoveloUserInfo.kt     # Modèle utilisateur
+├── config/
+│   ├── EcoveloConfig.kt       # Configuration SDK
+│   └── EcoveloCallbacks.kt    # Callbacks vers app hôte
+├── rental/
+│   └── RentalModels.kt        # Modèles pour les callbacks (Result)
+├── reservation/
+│   └── ReservationModels.kt   # Modèles pour les callbacks (Result)
+└── phone/
+    └── PhoneRequest.kt        # Flow téléphone
+```
+
+### Logique métier (côté app Ionic - appli-usager-v3)
+
+```
+appli-usager-v3/src/app/
+├── services/
+│   ├── rental.service.ts      # Logique location
+│   ├── reservation.service.ts # Logique réservation
+│   ├── station.service.ts     # Gestion stations
+│   └── bike.service.ts        # Gestion vélos
+├── pages/
+│   └── map/                   # Carte stations
+└── plugins/
+    └── ecovelo-native.ts      # Bridge vers SDK natif
 ```
 
 ## Gestion des assets Ionic
