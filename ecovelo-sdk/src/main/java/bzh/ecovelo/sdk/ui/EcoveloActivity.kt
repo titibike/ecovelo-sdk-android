@@ -6,9 +6,13 @@ import android.util.Log
 import android.webkit.WebView
 import com.getcapacitor.BridgeActivity
 import bzh.ecovelo.sdk.EcoveloSDK
+import bzh.ecovelo.sdk.plugins.AppPlugin
 import bzh.ecovelo.sdk.plugins.CameraPlugin
 import bzh.ecovelo.sdk.plugins.EcoveloNativePlugin
 import bzh.ecovelo.sdk.plugins.GeolocationPlugin
+import bzh.ecovelo.sdk.plugins.ScreenOrientationPlugin
+import bzh.ecovelo.sdk.plugins.StripePlugin
+import bzh.ecovelo.sdk.plugins.NativeAudioPlugin
 
 /**
  * Activity principale du SDK basée sur Capacitor BridgeActivity.
@@ -36,6 +40,10 @@ class EcoveloActivity : BridgeActivity() {
         registerPlugin(EcoveloNativePlugin::class.java)
         registerPlugin(CameraPlugin::class.java)
         registerPlugin(GeolocationPlugin::class.java)
+        registerPlugin(AppPlugin::class.java)
+        registerPlugin(ScreenOrientationPlugin::class.java)
+        registerPlugin(StripePlugin::class.java)
+        registerPlugin(NativeAudioPlugin::class.java)
         
         super.onCreate(savedInstanceState)
         
@@ -47,8 +55,53 @@ class EcoveloActivity : BridgeActivity() {
             WebView.setWebContentsDebuggingEnabled(true)
         }
         
+        // Configurer la WebView pour Mapbox (WebGL)
+        bridge.webView.settings.apply {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            databaseEnabled = true
+            // Important pour Mapbox WebGL
+            setGeolocationEnabled(true)
+            mediaPlaybackRequiresUserGesture = false
+            // Permettre le contenu mixte (HTTP dans HTTPS)
+            mixedContentMode = android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        }
+        
+        // Activer l'accélération matérielle pour WebGL
+        bridge.webView.setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null)
+        
         // Ajouter un bridge JavaScript personnalisé pour le debugging
         bridge.webView.addJavascriptInterface(EcoveloJsBridge(), "EcoveloSDKBridge")
+        
+        // Injecter un script pour capturer les erreurs et diagnostiquer WebGL
+        bridge.webView.evaluateJavascript("""
+            window.onerror = function(msg, url, line, col, error) {
+                console.error('[GlobalError]', msg, url, line);
+                return false;
+            };
+            window.addEventListener('unhandledrejection', function(event) {
+                console.error('[UnhandledPromise]', event.reason);
+            });
+            
+            // Diagnostic WebGL
+            setTimeout(function() {
+                var canvas = document.createElement('canvas');
+                var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                console.log('[WebGL] Supported:', !!gl);
+                if (gl) {
+                    console.log('[WebGL] Vendor:', gl.getParameter(gl.VENDOR));
+                    console.log('[WebGL] Renderer:', gl.getParameter(gl.RENDERER));
+                }
+                
+                // Vérifier les éléments Mapbox
+                var mapElements = document.querySelectorAll('.mapboxgl-map, .maplibregl-map, [class*="map"]');
+                console.log('[Mapbox] Map elements found:', mapElements.length);
+                mapElements.forEach(function(el, i) {
+                    var rect = el.getBoundingClientRect();
+                    console.log('[Mapbox] Element ' + i + ':', el.className, 'size:', rect.width + 'x' + rect.height);
+                });
+            }, 3000);
+        """.trimIndent(), null)
         
         Log.d(TAG, "onCreate complete - Capacitor should load from assets/public/")
     }
@@ -69,7 +122,10 @@ class EcoveloActivity : BridgeActivity() {
         
         @android.webkit.JavascriptInterface 
         fun getPlugins(): String {
-            val plugins = listOf("EcoveloNative", "Camera", "Geolocation")
+            val plugins = listOf(
+                "EcoveloNative", "Camera", "Geolocation", 
+                "App", "ScreenOrientation", "Stripe"
+            )
             Log.d(TAG, "Available plugins: $plugins")
             return plugins.joinToString(",")
         }

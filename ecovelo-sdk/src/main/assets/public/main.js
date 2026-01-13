@@ -25,7 +25,7 @@ import {
 } from "./chunk-MIGXUTE7.js";
 import {
   NewsStateService
-} from "./chunk-CBD46IRE.js";
+} from "./chunk-JEZ6DLK2.js";
 import {
   App
 } from "./chunk-RFEPADPA.js";
@@ -39,19 +39,19 @@ import {
   feedbackSyncIntegration,
   init,
   replayIntegration
-} from "./chunk-7UN2TOGU.js";
+} from "./chunk-RK7YL5P5.js";
 import {
   KYCWrapperService
-} from "./chunk-H4GUYJEZ.js";
-import "./chunk-7NHGY2ON.js";
+} from "./chunk-IBT2NAXJ.js";
+import "./chunk-NHPV6IFO.js";
 import {
   AppstateService
 } from "./chunk-YSCBVZBE.js";
-import "./chunk-5KPTYQ6O.js";
-import "./chunk-FGJU3CJK.js";
+import "./chunk-6J5UKKBN.js";
+import "./chunk-RYICOSCB.js";
 import {
   environment
-} from "./chunk-GFMHZGOY.js";
+} from "./chunk-FOJAXRYS.js";
 import {
   Amplify,
   CognitoAWSCredentialsAndIdentityIdProvider,
@@ -444,7 +444,7 @@ var routes = [
   },
   {
     path: "launch",
-    loadComponent: () => import("./launch.page-UYUW4Y2Q.js").then((m) => m.LaunchPage)
+    loadComponent: () => import("./launch.page-F7CXUMTM.js").then((m) => m.LaunchPage)
   },
   {
     path: "",
@@ -452,7 +452,7 @@ var routes = [
     children: [
       {
         path: "map",
-        loadComponent: () => import("./map.page-3EBGEOMO.js").then((m) => m.MapPage)
+        loadComponent: () => import("./map.page-5ZJDHEXB.js").then((m) => m.MapPage)
       },
       {
         path: "confirm-code",
@@ -460,75 +460,75 @@ var routes = [
       },
       {
         path: "enter-phone",
-        loadComponent: () => import("./enter-phone.page-ZOHQCF36.js").then((m) => m.EnterPhonePage)
+        loadComponent: () => import("./enter-phone.page-UVEB44IT.js").then((m) => m.EnterPhonePage)
       },
       {
         path: "landing",
-        loadComponent: () => import("./landing.page-Y4CL6KS2.js").then((m) => m.LandingPage),
+        loadComponent: () => import("./landing.page-T5I4ZPNJ.js").then((m) => m.LandingPage),
         canActivate: [AuthGuard]
       },
       {
         path: "payment-method",
-        loadComponent: () => import("./payment-method.page-PJIUESHN.js").then((m) => m.PaymentMethodPage)
+        loadComponent: () => import("./payment-method.page-35PKMYB2.js").then((m) => m.PaymentMethodPage)
       },
       {
         path: "supporting-documents",
-        loadComponent: () => import("./supporting-documents.page-VJINUI64.js").then((m) => m.SupportingDocumentsPage)
+        loadComponent: () => import("./supporting-documents.page-2LJUMLQK.js").then((m) => m.SupportingDocumentsPage)
       },
       {
         path: "signin",
-        loadComponent: () => import("./signin.page-CMGJDX7L.js").then((m) => m.SigninPage),
+        loadComponent: () => import("./signin.page-RDTHUGSQ.js").then((m) => m.SigninPage),
         canActivate: [AuthGuard]
       },
       {
         path: "signup",
-        loadComponent: () => import("./signup.page-43SQIK5V.js").then((m) => m.SignupPage),
+        loadComponent: () => import("./signup.page-MCKIFHX6.js").then((m) => m.SignupPage),
         canActivate: [AuthGuard]
       },
       {
         path: "signup-minified",
-        loadComponent: () => import("./signup-minified.page-F666RTUW.js").then((m) => m.SignupMinifiedPage)
+        loadComponent: () => import("./signup-minified.page-VISV6UPM.js").then((m) => m.SignupMinifiedPage)
       },
       {
         path: "external-auth-failed",
-        loadComponent: () => import("./external-auth-failed.page-QOCPU2EA.js").then((m) => m.ExternalAuthFailedPage)
+        loadComponent: () => import("./external-auth-failed.page-MEXOCTRW.js").then((m) => m.ExternalAuthFailedPage)
       },
       {
         path: "verify-phone",
-        loadComponent: () => import("./verify-phone.page-EJX2KHL7.js").then((m) => m.VerifyPhonePage),
+        loadComponent: () => import("./verify-phone.page-7W56QZ22.js").then((m) => m.VerifyPhonePage),
         canActivate: [VerifyPhoneGuard]
       },
       {
         path: "search-page",
-        loadComponent: () => import("./search.page-SIMLDUHI.js").then((m) => m.SearchPage)
+        loadComponent: () => import("./search.page-K2BIJVV2.js").then((m) => m.SearchPage)
       },
       {
         path: "account",
-        loadComponent: () => import("./menu.page-7VV7UCAM.js").then((m) => m.MenuPage)
+        loadComponent: () => import("./menu.page-57D4LPBC.js").then((m) => m.MenuPage)
       },
       {
         path: "account/abonnements",
-        loadComponent: () => import("./abonnements.page-KCBUPQY7.js").then((m) => m.AbonnementsPage)
+        loadComponent: () => import("./abonnements.page-OG4SEMDI.js").then((m) => m.AbonnementsPage)
       },
       {
         path: "account/trips",
-        loadComponent: () => import("./trips.page-KJ5C5IUW.js").then((m) => m.TripsPage)
+        loadComponent: () => import("./trips.page-BM2P4FTG.js").then((m) => m.TripsPage)
       },
       {
         path: "account/settings",
-        loadComponent: () => import("./settings.page-OQ52HBJ4.js").then((m) => m.SettingsPage)
+        loadComponent: () => import("./settings.page-YEMQ2S6Z.js").then((m) => m.SettingsPage)
       },
       {
         path: "account/invoices",
-        loadComponent: () => import("./invoices.page-6AMHGWIX.js").then((m) => m.InvoicesPage)
+        loadComponent: () => import("./invoices.page-CKDM5BZ2.js").then((m) => m.InvoicesPage)
       },
       {
         path: "account/wallet",
-        loadComponent: () => import("./wallet.page-JQINNCV3.js").then((m) => m.WalletPage)
+        loadComponent: () => import("./wallet.page-V7P2KZSF.js").then((m) => m.WalletPage)
       },
       {
         path: "account/nfc",
-        loadComponent: () => import("./nfc.page-I2IB6KYA.js").then((m) => m.NfcPage)
+        loadComponent: () => import("./nfc.page-LJM3HDWL.js").then((m) => m.NfcPage)
       },
       {
         path: "account/privacy",
@@ -540,58 +540,58 @@ var routes = [
       },
       {
         path: "account/payment-methods",
-        loadComponent: () => import("./payment-methods.page-WCCCYD5T.js").then((m) => m.PaymentMethodsPage)
+        loadComponent: () => import("./payment-methods.page-CILU4PFR.js").then((m) => m.PaymentMethodsPage)
       },
       {
         path: "account/settings/cgu",
-        loadComponent: () => import("./cgu.page-TQREYWH4.js").then((m) => m.CguPage)
+        loadComponent: () => import("./cgu.page-2IEX4LJI.js").then((m) => m.CguPage)
       },
       {
         path: "account/settings/infos",
-        loadComponent: () => import("./infos.page-NIVYJ6WG.js").then((m) => m.InfosPage)
+        loadComponent: () => import("./infos.page-PEZSK24Q.js").then((m) => m.InfosPage)
       },
       {
         path: "abo-congrats",
-        loadComponent: () => import("./abo-congrats.page-X64A4FIC.js").then((m) => m.AboCongratsPage)
+        loadComponent: () => import("./abo-congrats.page-HKLT7SEJ.js").then((m) => m.AboCongratsPage)
       },
       {
         path: "trips/congrats",
-        loadComponent: () => import("./trips-congrats.page-75WLRK25.js").then((m) => m.TripsCongratsPage)
+        loadComponent: () => import("./trips-congrats.page-BBFD2LJG.js").then((m) => m.TripsCongratsPage)
       },
       {
         path: "cgu-congrats",
-        loadComponent: () => import("./cgu-congrats.page-424YK52I.js").then((m) => m.CguCongratsPage)
+        loadComponent: () => import("./cgu-congrats.page-X6KNQUVB.js").then((m) => m.CguCongratsPage)
       },
       {
         path: "report-congrats",
-        loadComponent: () => import("./report-congrats.page-F64PJ66D.js").then((m) => m.ReportCongratsPage)
+        loadComponent: () => import("./report-congrats.page-WT7AAQAR.js").then((m) => m.ReportCongratsPage)
       },
       {
         path: "recommandation-congrats",
-        loadComponent: () => import("./recommandation.page-CNP6U3IP.js").then((m) => m.RecommandationPage)
+        loadComponent: () => import("./recommandation.page-A4AUTJX7.js").then((m) => m.RecommandationPage)
       },
       {
         path: "account/support",
-        loadComponent: () => import("./support.page-5IP4PTVT.js").then((m) => m.SupportPage)
+        loadComponent: () => import("./support.page-ALNI44FF.js").then((m) => m.SupportPage)
       },
       {
         path: "account/change-password",
-        loadComponent: () => import("./change-password.page-TYZOJW6X.js").then((m) => m.ChangePasswordPage)
+        loadComponent: () => import("./change-password.page-POETP5HP.js").then((m) => m.ChangePasswordPage)
       },
       {
         path: "kyc",
-        loadComponent: () => import("./kyc.page-HWCCHF2Q.js").then((m) => m.KYCPage)
+        loadComponent: () => import("./kyc.page-2PFPPOMH.js").then((m) => m.KYCPage)
       },
       {
         path: "renting/qr-code",
-        loadComponent: () => import("./qr-code.page-DHTJLUNP.js").then((m) => m.QrCodePage),
+        loadComponent: () => import("./qr-code.page-RFJRJLO4.js").then((m) => m.QrCodePage),
         canActivate: [QrCodeGuard]
       }
     ]
   },
   {
     path: "renting",
-    loadComponent: () => import("./bike-number.page-3E4UNIS5.js").then((m) => m.BikeNumberPage)
+    loadComponent: () => import("./bike-number.page-SHOBLIXW.js").then((m) => m.BikeNumberPage)
   },
   {
     path: "**",

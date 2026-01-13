@@ -4,6 +4,7 @@
   "webDir": "public",
   "server": {
     "androidScheme": "https",
+    "hostname": "localhost",
     "allowNavigation": ["*"]
   },
   "android": {
