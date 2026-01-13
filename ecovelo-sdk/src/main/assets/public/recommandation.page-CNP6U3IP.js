@@ -1,6 +1,6 @@
 import {
   ConfettiComponent
-} from "./chunk-QRTAFUNH.js";
+} from "./chunk-SMVESX3P.js";
 import {
   LottieComponent
 } from "./chunk-UDDFHALT.js";
@@ -128,4 +128,4 @@ var RecommandationPage = _RecommandationPage;
 export {
   RecommandationPage
 };
-//# sourceMappingURL=recommandation.page-WKPJXHA2.js.map
+//# sourceMappingURL=recommandation.page-CNP6U3IP.js.map

@@ -3,7 +3,7 @@ import {
 } from "./chunk-WPI72MTA.js";
 import {
   ConfettiComponent
-} from "./chunk-QRTAFUNH.js";
+} from "./chunk-SMVESX3P.js";
 import {
   FormatPinPipe
 } from "./chunk-7FAYIW5R.js";
@@ -270,4 +270,4 @@ var TripsCongratsPage = _TripsCongratsPage;
 export {
   TripsCongratsPage
 };
-//# sourceMappingURL=trips-congrats.page-WHM3BA2B.js.map
+//# sourceMappingURL=trips-congrats.page-75WLRK25.js.map

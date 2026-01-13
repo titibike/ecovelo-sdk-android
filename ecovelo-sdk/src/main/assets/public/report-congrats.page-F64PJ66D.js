@@ -1,6 +1,6 @@
 import {
   ConfettiComponent
-} from "./chunk-QRTAFUNH.js";
+} from "./chunk-SMVESX3P.js";
 import {
   CommonModule,
   Component,
@@ -115,4 +115,4 @@ var ReportCongratsPage = _ReportCongratsPage;
 export {
   ReportCongratsPage
 };
-//# sourceMappingURL=report-congrats.page-WZ6DZJE5.js.map
+//# sourceMappingURL=report-congrats.page-F64PJ66D.js.map

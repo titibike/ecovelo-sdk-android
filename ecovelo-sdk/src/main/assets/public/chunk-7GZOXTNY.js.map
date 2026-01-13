@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/services/utils/language.service.ts"],
+  "sourcesContent": ["import { Injectable, signal } from '@angular/core'\nimport { TranslateService } from '@ngx-translate/core'\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class LanguageService {\n  public currentLanguage = signal('fr')\n  constructor(private translateService: TranslateService) {}\n\n  setLanguage(lang: string): void {\n    this.translateService.use(lang)\n    localStorage.setItem('preferredLanguage', lang)\n    this.currentLanguage.set(lang)\n  }\n\n  getLanguage(): string {\n    return localStorage.getItem('preferredLanguage') || 'fr'\n  }\n\n  initializeLanguage(): void {\n    const savedLang = this.getLanguage()\n    this.setLanguage(savedLang)\n  }\n}\n"],
+  "mappings": ";;;;;;;;;;AAMM,IAAO,mBAAP,MAAO,iBAAe;EAE1B,YAAoB,kBAAkC;AAAlC,SAAA,mBAAA;AADb,SAAA,kBAAkB,OAAO,IAAI;EACqB;EAEzD,YAAY,MAAY;AACtB,SAAK,iBAAiB,IAAI,IAAI;AAC9B,iBAAa,QAAQ,qBAAqB,IAAI;AAC9C,SAAK,gBAAgB,IAAI,IAAI;EAC/B;EAEA,cAAW;AACT,WAAO,aAAa,QAAQ,mBAAmB,KAAK;EACtD;EAEA,qBAAkB;AAChB,UAAM,YAAY,KAAK,YAAW;AAClC,SAAK,YAAY,SAAS;EAC5B;;;mCAjBW,kBAAe,mBAAA,gBAAA,CAAA;AAAA;oFAAf,kBAAe,SAAf,iBAAe,WAAA,YAFd,OAAM,CAAA;AAEd,IAAO,kBAAP;;sEAAO,iBAAe,CAAA;UAH3B;WAAW;MACV,YAAY;KACb;;;",
+  "names": []
+}

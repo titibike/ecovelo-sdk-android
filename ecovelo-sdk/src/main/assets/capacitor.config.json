@@ -1,5 +1,12 @@
 {
   "appId": "bzh.ecovelo.sdk",
   "appName": "Breizhgo",
-  "webDir": "public"
+  "webDir": "public",
+  "server": {
+    "androidScheme": "https",
+    "allowNavigation": ["*"]
+  },
+  "android": {
+    "allowMixedContent": true
+  }
 }

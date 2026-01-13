@@ -1,6 +1,6 @@
 import {
   ConfettiComponent
-} from "./chunk-QRTAFUNH.js";
+} from "./chunk-SMVESX3P.js";
 import {
   ActivatedRoute,
   CommonModule,
@@ -139,4 +139,4 @@ var CguCongratsPage = _CguCongratsPage;
 export {
   CguCongratsPage
 };
-//# sourceMappingURL=cgu-congrats.page-L6LKOV7Y.js.map
+//# sourceMappingURL=cgu-congrats.page-424YK52I.js.map

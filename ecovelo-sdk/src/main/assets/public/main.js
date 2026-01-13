@@ -444,7 +444,7 @@ var routes = [
   },
   {
     path: "launch",
-    loadComponent: () => import("./launch.page-5S3SKXCA.js").then((m) => m.LaunchPage)
+    loadComponent: () => import("./launch.page-UYUW4Y2Q.js").then((m) => m.LaunchPage)
   },
   {
     path: "",
@@ -556,19 +556,19 @@ var routes = [
       },
       {
         path: "trips/congrats",
-        loadComponent: () => import("./trips-congrats.page-WHM3BA2B.js").then((m) => m.TripsCongratsPage)
+        loadComponent: () => import("./trips-congrats.page-75WLRK25.js").then((m) => m.TripsCongratsPage)
       },
       {
         path: "cgu-congrats",
-        loadComponent: () => import("./cgu-congrats.page-L6LKOV7Y.js").then((m) => m.CguCongratsPage)
+        loadComponent: () => import("./cgu-congrats.page-424YK52I.js").then((m) => m.CguCongratsPage)
       },
       {
         path: "report-congrats",
-        loadComponent: () => import("./report-congrats.page-WZ6DZJE5.js").then((m) => m.ReportCongratsPage)
+        loadComponent: () => import("./report-congrats.page-F64PJ66D.js").then((m) => m.ReportCongratsPage)
       },
       {
         path: "recommandation-congrats",
-        loadComponent: () => import("./recommandation.page-WKPJXHA2.js").then((m) => m.RecommandationPage)
+        loadComponent: () => import("./recommandation.page-CNP6U3IP.js").then((m) => m.RecommandationPage)
       },
       {
         path: "account/support",

@@ -94,6 +94,9 @@ dependencies {
     // ExifInterface (pour les métadonnées photo)
     implementation("androidx.exifinterface:exifinterface:1.3.7")
     
+    // Google Play Services Location (pour la géolocalisation)
+    implementation("com.google.android.gms:play-services-location:21.1.0")
+    
     // Tests
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")

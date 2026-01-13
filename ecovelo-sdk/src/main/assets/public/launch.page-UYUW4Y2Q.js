@@ -37,6 +37,7 @@ import {
 } from "./chunk-MN6LZ2SJ.js";
 import {
   ActivatedRoute,
+  BehaviorSubject,
   CommonModule,
   Component,
   Injectable,
@@ -182,6 +183,177 @@ var LiveUpdateService = _LiveUpdateService;
   }], () => [], null);
 })();
 
+// src/app/plugins/ecovelo-native.plugin.ts
+var EcoveloNative = registerPlugin("EcoveloNative");
+
+// src/app/services/sdk-mode.service.ts
+var _SdkModeService = class _SdkModeService {
+  constructor() {
+    this._config = null;
+    this._isAuthenticated = new BehaviorSubject(false);
+    this.isAuthenticated$ = this._isAuthenticated.asObservable();
+    this._userInfo = new BehaviorSubject(null);
+    this.userInfo$ = this._userInfo.asObservable();
+    this.isSDKMode = Capacitor.isPluginAvailable("EcoveloNative");
+    if (this.isSDKMode) {
+      console.log("[SdkModeService] Mode SDK d\xE9tect\xE9 - Breizhgo");
+      this.initSDKMode();
+    } else {
+      console.log("[SdkModeService] Mode standalone");
+    }
+  }
+  initSDKMode() {
+    return __async(this, null, function* () {
+      try {
+        this._config = yield EcoveloNative.getConfig();
+        console.log("[SdkModeService] Config:", this._config);
+        yield this.refreshAuthState();
+        window.addEventListener("ecovelo-token-updated", (event) => __async(this, null, function* () {
+          console.log("[SdkModeService] Token mis \xE0 jour:", event.detail);
+          yield this.refreshAuthState();
+        }));
+      } catch (error) {
+        console.error("[SdkModeService] Erreur initialisation:", error);
+      }
+    });
+  }
+  /**
+   * Rafraîchit l'état d'authentification.
+   */
+  refreshAuthState() {
+    return __async(this, null, function* () {
+      if (!this.isSDKMode)
+        return;
+      try {
+        const { authenticated } = yield EcoveloNative.isAuthenticated();
+        this._isAuthenticated.next(authenticated);
+        if (authenticated) {
+          const userInfo = yield EcoveloNative.getUserInfo();
+          if (userInfo.authenticated) {
+            this._userInfo.next({
+              sub: userInfo.sub,
+              email: userInfo.email,
+              firstName: userInfo.firstName,
+              lastName: userInfo.lastName,
+              phone: userInfo.phone,
+              phoneVerified: userInfo.phoneVerified
+            });
+          }
+        } else {
+          this._userInfo.next(null);
+        }
+      } catch (error) {
+        console.error("[SdkModeService] Erreur refresh auth:", error);
+      }
+    });
+  }
+  /**
+   * Retourne la configuration SDK.
+   */
+  getConfig() {
+    return this._config;
+  }
+  /**
+   * Récupère le token d'accès.
+   * En mode SDK: depuis l'app hôte (Cityway)
+   * En mode standalone: depuis Cognito (à implémenter)
+   */
+  getAccessToken() {
+    return __async(this, null, function* () {
+      if (this.isSDKMode) {
+        const { token, hasToken } = yield EcoveloNative.getAccessToken();
+        return hasToken ? token : null;
+      }
+      return null;
+    });
+  }
+  /**
+   * Récupère l'ID Token.
+   */
+  getIdToken() {
+    return __async(this, null, function* () {
+      if (this.isSDKMode) {
+        const { token, hasToken } = yield EcoveloNative.getIdToken();
+        return hasToken ? token : null;
+      }
+      return null;
+    });
+  }
+  /**
+   * Vérifie si l'utilisateur est connecté.
+   */
+  isAuthenticated() {
+    return __async(this, null, function* () {
+      if (this.isSDKMode) {
+        const { authenticated } = yield EcoveloNative.isAuthenticated();
+        return authenticated;
+      }
+      return false;
+    });
+  }
+  /**
+   * Demande la connexion.
+   * En mode SDK: déclenche le callback onLoginRequired vers l'app hôte
+   * En mode standalone: redirige vers Cognito (à implémenter)
+   */
+  requestLogin() {
+    return __async(this, null, function* () {
+      if (this.isSDKMode) {
+        console.log("[SdkModeService] Demande de connexion \xE0 l'app h\xF4te");
+        yield EcoveloNative.requestLogin();
+      } else {
+        console.log("[SdkModeService] Mode standalone - redirection Cognito");
+      }
+    });
+  }
+  /**
+   * Émet un événement vers l'app hôte (analytics).
+   */
+  emitEvent(name, data) {
+    return __async(this, null, function* () {
+      if (this.isSDKMode) {
+        yield EcoveloNative.emitEvent({ name, data });
+      }
+      console.log(`[Analytics] ${name}`, data);
+    });
+  }
+  /**
+   * Ferme le SDK et retourne à l'app hôte.
+   */
+  closeSDK(result = "closed") {
+    return __async(this, null, function* () {
+      if (this.isSDKMode) {
+        yield EcoveloNative.close({ result });
+      }
+    });
+  }
+  /**
+   * Déconnecte l'utilisateur.
+   */
+  logout() {
+    return __async(this, null, function* () {
+      if (this.isSDKMode) {
+        yield EcoveloNative.logout();
+      }
+      this._isAuthenticated.next(false);
+      this._userInfo.next(null);
+    });
+  }
+};
+_SdkModeService.\u0275fac = function SdkModeService_Factory(__ngFactoryType__) {
+  return new (__ngFactoryType__ || _SdkModeService)();
+};
+_SdkModeService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _SdkModeService, factory: _SdkModeService.\u0275fac, providedIn: "root" });
+var SdkModeService = _SdkModeService;
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(SdkModeService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+
 // src/app/pages/launch/launch.page.ts
 function LaunchPage_ion_img_2_Template(rf, ctx) {
   if (rf & 1) {
@@ -210,7 +382,7 @@ function LaunchPage_ng_container_3_Template(rf, ctx) {
   }
 }
 var _LaunchPage = class _LaunchPage {
-  constructor(storageService, accountService, router, authService, liveUpdateService, appstateService, route, launchService, kycService) {
+  constructor(storageService, accountService, router, authService, liveUpdateService, appstateService, route, launchService, kycService, sdkModeService) {
     this.storageService = storageService;
     this.accountService = accountService;
     this.router = router;
@@ -220,6 +392,7 @@ var _LaunchPage = class _LaunchPage {
     this.route = route;
     this.launchService = launchService;
     this.kycService = kycService;
+    this.sdkModeService = sdkModeService;
     this.auth = { state: "SignedOut" };
     this.cyclist = {
       state: "unknown",
@@ -266,24 +439,40 @@ var _LaunchPage = class _LaunchPage {
   ngOnInit() {
     return __async(this, null, function* () {
       this.app = yield this.appstateService.getSavedAppState();
+      if (this.sdkModeService.isSDKMode) {
+        console.log("[LaunchPage] Mode SDK d\xE9tect\xE9 - flow simplifi\xE9");
+        try {
+          yield this.loadData();
+        } catch (error) {
+          console.error("[LaunchPage] Erreur chargement donn\xE9es SDK:", error);
+        }
+        yield this.router.navigate(["/map"], { replaceUrl: true });
+        return;
+      }
       if (Capacitor.getPlatform() === "ios") {
-        const response = yield AppTrackingTransparency.getStatus();
-        if (response.status === "notDetermined") {
-          const appTrackingResponse = yield AppTrackingTransparency.requestPermission();
-          if (appTrackingResponse.status === "authorized") {
-          } else {
+        try {
+          const response = yield AppTrackingTransparency.getStatus();
+          if (response.status === "notDetermined") {
+            yield AppTrackingTransparency.requestPermission();
           }
+        } catch (error) {
+          console.warn("[LaunchPage] AppTrackingTransparency error:", error);
         }
       }
       const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 5e3));
       yield Promise.race([this.loadData(), timeoutPromise]);
       if (Capacitor.isNativePlatform()) {
-        yield this.checkForLiveUpdate();
-        yield this.liveUpdateService.ready();
+        try {
+          yield this.checkForLiveUpdate();
+          yield this.liveUpdateService.ready();
+        } catch (error) {
+          console.warn("[LaunchPage] LiveUpdate error:", error);
+        }
       }
       if (!this.app) {
         this.appstateService.setAppState({ state: "onboarding" });
         yield this.router.navigate(["/landing"], { replaceUrl: true });
+        return;
       }
       switch (this.auth.state) {
         case "SignedIn":
@@ -405,7 +594,7 @@ var _LaunchPage = class _LaunchPage {
   }
 };
 _LaunchPage.\u0275fac = function LaunchPage_Factory(__ngFactoryType__) {
-  return new (__ngFactoryType__ || _LaunchPage)(\u0275\u0275directiveInject(StorageService), \u0275\u0275directiveInject(AccountService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LiveUpdateService), \u0275\u0275directiveInject(AppstateService), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(LaunchService), \u0275\u0275directiveInject(KYCWrapperService));
+  return new (__ngFactoryType__ || _LaunchPage)(\u0275\u0275directiveInject(StorageService), \u0275\u0275directiveInject(AccountService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LiveUpdateService), \u0275\u0275directiveInject(AppstateService), \u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(LaunchService), \u0275\u0275directiveInject(KYCWrapperService), \u0275\u0275directiveInject(SdkModeService));
 };
 _LaunchPage.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LaunchPage, selectors: [["app-launch"]], features: [\u0275\u0275ProvidersFeature([Storage, StorageService])], decls: 4, vars: 3, consts: [[3, "fullscreen"], [1, "ecl-launch__container", "logo"], ["class", "fade-in", "alt", "logo", 3, "src", 4, "ngIf"], [4, "ngIf"], ["alt", "logo", 1, "fade-in", 3, "src"], [1, "ion-margin-top", "ion-margin-horizontal", "ion-justify-content-center"], ["size", "12", "size-md", "6", "size-lg", "4"], [1, "ion-text-center"], [1, "ion-margin-horizontal", "ion-margin-bottom", "ion-justify-content-center"], ["type", "indeterminate"]], template: function LaunchPage_Template(rf, ctx) {
   if (rf & 1) {
@@ -474,12 +663,12 @@ var LaunchPage = _LaunchPage;
   </ng-container>
 </ion-content>
 `, styles: ["/* src/app/pages/launch/launch.page.scss */\n.ecl-launch__container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 50%;\n  width: 100%;\n}\n.ecl-launch__container.logo {\n  align-items: flex-end;\n}\n.ecl-launch__container.logo > .fade-in {\n  animation: fadeIn 1s ease-in-out;\n}\n@keyframes fadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n/*# sourceMappingURL=launch.page.css.map */\n"] }]
-  }], () => [{ type: StorageService }, { type: AccountService }, { type: Router }, { type: AuthService }, { type: LiveUpdateService }, { type: AppstateService }, { type: ActivatedRoute }, { type: LaunchService }, { type: KYCWrapperService }], null);
+  }], () => [{ type: StorageService }, { type: AccountService }, { type: Router }, { type: AuthService }, { type: LiveUpdateService }, { type: AppstateService }, { type: ActivatedRoute }, { type: LaunchService }, { type: KYCWrapperService }, { type: SdkModeService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LaunchPage, { className: "LaunchPage", filePath: "src/app/pages/launch/launch.page.ts", lineNumber: 49 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LaunchPage, { className: "LaunchPage", filePath: "src/app/pages/launch/launch.page.ts", lineNumber: 50 });
 })();
 export {
   LaunchPage
 };
-//# sourceMappingURL=launch.page-5S3SKXCA.js.map
+//# sourceMappingURL=launch.page-UYUW4Y2Q.js.map
