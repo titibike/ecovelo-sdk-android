@@ -39,14 +39,39 @@ Le SDK embarque le **runtime Capacitor complet**, ce qui permet :
 
 ## 📦 Installation
 
-### Gradle (Maven Central)
+[![](https://jitpack.io/v/titibike/ecovelo-sdk-android.svg)](https://jitpack.io/#titibike/ecovelo-sdk-android)
+
+### Via JitPack (recommandé)
+
+**Étape 1** : Ajouter le repository JitPack dans `settings.gradle.kts` :
+
+```kotlin
+// settings.gradle.kts
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
+
+**Étape 2** : Ajouter la dépendance dans `build.gradle.kts` du module :
 
 ```kotlin
 // build.gradle.kts (Module)
 dependencies {
-    implementation("bzh.ecovelo:sdk-android:1.0.0")
+    implementation("com.github.titibike:ecovelo-sdk-android:1.0.0")
 }
 ```
+
+> **Note** : Remplacez `1.0.0` par la [dernière version disponible](https://github.com/titibike/ecovelo-sdk-android/releases).
+
+### Téléchargement direct (AAR)
+
+Les releases GitHub incluent également le fichier AAR compilé si vous préférez une intégration manuelle :
+- [Voir les releases](https://github.com/titibike/ecovelo-sdk-android/releases)
 
 ### Configuration minimale
 

@@ -104,13 +104,15 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
 
-// Configuration de publication Maven
+// Configuration de publication Maven (compatible JitPack + GitHub Packages)
 publishing {
     publications {
         register<MavenPublication>("release") {
-            groupId = project.findProperty("ECOVELO_SDK_GROUP").toString()
-            artifactId = "sdk-android"
-            version = project.findProperty("ECOVELO_SDK_VERSION").toString()
+            groupId = "com.github.titibike"
+            artifactId = "ecovelo-sdk-android"
+            // JitPack injecte VERSION via -Pversion=TAG, sinon on utilise la propriété locale
+            version = project.findProperty("version")?.toString()?.takeIf { it != "unspecified" }
+                ?: project.findProperty("ECOVELO_SDK_VERSION").toString()
             
             afterEvaluate {
                 from(components["release"])
@@ -134,6 +136,12 @@ publishing {
                         name.set("Ecovelo Team")
                         email.set("dev@ecovelo.bzh")
                     }
+                }
+                
+                scm {
+                    connection.set("scm:git:github.com/titibike/ecovelo-sdk-android.git")
+                    developerConnection.set("scm:git:ssh://github.com/titibike/ecovelo-sdk-android.git")
+                    url.set("https://github.com/titibike/ecovelo-sdk-android/tree/main")
                 }
             }
         }

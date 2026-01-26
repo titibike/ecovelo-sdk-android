@@ -1,0 +1,14 @@
+# Configuration JitPack pour Ecovelo SDK Android
+# https://jitpack.io/docs/BUILDING/
+
+# JDK version à utiliser pour le build
+jdk:
+  - openjdk17
+
+# Script de build (optionnel - JitPack détecte automatiquement Gradle)
+# install:
+#   - ./gradlew :ecovelo-sdk:publishToMavenLocal
+
+# Variables d'environnement (optionnel)
+# env:
+#   VARIABLE: "value"
