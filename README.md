@@ -191,6 +191,9 @@ supportFragmentManager.beginTransaction()
 
 ```
 ecovelo-sdk-android/
+├── .github/
+│   └── workflows/
+│       └── release.yml       # CI: création automatique des releases
 ├── ecovelo-sdk/              # Module SDK principal
 │   ├── src/main/
 │   │   ├── java/.../ecovelo/
@@ -211,7 +214,9 @@ ecovelo-sdk-android/
 │   ├── ARCHITECTURE.md
 │   ├── INTEGRATION.md
 │   ├── AUTH_SSO.md
-│   └── CUSTOMIZATION.md
+│   ├── CUSTOMIZATION.md
+│   └── RELEASE.md            # Guide de publication
+├── jitpack.yml               # Configuration JitPack
 └── build.gradle.kts
 ```
 
@@ -222,16 +227,22 @@ ecovelo-sdk-android/
 - [Authentification SSO](docs/AUTH_SSO.md)
 - [Personnalisation](docs/CUSTOMIZATION.md)
 - [**Intégration app Ionic**](docs/IONIC_INTEGRATION.md) ⭐
+- [**Guide de release**](docs/RELEASE.md) - Processus de publication
 - [Prompt pour appli-usager-v3](PROMPT_IONIC_INTEGRATION.md)
 
 ## 🔧 Build & CI
 
-Le SDK embarque automatiquement la dernière version de l'app Ionic compilée pour Breizhgo. La CI gère :
+Le SDK embarque automatiquement la dernière version de l'app Ionic compilée pour Breizhgo.
 
-1. Build de l'app Ionic (territoire `breizhgo`, mode SDK)
-2. Copie des assets dans `ecovelo-sdk/src/main/assets/public/`
-3. Build du SDK Android avec Capacitor
-4. Publication sur Maven Central / GitHub Packages
+### Publication via JitPack
+
+La distribution du SDK est automatisée via **JitPack** :
+
+1. Créer un tag de version : `git tag v1.0.0 && git push --tags`
+2. [GitHub Actions](.github/workflows/release.yml) crée une release avec le AAR
+3. [JitPack](https://jitpack.io/#titibike/ecovelo-sdk-android) build et publie le package Maven
+
+Voir [docs/RELEASE.md](docs/RELEASE.md) pour le guide complet.
 
 ### Plugins Capacitor inclus
 

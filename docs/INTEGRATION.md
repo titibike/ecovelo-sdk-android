@@ -16,28 +16,38 @@ Ce guide est destiné aux intégrateurs (Cityway) pour intégrer le SDK Ecovelo 
 
 ### 1. Ajouter la dépendance
 
+[![](https://jitpack.io/v/titibike/ecovelo-sdk-android.svg)](https://jitpack.io/#titibike/ecovelo-sdk-android)
+
+Le SDK est distribué via **JitPack**. Aucune authentification n'est requise.
+
 ```kotlin
 // settings.gradle.kts
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        // Repository Ecovelo
-        maven {
-            url = uri("https://maven.pkg.github.com/titibike/ecovelo-sdk-android")
-            credentials {
-                username = providers.gradleProperty("ecoveloMavenUser").orNull
-                password = providers.gradleProperty("ecoveloMavenPassword").orNull
-            }
-        }
+        // Repository JitPack pour Ecovelo SDK
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
 // app/build.gradle.kts
 dependencies {
-    implementation("bzh.ecovelo:sdk-android:1.0.0")
+    implementation("com.github.titibike:ecovelo-sdk-android:1.0.0")
 }
 ```
+
+> **Note** : Remplacez `1.0.0` par la [dernière version disponible](https://github.com/titibike/ecovelo-sdk-android/releases).
+
+#### Versions disponibles
+
+| Type | Format | Exemple |
+|------|--------|---------|
+| Release stable | `X.Y.Z` | `1.0.0` |
+| Release candidate | `X.Y.Z-rcN` | `1.0.0-rc1` |
+| Branche | `branch-SNAPSHOT` | `main-SNAPSHOT` |
+| Commit | hash court | `c4f4d6e` |
 
 ### 2. Dépendances tierces du SDK
 
