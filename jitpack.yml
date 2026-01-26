@@ -5,10 +5,6 @@
 jdk:
   - openjdk17
 
-# Script de build (optionnel - JitPack détecte automatiquement Gradle)
-# install:
-#   - ./gradlew :ecovelo-sdk:publishToMavenLocal
-
-# Variables d'environnement (optionnel)
-# env:
-#   VARIABLE: "value"
+# Script de build personnalisé pour éviter les problèmes avec JAVA_TOOL_OPTIONS
+install:
+  - unset JAVA_TOOL_OPTIONS && ./gradlew :ecovelo-sdk:publishToMavenLocal
